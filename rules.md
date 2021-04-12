@@ -4,7 +4,16 @@
 ----
 
 **1. Group Identification**
-
+| Name:                | Email:            |
+| -------------        |:-------------:    |
+| Tri Tran             | tqt001@ucsd.edu   |
+| Ishaan Gupta         | i3gupta@ucsd.edu  |
+| Yang Lu              | yal071@ucsd.edu   |
+| Ranjodh Singh        | joda844@gmail.com |
+| Christopher Vu       | ctvu@ucsd.edu     |
+| Bozhi Wang           | bowang@ucsd.edu   |
+| Darian Hong          | d1hong@ucsd.edu   |
+| Zhongkang(Ken) Fang  | z4fang@ucsd.edu   |
 
 **2. Primary Means of Communication and Expectations**
 State your team’s agreed upon various means of communication and expectations for response. (Example: All members will be expected to read emails from anyone in the group on a daily basis and respond in not more than 12 hours.)
