@@ -4,6 +4,7 @@
 ----
 
 **1. Group Identification**
+
 | Name:                | Email:            |
 | -------------        |:-------------:    |
 | Tri Tran             | tqt001@ucsd.edu   |
@@ -17,23 +18,27 @@
 
 **2. Primary Means of Communication and Expectations**
 
-State your team’s agreed upon various means of communication and expectations for response. (Example: All members will be expected to read emails from anyone in the group on a daily basis and respond in not more than 12 hours.)
+All members will be expected to read messages from anyone in the group on a daily basis and respond in not more than 12 hours.
 
 **3. Scheduling Meetings**
 
-Agreed upon means of scheduling meetings. (Example: Team will agree, at the end of each class, to set any meetings times and agenda needed before the next class and beyond if possible. Team members will take turns to send out a reminder of the meeting with an agenda within eight hours after the class.)
+Team will agree to attend all meetings that were schedule to the best of their abilities. All scheduled meetings will accomedate to the majority of the group. 
 
 **4. General Responsibilities for All Team Members**
 
-This element of the team working agreement is the list of rules/agreements or the contract that all members agrees to live by.
+All members will be respectful and understanding to each other. All members will support one another and maintain transparency during all times. 
 
 **5. Specific Team Member Responsibilities/Deadlines**
 
-This section may be used to record specific tasks or responsibilities. 
+(All team roles can be changed at any time as the team sees fit)
+Tri Tran & Ishaan Gupta - Project Manager
+Yang Lu & Christopher Vu - Frontend Software Engineering
+Bozhi Wang & Zhongkang(Ken) Fang - Backend Software Engineering
+Darian Hong & Ranjodh Singh - Design
 
 **6. Conflict Resolution** 
 
-Each team should have an agreed-upon approach to addressing issues that may arise. For example, if a team member is not meeting deadlines, the team agrees to do X [specific action decided by the team] to address the problem before bringing the issue to a TA or professor.
+If a team member is not meeting deadlines, the team agrees to meet with the team member and discuss issues that pertain to workflow to address the problem before bringing the issue to a TA or professor. If team does not reach resolution, only then involve teaching staff. 
 
 **7. Expectations of Faculty and GTA's**
 
