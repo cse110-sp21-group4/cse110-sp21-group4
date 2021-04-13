@@ -1,10 +1,9 @@
 # TaiyaKITTY :smiley_cat:
-
-![](admin/branding/logo.png)
+![](branding/logo.png)
 **_TaiyaKITTY_**
-![](admin/branding/logo.png)
+![](branding/logo.png)
 **_TaiyaKITTY_**
-![](admin/branding/logo.png)
+![](branding/logo.png)
 
 ## Our Team 
 
