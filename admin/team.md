@@ -1,9 +1,5 @@
-# TaiyaKITTY :smiley_cat:
-![](branding/logo.png)
-**_TaiyaKITTY_**
-![](branding/logo.png)
-**_TaiyaKITTY_**
-![](branding/logo.png)
+<h1 align="center"> TaiyaKITTY :smiley_cat: </h1>
+<img src="branding/logo.png" width=200></img><img src="branding/logo.png" width=200></img><img src="branding/logo.png" width=200></img><img src="branding/logo.png" width=200></img>
 
 ## Our Team 
 
