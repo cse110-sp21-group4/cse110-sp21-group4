@@ -30,11 +30,11 @@ All members will be respectful and understanding to each other. All members will
 
 **5. Specific Team Member Responsibilities/Deadlines**
 
-(All team roles can be changed at any time as the team sees fit)
-Tri Tran & Ishaan Gupta - Project Manager
-Yang Lu & Christopher Vu - Frontend Software Engineering
-Bozhi Wang & Zhongkang(Ken) Fang - Backend Software Engineering
-Darian Hong & Ranjodh Singh - Design
+(All team roles can be changed at any time as the team sees fit)  
+Tri Tran & Ishaan Gupta - Project Manager  
+Yang Lu & Christopher Vu - Frontend Software Engineering  
+Bozhi Wang & Zhongkang(Ken) Fang - Backend Software Engineering  
+Darian Hong & Ranjodh Singh - Design  
 
 **6. Conflict Resolution** 
 
