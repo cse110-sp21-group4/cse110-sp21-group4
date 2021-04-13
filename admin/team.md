@@ -1,5 +1,5 @@
 <h1 align="center"> TaiyaKITTY :smiley_cat: </h1>
-<span><img src="branding/logo.png" width=240/><img src="branding/logo.png" width=240/><img src="branding/logo.png" width=240/><img src="branding/logo.png" width=240/></span>
+<span><img src="branding/logo.png" width=250/><img src="branding/logo.png" width=250/><img src="branding/logo.png" width=250/><img src="branding/logo.png" width=250/></span>
 
 ## Our Team 
 
