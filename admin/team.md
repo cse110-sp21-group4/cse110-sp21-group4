@@ -3,69 +3,77 @@
 
 ## Our Team 
 
-#### :goat: Tri Tran
 <details>
   <summary>
-    Math-CS | Junior
+  <strong>:goat: Tri Tran</strong>
+    
   </summary>
+  Math-CS | Junior
   https://github.com/tqt001
 </details>
 
-#### :suspect: Ishaan Gupta
 <details>
   <summary>
-    CS: Bioinfomatics | Sophomore
+    <strong>:suspect: Ishaan Gupta</strong>
   </summary>
+  CS: Bioinfomatics | Sophomore
   https://github.com/IshaanSD
   Passionate towards studying and implementing algorithms used in Biology and Machine Learning.
 </details>
 
-#### :bust_in_silhouette: Yang Lu
+#### 
 <details>
   <summary>
-    CS | Junior
+    <strong>:bust_in_silhouette: Yang Lu</strong>
+    
   </summary>
+  CS | Junior
   https://github.com/kevinlu1736
 </details>
 
-#### :octocat: Ranjodh Singh
 <details>
   <summary>
-    CS | Junior
+    <strong>:octocat: Ranjodh Singh</strong>
+    
   </summary>
+  CS | Junior
   https://github.com/rsingh84
   Love gaming and taking walks on the beach. 
 </details>
 
-#### :fish: Christopher Vu
 <details>
   <summary>
-    CS | Sophomore
+    <strong>:fish: Christopher Vu</strong>
+    
   </summary>
+  CS | Sophomore
   https://github.com/crystoffar
 </details>
 
-#### :hatched_chick: Bozhi Wang
 <details>
   <summary>
-    ECE:Computer Engineer | Junior
+    <strong>:hatched_chick: Bozhi Wang</strong>
+    
   </summary>
+  ECE:Computer Engineer | Junior
   https://github.com/Bowang1337
 </details>
 
-#### :running: Darian Hong
 <details>
   <summary>
-    CS | Sophomore
+    <strong>:running: Darian Hong</strong>
+    
   </summary>
+  CS | Sophomore
   https://github.com/DurianH
 </details>
 
-#### :information_desk_person: Zhongkang(Ken) Fang
 <details>
   <summary>
-    ECE:Computer Engineer | Junior
+    <strong>:information_desk_person: Zhongkang(Ken) Fang</strong>
+    
   </summary>
+  ECE:Computer Engineer | Junior
   https://github.com/z4fang
 </details>
 
