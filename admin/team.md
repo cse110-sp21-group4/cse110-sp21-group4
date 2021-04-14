@@ -34,6 +34,7 @@
     CS | Junior
   </summary>
   https://github.com/rsingh84
+  Love gaming and taking walks on the beach. 
 </details>
 
 #### :fish: Christopher Vu
