@@ -1,5 +1,10 @@
+<img src="https://via.placeholder.com/150/83e0cf/100001?text=+" width=1000 height=50>
 <h1 align="center"> TaiyaKITTY :smiley_cat: </h1>
+<img src="https://via.placeholder.com/150/83e0cf/100001?text=+" width=1000 height=12>
+
 <span><img src="branding/logo.png" width=250/><img src="branding/logo.png" width=250/><img src="branding/logo.png" width=250/><img src="branding/logo.png" width=250/></span>
+
+<img src="https://via.placeholder.com/150/83e0cf/100001?text=+" width=1000 height=25>
 
 ## Our Team 
 
@@ -21,7 +26,7 @@
   Passionate towards studying and implementing algorithms used in Biology and Machine Learning.
 </details>
 
-#### 
+
 <details>
   <summary>
     <strong>:bust_in_silhouette: Yang Lu</strong>
@@ -77,7 +82,10 @@
   https://github.com/z4fang
 </details>
 
+<img src="https://via.placeholder.com/150/83e0cf/100001?text=+" width=1000 height=25>
+
 ## Our Values 🌟
+
 <ul>
   <li> <em>TaiyaKITTY</em> teaches us to always creative, open to new and seemingly unorthodox ideas. </li>
   <li> <em>TaiyaKITTY</em> always trusts comrades, and believes in using individual thinking with group decisions and communication to excel as a team.</li>
