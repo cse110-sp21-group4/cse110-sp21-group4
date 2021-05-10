@@ -6,13 +6,13 @@ on:
       - main
       - develop 
     paths:
-      - 'cse110-sp21-group4/source/**'
+      - 'source/**'
   pull_request:
     branches:
       - main
       - develop 
     paths:
-      - 'cse110-sp21-group4/source/**'
+      - 'source/**'
 
 jobs: 
   
