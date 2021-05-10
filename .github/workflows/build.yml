@@ -1,7 +1,19 @@
 name: Build and Test
 
-on: [push, pull_request]
-
+on: 
+  push:
+    branches:
+      - main
+      - develop 
+    paths:
+      - 'cse110-sp21-group4/source/**'
+  pull_request:
+    branches:
+      - main
+      - develop 
+    paths:
+      - 'cse110-sp21-group4/source/**'
+      
 jobs:
   build:
     runs-on: ubuntu-latest
