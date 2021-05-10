@@ -16,7 +16,8 @@ jobs:
         with: 
           node-version: ${{ matrix.node-version }}
       - name: Intall modules
-        run: yarn install
-      - run: yarn jest
-      - run: yarn doc
+        run: |
+          yarn install
+          yarn jest
+          yarn doc
 
