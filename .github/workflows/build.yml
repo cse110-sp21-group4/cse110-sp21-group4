@@ -1,19 +1,7 @@
 name: Build and Test
 
-on: 
-  push:
-    branches:
-      - main
-      - develop 
-    paths:
-      - 'source/**'
-  pull_request:
-    branches:
-      - main
-      - develop 
-    paths:
-      - 'source/**'
-      
+on: [push, pull_request]
+
 jobs:
   build:
     runs-on: ubuntu-latest
