@@ -27,6 +27,7 @@ jobs:
       - name: Remove files
         run: |
           rm -rf !\("source"\)
+          ls ./
       - name: Run Linter
         uses: github/super-linter@v3
         env:
