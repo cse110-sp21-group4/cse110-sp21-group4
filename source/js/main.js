@@ -1,9 +1,9 @@
-function addTest(a, b) {
+export default function addTest(a, b) {
     return a + b;
 }
 
-module.exports = {
-    sum: addTest,
-};
+console.log("success!!!");
+
+
 
 
