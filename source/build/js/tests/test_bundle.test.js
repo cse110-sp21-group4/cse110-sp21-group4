@@ -1,1 +1,1 @@
-(()=>{"use strict";test("Testing adds 3 + 2",(()=>{expect((3,2,5)).toBe(5)}))})();
+(()=>{"use strict";console.log("success!!!"),test("Testing adds 3 + 2",(()=>{expect((3,2,5)).toBe(5)}))})();

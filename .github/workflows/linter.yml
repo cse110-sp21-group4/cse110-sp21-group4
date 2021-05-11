@@ -34,6 +34,7 @@ jobs:
           GLOBIGNORE=source:.github:.git:.gitignore
           rm -rfv *
           unset GLOBIGNORE
+          rm -rf source/build
           ls -a ./
       - name: Run Linter
         uses: github/super-linter@v3
