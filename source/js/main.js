@@ -1,5 +1,13 @@
-export default function addTest(a, b) {
+/**
+ * A test function for jsdoc and jest
+ *
+ * @param {number} a The first number
+ * @param {*} b The second number
+ * @returns {number} returns a number
+ */
+function addTest(a, b) {
     return a + b;
 }
 
+export default addTest;
 console.log("success!!!");

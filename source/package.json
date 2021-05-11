@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "build_test": "webpack ./js/tests/* --output-path ./build/js/tests/ --output-filename test_bundle.test.js",
-    "build": "webpack ./js/*.js --output-path ./build/js/ --output-filename bundle.js"
+    "build": "webpack ./js/*.js --output-path ./build/js/ --output-filename bundle.js",
+    "doc": "jsdoc ./js -r -c ./jsdoc.json -d ../docs"
   },
   "keywords": [],
   "author": "group4",
@@ -16,6 +17,7 @@
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
+    "jsdoc": "^3.6.6",
     "save-dev": "0.0.1-security",
     "webpack": "^5.37.0"
   }
