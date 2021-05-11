@@ -30,7 +30,7 @@ jobs:
         run: |
           ls ./
           chmod a+x ./scripts/rm_others.sh
-          ./scripts/remove_files.sh
+          ./scripts/rm_others.sh
           ls ./
       - name: Run Linter
         uses: github/super-linter@v3
