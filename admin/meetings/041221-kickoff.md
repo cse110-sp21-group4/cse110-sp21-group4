@@ -2,38 +2,38 @@
 Monday, April 12th  12 Noon - 1PM
 ## Introductions (Roster)
 
-- [X] Tri Tran 
-    - Co-leader
-    - Some experience with Web Dev
-    - Some interest in Design
-   
+- [X] Tri Tran
+  - Co-leader
+  - Some experience with Web Dev
+  - Some interest in Design
+
 - [X] Ishaan Gupta
-    - Co-leader
-    - Some experience with Web Dev
-    - Some interest in Design
+  - Co-leader
+  - Some experience with Web Dev
+  - Some interest in Design
 
 - [X] Yang Lu
-    - Experience with Web Dev
+  - Experience with Web Dev
 
 - [X] Ranjodh Singh
-    - Some experience with Web Dev
-    - Some interest in Design
+  - Some experience with Web Dev
+  - Some interest in Design
 
 - [X] Christopher Vu
-    - Some experience with Web Dev
-    - Some interest in Design
+  - Some experience with Web Dev
+  - Some interest in Design
 
 - [X] Bozhi Wang
-    - Some experience with Web Dev
-    - Some interest in Design
+  - Some experience with Web Dev
+  - Some interest in Design
 
 - [X] Darian Hong
-    - Some experience with Web Dev
-    - Some interest in Design
+  - Some experience with Web Dev
+  - Some interest in Design
 
 - [X] Zhongkang(Ken) Fang
-    - Some experience with Web Dev
-    - Some interest in Design
+  - Some experience with Web Dev
+  - Some interest in Design
 
 ## Kickoff
 - Team branding
