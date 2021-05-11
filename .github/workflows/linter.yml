@@ -30,10 +30,11 @@ jobs:
         run: |
           echo 'path:'
           pwd
-          ls ./
-          chmod a+x ./scripts/rm_others.sh
-          ./scripts/rm_others.sh
-          ls ./
+          ls -a ./
+          GLOBIGNORE=source:.github
+          rm -rfv *
+          unset GLOBIGNORE
+          ls -a ./
       - name: Run Linter
         uses: github/super-linter@v3
         env:
