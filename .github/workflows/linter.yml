@@ -31,7 +31,7 @@ jobs:
           echo 'path:'
           pwd
           ls -a ./
-          GLOBIGNORE=source:.github
+          GLOBIGNORE=source:.github:.git:.gitignore
           rm -rfv *
           unset GLOBIGNORE
           ls -a ./
