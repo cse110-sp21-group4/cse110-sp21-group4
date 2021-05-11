@@ -7,12 +7,14 @@ on:
       - develop 
     paths:
       - 'source/**'
+      - '.github/**'
   pull_request:
     branches:
       - main
       - develop 
     paths:
       - 'source/**'
+      - '.github/**'
 
 jobs: 
   
