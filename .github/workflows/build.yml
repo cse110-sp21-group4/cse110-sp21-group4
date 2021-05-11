@@ -1,41 +1,40 @@
 name: Build and Test
 
-on: 
-  push:
-    branches:
-      - main
-      - develop 
-    paths:
-      - 'source/**'
-      - '.github/**'
-  pull_request:
-    branches:
-      - main
-      - develop 
-    paths:
-      - 'source/**'
-      - '.github/**'
+on:
+    push:
+        branches:
+            - main
+            - develop
+        paths:
+            - "source/**"
+            - ".github/**"
+    pull_request:
+        branches:
+            - main
+            - develop
+        paths:
+            - "source/**"
+            - ".github/**"
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x]
-    
-    steps:
-      - name: Fetch Code
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with: 
-          node-version: ${{ matrix.node-version }}
-      - name: Intall modules
-        run: |
-          cd source
-          npm i -D jest
-      - name: Testing
-        run: |
-          cd source
-          npm test
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [12.x]
 
+        steps:
+            - name: Fetch Code
+              uses: actions/checkout@v2
+            - name: Setup Node
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: Intall modules
+              run: |
+                  cd source
+                  npm i -D jest
+            - name: Testing
+              run: |
+                  cd source
+                  npm test
