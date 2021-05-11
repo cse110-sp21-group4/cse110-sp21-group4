@@ -19,7 +19,7 @@ jobs:
       - name: Intall modules
         run: |
           cd source
-          npm -i -D jest
+          npm i -D jest
       - name: Testing
         run: npm test
 
