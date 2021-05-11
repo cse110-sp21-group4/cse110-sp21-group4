@@ -1,4 +1,4 @@
-export default funcction addTest(a, b) {
+export default function addTest(a, b) {
     return a + b;
 }
 
