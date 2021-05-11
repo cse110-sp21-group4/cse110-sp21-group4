@@ -3,7 +3,3 @@ export default function addTest(a, b) {
 }
 
 console.log("success!!!");
-
-
-
-
