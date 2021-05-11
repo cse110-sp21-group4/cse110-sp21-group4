@@ -21,5 +21,7 @@ jobs:
           cd source
           npm i -D jest
       - name: Testing
-        run: npm test
+        run: |
+          cd source
+          npm test
 
