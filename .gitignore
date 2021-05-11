@@ -3,3 +3,6 @@ admin/.DS_Store
 .DS_Store
 admin/.DS_Store
 .DS_Store
+
+source/package-lock.json
+source/node_modules/

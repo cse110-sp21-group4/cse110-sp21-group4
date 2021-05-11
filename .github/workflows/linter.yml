@@ -6,13 +6,15 @@ on:
       - main
       - develop 
     paths:
-      - 'cse110-sp21-group4/source/**'
+      - 'source/**'
+      - '.github/**'
   pull_request:
     branches:
       - main
       - develop 
     paths:
-      - 'cse110-sp21-group4/source/**'
+      - 'source/**'
+      - '.github/**'
 
 jobs: 
   
@@ -24,6 +26,12 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+      - name: Remove files
+        run: |
+          ls ./
+          chmod a+x ./scripts/rm_others.sh
+          ./scripts/rm_others.sh
+          ls ./
       - name: Run Linter
         uses: github/super-linter@v3
         env:

@@ -6,14 +6,16 @@ on:
       - main
       - develop 
     paths:
-      - 'cse110-sp21-group4/source/**'
+      - 'source/**'
+      - '.github/**'
   pull_request:
     branches:
       - main
       - develop 
     paths:
-      - 'cse110-sp21-group4/source/**'
-      
+      - 'source/**'
+      - '.github/**'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,13 +24,18 @@ jobs:
         node-version: [10.x, 12.x]
     
     steps:
-      - name: Build and Test
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Fetch Code
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
         with: 
           node-version: ${{ matrix.node-version }}
       - name: Intall modules
-        run: yarn install
-      - run: yarn jest
-      - run: yarn doc
+        run: |
+          cd source
+          npm i -D jest
+      - name: Testing
+        run: |
+          cd source
+          npm test
 

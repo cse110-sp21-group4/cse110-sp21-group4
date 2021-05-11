@@ -1,0 +1,22 @@
+{
+  "name": "source",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build_test": "webpack ./js/tests/main-test.js --output-path ./build/js/tests/ --output-filename test_bundle.test.js",
+    "build": "webpack ./js/main.js --output-path ./build/js/ --output-filename bundle.js"
+  },
+  "keywords": [],
+  "author": "group4",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "webpack-cli": "^4.7.0"
+  },
+  "dependencies": {
+    "save-dev": "0.0.1-security",
+    "webpack": "^5.37.0"
+  }
+}
