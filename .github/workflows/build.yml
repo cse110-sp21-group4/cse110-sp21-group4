@@ -1,6 +1,20 @@
 name: Build and Test
 
-on: [push, pull_request]
+on: 
+  push:
+    branches:
+      - main
+      - develop 
+    paths:
+      - 'source/**'
+      - '.github/**'
+  pull_request:
+    branches:
+      - main
+      - develop 
+    paths:
+      - 'source/**'
+      - '.github/**'
 
 jobs:
   build:
