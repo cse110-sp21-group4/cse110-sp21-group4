@@ -18,9 +18,8 @@ jobs:
       - name: Intall modules
         run: |
           yarn install
-          ls -a /home/runner/work/cse110-sp21-group4/cse110-sp21-group4
           echo "source:"
-          ls -a /home/runner/work/cse110-sp21-group4/cse110-sp21-group4/source/
+          ls -a /home/runner/work/cse110-sp21-group4/cse110-sp21-group4/node_modules/
           yarn jest
           yarn doc
 
