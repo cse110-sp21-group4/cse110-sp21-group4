@@ -24,6 +24,9 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+      - name: Remove files
+        run: |
+          rm -rf !("source")
       - name: Run Linter
         uses: github/super-linter@v3
         env:
