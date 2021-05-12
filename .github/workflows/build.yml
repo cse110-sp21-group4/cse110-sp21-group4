@@ -42,9 +42,3 @@ jobs:
               run: |
                   cd source
                   npm test
-            - name: Push artifact
-              uses: EndBug/add-and-commit@v7
-              with:
-                  author_name: github
-                  message: "Update build"
-                  add: "source/build/*"
