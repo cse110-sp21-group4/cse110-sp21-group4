@@ -6,15 +6,15 @@ on:
             - main
             - develop
         paths:
-            - "source/**"
-            - ".github/**"
+            - 'source/**'
+            - '.github/**'
     pull_request:
         branches:
             - main
             - develop
         paths:
-            - "source/**"
-            - ".github/**"
+            - 'source/**'
+            - '.github/**'
 
 jobs:
     super-lint:
@@ -43,3 +43,4 @@ jobs:
                   IGNORE_GITIGNORED_FILES: true
                   DISABLE_ERRORS: true
                   VALIDATE_ALL_CODEBASE: true
+                  VALIDATE_JAVASCRIPT_STANDARD: false
