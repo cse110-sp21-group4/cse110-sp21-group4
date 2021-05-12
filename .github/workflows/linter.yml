@@ -51,6 +51,6 @@ jobs:
               run: |
                   cd source
                   npm i -g --save-dev --save-exact prettier
-                  prettier --find-config-path ./prettierrc --ignore-path ./prettierignore --check .
+                  prettier --check .
                 
         
