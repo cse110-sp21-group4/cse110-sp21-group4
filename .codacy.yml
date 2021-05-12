@@ -6,16 +6,17 @@ engines:
         enabled: true
 
 exclude_paths:
-    - ".codacy.yml"
-    - ".gitignore"
-    - ".bundle/**"
-    - "spec/**/*"
-    - "benchmarks/**/*"
-    - "**.min.js"
-    - "source/build/**"
-    - "source/js/tests/**"
-    - "docs/**"
-    - "specs/**"
-    - "CI/**"
-    - "admin/**"
-    - ".github/**"
+    - '.codacy.yml'
+    - '.gitignore'
+    - '.bundle/**'
+    - 'spec/**/*'
+    - 'benchmarks/**/*'
+    - '**.min.js'
+    - 'source/build/**'
+    - 'source/js/tests/**'
+    - 'docs/**'
+    - 'specs/**'
+    - 'CI/**'
+    - 'admin/**'
+    - '.github/**'
+    - 'reports/**'
