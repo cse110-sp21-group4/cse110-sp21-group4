@@ -39,9 +39,7 @@ jobs:
               env:
                   DEFAULT_BRANCH: main
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  JAVASCRIPT_DEFAULT_STYLE: prettier
+                  JAVASCRIPT_DEFAULT_STYLE: false
                   IGNORE_GITIGNORED_FILES: true
                   DISABLE_ERRORS: true
                   VALIDATE_ALL_CODEBASE: true
-                  OUTPUT_FOLDER: reports
-                  OUTPUT_DETAILS: detailed
