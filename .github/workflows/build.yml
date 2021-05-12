@@ -36,6 +36,8 @@ jobs:
                   npm i webpack
                   npm i -D webpack-cli
                   npm i -D jest
+            - name: Build
+              run: |
                   npm run build
                   npm run build_test
             - name: Testing
