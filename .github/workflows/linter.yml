@@ -37,19 +37,23 @@ jobs:
                   FILTER_REGEX_INCLUDE: source/**
     prettier:
         runs-on: ubuntu-latest
-
+        strategy:
+            matrix:
+                node-version: [12.x]
         steps:
             - name: Checkout
               uses: actions/checkout@v2
               with:
                   # Make sure the actual branch is checked out when running on pull requests
                   ref: ${{ github.head_ref }}
-
-            - name: Prettify code
-              uses: creyD/prettier_action@v3.3
+           - name: Setup Node
+              uses: actions/setup-node@v2
               with:
-                  # This part is also where you can pass other options, for example:
-                  dry: true
-                  prettier_options: --find-config-path .prettierrc --ignore-path .prettierignore --check source/**
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  node-version: ${{ matrix.node-version }}
+            - name: Intall modules
+              run: |
+                  cd source
+                  npm i --save-dev --save-exact prettier
+                  npx prettier --find-config-path ./prettierrc --ignore-path ./prettierignore --check .
+                
+        

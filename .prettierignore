@@ -1,6 +1,13 @@
-!source
-source/package-lock.json
 source/node_modules/
-source/js/tests/
-source/build/
 **.html
+.codacy.yml
+.gitignore
+**.min.js
+source/build/**
+docs/**
+specs/**
+CI/**
+admin/**
+.github/**
+**.DS_Store
+source/package-lock.json
