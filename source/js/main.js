@@ -5,6 +5,7 @@
  * @param {*} b The second number
  * @returns {number} returns a number
  */
+
 function addTest(a, b) {
     return a + b;
 }
