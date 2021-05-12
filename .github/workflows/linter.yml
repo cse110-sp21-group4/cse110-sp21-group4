@@ -50,7 +50,7 @@ jobs:
             - name: Intall modules
               run: |
                   cd source
-                  npm i --save-dev --save-exact prettier
-                  npx prettier --find-config-path ./prettierrc --ignore-path ./prettierignore --check .
+                  npm i -g --save-dev --save-exact prettier
+                  prettier --find-config-path ./prettierrc --ignore-path ./prettierignore --check .
                 
         
