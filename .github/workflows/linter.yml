@@ -50,6 +50,6 @@ jobs:
               with:
                   # This part is also where you can pass other options, for example:
                   dry: true
-                  prettier_options: --find-config-path .prettierrc --ignore-path .prettierignore
+                  prettier_options: --find-config-path .prettierrc --ignore-path .prettierignore --check source/**
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
