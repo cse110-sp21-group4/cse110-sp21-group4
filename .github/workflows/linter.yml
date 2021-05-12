@@ -51,6 +51,8 @@ jobs:
               run: |
                   cd source
                   npm i -g --save-dev --save-exact prettier
+                  cp ../.prettierignore ./
+                  cp ../.prettierrc ./
                   prettier --check .
                 
         
