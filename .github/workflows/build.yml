@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build
 
 on:
     push:
@@ -33,8 +33,18 @@ jobs:
             - name: Intall modules
               run: |
                   cd source
+                  npm i webpack
+                  npm i -D webpack-cli
                   npm i -D jest
+                  npm run build
+                  npm run build_test
             - name: Testing
               run: |
                   cd source
                   npm test
+            - name: Push artifact
+              uses: EndBug/add-and-commit@v7
+              with:
+                  author_name: github
+                  message: "Update build"
+                  add: "source/build/*"
