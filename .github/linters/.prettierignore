@@ -1,0 +1,6 @@
+!source
+source/package-lock.json
+source/node_modules/
+source/js/tests/
+source/build/
+**.html

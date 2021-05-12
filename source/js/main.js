@@ -11,4 +11,4 @@ function addTest(a, b) {
 }
 
 export default addTest;
-console.log("success!!!");
+console.log('success!!!');
