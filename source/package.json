@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "jsdoc": "^3.6.6",
+    "prettier": "^2.3.0",
     "save-dev": "0.0.1-security",
     "webpack": "^5.37.0"
   }

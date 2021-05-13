@@ -1,0 +1,6 @@
+node_modules/
+**.html
+**.min.js
+build/**
+**.DS_Store
+package-lock.json

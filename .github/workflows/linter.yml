@@ -32,5 +32,7 @@ jobs:
                   IGNORE_GITIGNORED_FILES: true
                   DISABLE_ERRORS: true
                   VALIDATE_ALL_CODEBASE: true
+                  JAVASCRIPT_DEFAULT_STYLE: prettier
                   FILTER_REGEX_EXCLUDE: source/build/**
                   FILTER_REGEX_INCLUDE: source/**
+        
