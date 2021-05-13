@@ -32,27 +32,6 @@ jobs:
                   IGNORE_GITIGNORED_FILES: true
                   DISABLE_ERRORS: false
                   VALIDATE_ALL_CODEBASE: true
-                  VALIDATE_JAVASCRIPT_STANDARD: false
+                  VALIDATE_JAVASCRIPT_STANDARD: true
                   FILTER_REGEX_EXCLUDE: source/build/**
                   FILTER_REGEX_INCLUDE: source/**
-    prettier:
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                node-version: [12.x]
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v2
-            - name: Setup Node
-              uses: actions/setup-node@v2
-              with:
-                  node-version: ${{ matrix.node-version }}
-            - name: Intall modules
-              run: |
-                  cd source
-                  npm i -g --save-dev --save-exact prettier
-                  cp ../.prettierignore ./
-                  cp ../.prettierrc ./
-                  prettier --check .
-                
-        
