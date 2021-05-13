@@ -7,8 +7,8 @@
  */
 
 function addTest(a, b) {
-  return a + b;
+  return a + b
 }
 
-export default addTest;
-console.log('success!!!');
+export default addTest
+console.log('success!!!')
