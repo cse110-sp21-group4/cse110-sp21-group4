@@ -30,7 +30,7 @@ jobs:
                   DEFAULT_BRANCH: main
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   IGNORE_GITIGNORED_FILES: true
-                  DISABLE_ERRORS: true
+                  DISABLE_ERRORS: false
                   VALIDATE_ALL_CODEBASE: true
                   JAVASCRIPT_DEFAULT_STYLE: prettier
                   FILTER_REGEX_EXCLUDE: source/build/**
