@@ -1,5 +1,6 @@
 body {
   background-image: url("images/cover-background.png");
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .page {
@@ -15,7 +16,7 @@ body {
   padding-left: 100px;
 }
 
-#Rectangle_57 {
+#Rectangle-57 {
   fill: rgba(171,187,175,1);
   stroke: rgba(112,112,112,1);
   stroke-width: 1px;
@@ -23,16 +24,28 @@ body {
   stroke-linecap: butt;
   stroke-miterlimit: 4;
   shape-rendering: auto;
+  opacity: 0.7;
 }
-.Rectangle_57 {
+.Rectangle-57 {
   position: absolute;
   overflow: visible;
-  width: 406px;
-  height: 946px;
-  left: 23px;
+  width: 330px;
+  height: 1000px;
+  left: 10px;
   top: 111px;
 }
-#Ellipse_1 {
+.Rectangle-57 rect{
+  position: absolute;
+  overflow: visible;
+  width: 330px;
+  height: 1000px;
+  left: 10px;
+  top: 100px;
+}
+.left-pane{
+  height: 100px;
+}
+#Ellipse-left-button {
   fill: rgba(129,150,134,1);
   stroke: rgba(112,112,112,1);
   stroke-width: 1px;
@@ -45,26 +58,26 @@ body {
   --web-action-target: Web_1920___1.html;
   cursor: pointer;
 }
-.Ellipse_1 {
+.Ellipse-left-button {
   position: absolute;
   overflow: visible;
   width: 80px;
   height: 80px;
-  left: 28px;
-  top: 117px;
+  left: 15px;
+  top: 115px;
 }
-#Icon_ionic-ios-book {
+#Icon-left-button {
   position: absolute;
   width: 29.236px;
   height: 26.997px;
-  left: 53.382px;
-  top: 143.501px;
+  left: 40px;
+  top: 140px;
   overflow: visible;
 }
-#Path_1 {
+#Path-1 {
   fill: rgba(171,187,175,1);
 }
-.Path_1 {
+.Path-1 {
   overflow: visible;
   position: absolute;
   width: 13.915px;
@@ -73,10 +86,10 @@ body {
   top: 0.007px;
   transform: matrix(1,0,0,1,0,0);
 }
-#Path_2 {
+#Path-2 {
   fill: rgba(171,187,175,1);
 }
-.Path_2 {
+.Path-2 {
   overflow: visible;
   position: absolute;
   width: 13.915px;
@@ -85,7 +98,7 @@ body {
   top: 0px;
   transform: matrix(1,0,0,1,0,0);
 }
-#Ellipse_3 {
+#Ellipse-recipes {
   fill: rgba(129,150,134,1);
   stroke: rgba(112,112,112,1);
   stroke-width: 1px;
@@ -94,7 +107,7 @@ body {
   stroke-miterlimit: 4;
   shape-rendering: auto;
 }
-.Ellipse_3 {
+.Ellipse-recipes {
   position: absolute;
   overflow: visible;
   width: 80px;
@@ -120,7 +133,7 @@ body {
   top: 197.5px;
   transform: matrix(1,0,0,1,0,0);
 }
-#Ellipse_5 {
+#Ellipse-diary {
   fill: rgba(129,150,134,1);
   stroke: rgba(112,112,112,1);
   stroke-width: 1px;
@@ -129,7 +142,7 @@ body {
   stroke-miterlimit: 4;
   shape-rendering: auto;
 }
-.Ellipse_5 {
+.Ellipse-diary {
   position: absolute;
   overflow: visible;
   width: 80px;
@@ -137,7 +150,7 @@ body {
   left: 29px;
   top: 866px;
 }
-#Ellipse_6 {
+#Ellipse-assignments {
   fill: rgba(129,150,134,1);
   stroke: rgba(112,112,112,1);
   stroke-width: 1px;
@@ -146,7 +159,7 @@ body {
   stroke-miterlimit: 4;
   shape-rendering: auto;
 }
-.Ellipse_6 {
+.Ellipse-assignments {
   position: absolute;
   overflow: visible;
   width: 80px;
@@ -154,10 +167,10 @@ body {
   left: 29px;
   top: 765px;
 }
-#Icon_map-food {
+#Icon-recipes {
   fill: rgba(255,255,255,1);
 }
-.Icon_map-food {
+.Icon-recipes {
   overflow: visible;
   position: absolute;
   width: 34.56px;
@@ -166,10 +179,11 @@ body {
   top: 682.501px;
   transform: matrix(1,0,0,1,0,0);
 }
-#Icon_ionic-md-school {
-  fill: rgba(171,187,175,1);
+#Icon-assignments {
+  /* fill: rgba(171,187,175,1); */
+  fill: rgba(255,255,255,1);
 }
-.Icon_ionic-md-school {
+.Icon-assignments {
   overflow: visible;
   position: absolute;
   width: 31.5px;
@@ -178,10 +192,10 @@ body {
   top: 791.5px;
   transform: matrix(1,0,0,1,0,0);
 }
-#Icon_metro-bubble {
+#Icon-diary {
   fill: rgba(255,255,255,1);
 }
-.Icon_metro-bubble {
+.Icon-diary {
   overflow: visible;
   position: absolute;
   width: 30.849px;
@@ -190,7 +204,7 @@ body {
   top: 891.546px;
   transform: matrix(1,0,0,1,0,0);
 }
-#Rectangle_56 {
+#Rectangle-56 {
   fill: rgba(230,230,230,1);
   stroke: rgba(112,112,112,1);
   stroke-width: 1px;
@@ -199,12 +213,12 @@ body {
   stroke-miterlimit: 4;
   shape-rendering: auto;
 }
-.Rectangle_56 {
+.Rectangle-56 {
   position: absolute;
   overflow: visible;
   width: 387px;
   height: 436px;
-  left: 32px;
+  left: 20px;
   top: 213px;
 }
 #Entries {
@@ -215,7 +229,7 @@ body {
   width: 93px;
   white-space: nowrap;
   text-align: center;
-  font-family: Segoe UI;
+  /* font-family: Segoe UI; */
   font-style: normal;
   font-weight: bold;
   font-size: 30px;
@@ -229,7 +243,7 @@ body {
   width: 101px;
   white-space: nowrap;
   text-align: left;
-  font-family: Segoe UI;
+  /* font-family: Segoe UI; */
   font-style: normal;
   font-weight: normal;
   font-size: 30px;
@@ -243,7 +257,7 @@ body {
   width: 147px;
   white-space: nowrap;
   text-align: left;
-  font-family: Segoe UI;
+  /* font-family: Segoe UI; */
   font-style: normal;
   font-weight: normal;
   font-size: 26px;
@@ -257,7 +271,7 @@ body {
   width: 70px;
   white-space: nowrap;
   text-align: left;
-  font-family: Segoe UI;
+  /* font-family: Segoe UI; */
   font-style: normal;
   font-weight: normal;
   font-size: 30px;

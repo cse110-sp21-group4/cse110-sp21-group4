@@ -1,5 +1,17 @@
+page = document.createElement('drag-view')
+document.getElementsByTagName('main')[0].appendChild(page)
 
-page = document.createElement("drag-view");
+var toolselected = 'text'
 
-console.log(page)
-document.getElementsByTagName("main")[0].appendChild(page);
+function openIndex() {
+  console.log(document.querySelector('.left-pane'))
+  document.querySelector('.left-pane').style.height = '100px'
+}
+
+function editPage() {
+  console.log('clicked on page', document.querySelector())
+  if (toolselected == 'text') {
+  }
+  if (toolselected == 'image') {
+  }
+}

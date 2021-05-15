@@ -1,11 +1,10 @@
 class DragView extends HTMLElement {
   constructor() {
     super()
-    console.log('const called')
     const template = document.createElement('template')
     template.innerHTML = `
         <div class="drag-frame">
-          <div class="page" contenteditable="true">
+          <div class="page" contenteditable="true" onclick=editPage()>
             <h1>New Notes</h1>
             <ol>
               <li>Notes 1</li>
@@ -17,6 +16,8 @@ class DragView extends HTMLElement {
           </div>
         </div>
         `
+    
+    // template.addEventListener('click',editPage());
 
     const link = document.createElement('link')
     link.setAttribute('rel', 'stylesheet')
