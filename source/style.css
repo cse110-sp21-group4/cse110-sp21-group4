@@ -1,0 +1,16 @@
+.body {
+  background-color: coral;
+}
+
+.page {
+  background-image: url("images/single-paper.jpg"),url("images/paper-book.jpg");
+  position: relative;
+  left: 300px;
+  top: 100px;
+  width: 1000px;
+  height: 1000px;
+  font-size: large;
+  border: 3px solid #73ad21;
+  padding: 50px;
+  padding-left: 100px;
+}
