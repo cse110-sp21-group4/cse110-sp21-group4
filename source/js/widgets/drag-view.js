@@ -1,10 +1,24 @@
 class DragView extends HTMLElement {
   constructor() {
     super()
+    // not sure if `toolselected` should be here or in script.js
+    // so for now Ishaan added this in both
+    var toolselected = 'text'
+
+    // not sure if `editPage()` should be here or in script.js
+    // so for now Ishaan added this in both
+    // function editPage() {
+    //   console.log('clicked on page', document.querySelector(".page"))
+    //   if (toolselected == 'text') {
+
+    //   }
+    //   if (toolselected == 'image') {
+    //   }
+    // }
     const template = document.createElement('template')
     template.innerHTML = `
         <div class="drag-frame">
-          <div class="page" contenteditable="true" onclick=editPage()>
+          <div class="page" contenteditable="true" onclick="editPage(this);">
             <h1>New Notes</h1>
             <ol>
               <li>Notes 1</li>
@@ -17,6 +31,7 @@ class DragView extends HTMLElement {
         </div>
         `
     
+
     // template.addEventListener('click',editPage());
 
     const link = document.createElement('link')
