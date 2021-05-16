@@ -4,11 +4,11 @@ Date: May 16, 2021
 Participants: Zhongkang Fang, Darian Hong, Bozhi Wang, Christopher Vu, RJ Singh, Yang Lu, Ishaan Gupta, Tri Tran
 Type: Sprint Review
 
-Time Started: 1:00pm 
+Time Started: 1:00pm  
 Time Ended: 2:00pm
 
 ## Screenshot
-![Screenshot of Group and Skeleton](./admin/screenshots/sprintreview.png)
+![Screenshot of Group and Skeleton](/screenshots/sprintreview.png)
 
 ## Goal of the sprint
 
