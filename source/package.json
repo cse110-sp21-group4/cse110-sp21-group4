@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build_test": "webpack ./js/tests/* --output-path ./build/js/tests/ --output-filename test_bundle.test.js",
-    "build": "webpack ./js/*.js --output-path ./build/js/ --output-filename bundle.js",
+    "build_test": "webpack ./js/tests/* --output-path ./build/js/tests/ --output-filename test_bundle.test.js --mode development",
+    "build": "webpack ./js/*.js --output-path ./build/js/ --output-filename bundle.js --mode development",
     "doc": "jsdoc ./js -r -c ./jsdoc.json -d ../docs"
   },
   "keywords": [],
