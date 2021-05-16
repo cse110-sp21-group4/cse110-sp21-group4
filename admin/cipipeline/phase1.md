@@ -33,7 +33,8 @@ This document showcases the our current interation of the CI pipeline.
 - We are using default configuration for Codacy and this presents us with some rules that does not align with our purposes. 
 - For example, there are some styling issues that were flagged in the security issues within GitHub. 
 - Specifically, the "Rule doesn't have all its properties in alphabetical order." 
-
+- CI/CD Action Jobs are not showing up on the pull request `Conversation` tab. However, it does show up on the `Checks` tab.
+  
 ## Future Iterations of Pipeline
 - We want to include continuous integration for deployment, minification and test coverage within our pipeline. 
 - We hope to have deployment implemented into our second interation of our CI pipeline. 
