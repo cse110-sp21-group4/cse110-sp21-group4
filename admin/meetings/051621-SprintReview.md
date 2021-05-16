@@ -8,7 +8,7 @@ Time Started: 1:00pm
 Time Ended: 2:00pm
 
 ## Screenshot
-![Screenshot of Group and Skeleton](/screenshots/sprintreview.png)
+![Screenshot of Group and Skeleton](./screenshots/sprintreview1.png)
 
 ## Goal of the sprint
 
