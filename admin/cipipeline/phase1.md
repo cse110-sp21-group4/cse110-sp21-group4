@@ -11,6 +11,8 @@ This document showcases the our current interation of the CI pipeline.
 ## Code Style/Syntax
 - Using the super-linter repository, it will check for style guidlines.
 - This action will be called everytime someone makes a pull request on the source folder.
+- We use Prettier to check the code style within the super-linter repository. 
+- In order to enforce the coding style, we locally add VS Code extensions. 
 
 ## Build and Unit Test
 - Will build the code up to get ready for unit testing through Jest.
@@ -26,6 +28,11 @@ This document showcases the our current interation of the CI pipeline.
   
 ## If Failure Occurs
 - If any of the previous test fails during the code check process, the code will be redirected to a manual review by a teammate. After review, the code will then be sent back through the 4 code checking process. 
+
+## Issues of Our Pipeline
+- We are using default configuration for Codacy and this presents us with some rules that does not align with our purposes. 
+- For example, there are some styling issues that were flagged in the security issues within GitHub. 
+- Specifically, the "Rule doesn't have all its properties in alphabetical order." 
 
 ## Future Iterations of Pipeline
 - We want to include continuous integration for deployment, minification and test coverage within our pipeline. 
