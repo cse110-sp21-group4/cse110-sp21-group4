@@ -1,10 +1,11 @@
 body {
-  background-image: url("images/cover-background.png");
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-image: url('images/cover-background.png');
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .page {
-  background-image: url("images/single-paper.jpg"),url("images/paper-book.jpg");
+  background-image: url('images/single-paper.jpg'), url('images/paper-book.jpg');
   position: relative;
   left: 250px;
   top: 100px;
@@ -17,8 +18,8 @@ body {
 }
 
 #Rectangle-57 {
-  fill: rgba(171,187,175,1);
-  stroke: rgba(112,112,112,1);
+  fill: rgba(171, 187, 175, 1);
+  stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
   stroke-linejoin: miter;
   stroke-linecap: butt;
@@ -34,7 +35,7 @@ body {
   left: 10px;
   top: 111px;
 }
-.Rectangle-57 rect{
+.Rectangle-57 rect {
   position: absolute;
   overflow: visible;
   width: 330px;
@@ -42,12 +43,12 @@ body {
   left: 10px;
   top: 100px;
 }
-.left-pane{
+.left-pane {
   height: 100px;
 }
 #Ellipse-left-button {
-  fill: rgba(129,150,134,1);
-  stroke: rgba(112,112,112,1);
+  fill: rgba(129, 150, 134, 1);
+  stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
   stroke-linejoin: miter;
   stroke-linecap: butt;
@@ -75,7 +76,7 @@ body {
   overflow: visible;
 }
 #Path-1 {
-  fill: rgba(171,187,175,1);
+  fill: rgba(171, 187, 175, 1);
 }
 .Path-1 {
   overflow: visible;
@@ -84,10 +85,10 @@ body {
   height: 26.99px;
   left: 0px;
   top: 0.007px;
-  transform: matrix(1,0,0,1,0,0);
+  transform: matrix(1, 0, 0, 1, 0, 0);
 }
 #Path-2 {
-  fill: rgba(171,187,175,1);
+  fill: rgba(171, 187, 175, 1);
 }
 .Path-2 {
   overflow: visible;
@@ -96,11 +97,11 @@ body {
   height: 26.99px;
   left: 15.321px;
   top: 0px;
-  transform: matrix(1,0,0,1,0,0);
+  transform: matrix(1, 0, 0, 1, 0, 0);
 }
 #Ellipse-recipes {
-  fill: rgba(129,150,134,1);
-  stroke: rgba(112,112,112,1);
+  fill: rgba(129, 150, 134, 1);
+  stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
   stroke-linejoin: miter;
   stroke-linecap: butt;
@@ -117,7 +118,7 @@ body {
 }
 #Line_1 {
   fill: transparent;
-  stroke: rgba(129,150,134,1);
+  stroke: rgba(129, 150, 134, 1);
   stroke-width: 3px;
   stroke-linejoin: miter;
   stroke-linecap: butt;
@@ -131,11 +132,11 @@ body {
   height: 9px;
   left: 23.5px;
   top: 197.5px;
-  transform: matrix(1,0,0,1,0,0);
+  transform: matrix(1, 0, 0, 1, 0, 0);
 }
 #Ellipse-diary {
-  fill: rgba(129,150,134,1);
-  stroke: rgba(112,112,112,1);
+  fill: rgba(129, 150, 134, 1);
+  stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
   stroke-linejoin: miter;
   stroke-linecap: butt;
@@ -151,8 +152,8 @@ body {
   top: 866px;
 }
 #Ellipse-assignments {
-  fill: rgba(129,150,134,1);
-  stroke: rgba(112,112,112,1);
+  fill: rgba(129, 150, 134, 1);
+  stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
   stroke-linejoin: miter;
   stroke-linecap: butt;
@@ -168,7 +169,7 @@ body {
   top: 765px;
 }
 #Icon-recipes {
-  fill: rgba(255,255,255,1);
+  fill: rgba(255, 255, 255, 1);
 }
 .Icon-recipes {
   overflow: visible;
@@ -177,11 +178,11 @@ body {
   height: 30.296px;
   left: 48.058px;
   top: 682.501px;
-  transform: matrix(1,0,0,1,0,0);
+  transform: matrix(1, 0, 0, 1, 0, 0);
 }
 #Icon-assignments {
   /* fill: rgba(171,187,175,1); */
-  fill: rgba(255,255,255,1);
+  fill: rgba(255, 255, 255, 1);
 }
 .Icon-assignments {
   overflow: visible;
@@ -190,10 +191,10 @@ body {
   height: 27px;
   left: 49.588px;
   top: 791.5px;
-  transform: matrix(1,0,0,1,0,0);
+  transform: matrix(1, 0, 0, 1, 0, 0);
 }
 #Icon-diary {
-  fill: rgba(255,255,255,1);
+  fill: rgba(255, 255, 255, 1);
 }
 .Icon-diary {
   overflow: visible;
@@ -202,11 +203,11 @@ body {
   height: 28.907px;
   left: 49.914px;
   top: 891.546px;
-  transform: matrix(1,0,0,1,0,0);
+  transform: matrix(1, 0, 0, 1, 0, 0);
 }
 #Rectangle-56 {
-  fill: rgba(230,230,230,1);
-  stroke: rgba(112,112,112,1);
+  fill: rgba(230, 230, 230, 1);
+  stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
   stroke-linejoin: miter;
   stroke-linecap: butt;
@@ -233,7 +234,7 @@ body {
   font-style: normal;
   font-weight: bold;
   font-size: 30px;
-  color: rgba(0,0,0,1);
+  color: rgba(0, 0, 0, 1);
 }
 #Recipes {
   left: 120px;
@@ -247,7 +248,7 @@ body {
   font-style: normal;
   font-weight: normal;
   font-size: 30px;
-  color: rgba(255,255,255,1);
+  color: rgba(255, 255, 255, 1);
 }
 #Assignments {
   left: 120px;
@@ -261,7 +262,7 @@ body {
   font-style: normal;
   font-weight: normal;
   font-size: 26px;
-  color: rgba(255,255,255,1);
+  color: rgba(255, 255, 255, 1);
 }
 #Diary {
   left: 120px;
@@ -275,5 +276,5 @@ body {
   font-style: normal;
   font-weight: normal;
   font-size: 30px;
-  color: rgba(255,255,255,1);
+  color: rgba(255, 255, 255, 1);
 }
