@@ -1,0 +1,33 @@
+# Phase 1 of CI/CD Pipeline
+
+This document showcases the our current interation of the CI pipeline. 
+
+## Diagram 
+![CI Pipeline](phase1.drawio.png)
+
+## How is the CI Pipeline invoked?
+- Once a pull request is initiated on the source folder. The following tests will run. 
+   
+## Code Style/Syntax
+- Using the super-linter repository, it will check for style guidlines.
+- This action will be called everytime someone makes a pull request on the source folder.
+
+## Build and Unit Test
+- Will build the code up to get ready for unit testing through Jest.
+  
+## Generate Documentation
+- Will create documentation for the following code through the use of JSDocs.
+  
+## Quality Check
+- Using Codacy, this will check the code for quality. 
+
+## If All Tests Pass
+- There will a final manual review by a teammate before merge branch to main. 
+  
+## If Failure Occurs
+- If any of the previous test fails during the code check process, the code will be redirected to a manual review by a teammate. After review, the code will then be sent back through the 4 code checking process. 
+
+## Future Iterations of Pipeline
+- We want to include continuous integration for deployment, minification and test coverage within our pipeline. 
+- We hope to have deployment implemented into our second interation of our CI pipeline. 
+  
