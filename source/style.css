@@ -17,7 +17,7 @@ body {
   padding-left: 100px;
 }
 
-#Rectangle-57 {
+#rectangle-57 {
   fill: rgba(171, 187, 175, 1);
   stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
@@ -27,7 +27,7 @@ body {
   shape-rendering: auto;
   opacity: 0.7;
 }
-.Rectangle-57 {
+.rectangle-57 {
   position: absolute;
   overflow: visible;
   width: 330px;
@@ -35,7 +35,7 @@ body {
   left: 10px;
   top: 111px;
 }
-.Rectangle-57 rect {
+.rectangle-57 rect {
   position: absolute;
   overflow: visible;
   width: 330px;
@@ -46,7 +46,7 @@ body {
 .left-pane {
   height: 100px;
 }
-#Ellipse-left-button {
+#ellipse-left-button {
   fill: rgba(129, 150, 134, 1);
   stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
@@ -54,12 +54,9 @@ body {
   stroke-linecap: butt;
   stroke-miterlimit: 4;
   shape-rendering: auto;
-  --web-animation: fadein 0.3s ease-out;
-  --web-action-type: page;
-  --web-action-target: Web_1920___1.html;
   cursor: pointer;
 }
-.Ellipse-left-button {
+.ellipse-left-button {
   position: absolute;
   overflow: visible;
   width: 80px;
@@ -67,7 +64,7 @@ body {
   left: 15px;
   top: 115px;
 }
-#Icon-left-button {
+#icon-left-button {
   position: absolute;
   width: 29.236px;
   height: 26.997px;
@@ -75,10 +72,10 @@ body {
   top: 140px;
   overflow: visible;
 }
-#Path-1 {
+#path-1 {
   fill: rgba(171, 187, 175, 1);
 }
-.Path-1 {
+.path-1 {
   overflow: visible;
   position: absolute;
   width: 13.915px;
@@ -87,10 +84,10 @@ body {
   top: 0.007px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
-#Path-2 {
+#path-2 {
   fill: rgba(171, 187, 175, 1);
 }
-.Path-2 {
+.path-2 {
   overflow: visible;
   position: absolute;
   width: 13.915px;
@@ -99,7 +96,7 @@ body {
   top: 0px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
-#Ellipse-recipes {
+#ellipse-recipes {
   fill: rgba(129, 150, 134, 1);
   stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
@@ -108,7 +105,7 @@ body {
   stroke-miterlimit: 4;
   shape-rendering: auto;
 }
-.Ellipse-recipes {
+.ellipse-recipes {
   position: absolute;
   overflow: visible;
   width: 80px;
@@ -134,7 +131,7 @@ body {
   top: 197.5px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
-#Ellipse-diary {
+#ellipse-diary {
   fill: rgba(129, 150, 134, 1);
   stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
@@ -143,7 +140,7 @@ body {
   stroke-miterlimit: 4;
   shape-rendering: auto;
 }
-.Ellipse-diary {
+.ellipse-diary {
   position: absolute;
   overflow: visible;
   width: 80px;
@@ -151,7 +148,7 @@ body {
   left: 29px;
   top: 866px;
 }
-#Ellipse-assignments {
+#ellipse-assignments {
   fill: rgba(129, 150, 134, 1);
   stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
@@ -160,7 +157,7 @@ body {
   stroke-miterlimit: 4;
   shape-rendering: auto;
 }
-.Ellipse-assignments {
+.ellipse-assignments {
   position: absolute;
   overflow: visible;
   width: 80px;
@@ -168,10 +165,10 @@ body {
   left: 29px;
   top: 765px;
 }
-#Icon-recipes {
+#icon-recipes {
   fill: rgba(255, 255, 255, 1);
 }
-.Icon-recipes {
+.icon-recipes {
   overflow: visible;
   position: absolute;
   width: 34.56px;
@@ -180,11 +177,11 @@ body {
   top: 682.501px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
-#Icon-assignments {
+#icon-assignments {
   /* fill: rgba(171,187,175,1); */
   fill: rgba(255, 255, 255, 1);
 }
-.Icon-assignments {
+.icon-assignments {
   overflow: visible;
   position: absolute;
   width: 31.5px;
@@ -193,10 +190,10 @@ body {
   top: 791.5px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
-#Icon-diary {
+#icon-diary {
   fill: rgba(255, 255, 255, 1);
 }
-.Icon-diary {
+.icon-diary {
   overflow: visible;
   position: absolute;
   width: 30.849px;
@@ -205,7 +202,7 @@ body {
   top: 891.546px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
-#Rectangle-56 {
+#rectangle-56 {
   fill: rgba(230, 230, 230, 1);
   stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
@@ -214,7 +211,7 @@ body {
   stroke-miterlimit: 4;
   shape-rendering: auto;
 }
-.Rectangle-56 {
+.rectangle-56 {
   position: absolute;
   overflow: visible;
   width: 387px;
@@ -222,7 +219,7 @@ body {
   left: 20px;
   top: 213px;
 }
-#Entries {
+#entries {
   left: 48px;
   top: 227px;
   position: absolute;
@@ -236,7 +233,7 @@ body {
   font-size: 30px;
   color: rgba(0, 0, 0, 1);
 }
-#Recipes {
+#recipes {
   left: 120px;
   top: 684px;
   position: absolute;
@@ -250,7 +247,7 @@ body {
   font-size: 30px;
   color: rgba(255, 255, 255, 1);
 }
-#Assignments {
+#assignments {
   left: 120px;
   top: 789px;
   position: absolute;
@@ -264,7 +261,7 @@ body {
   font-size: 26px;
   color: rgba(255, 255, 255, 1);
 }
-#Diary {
+#diary {
   left: 120px;
   top: 886px;
   position: absolute;
