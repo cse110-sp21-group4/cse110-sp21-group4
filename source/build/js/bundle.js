@@ -7,25 +7,68 @@
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
 /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./js/main.js":
-/*!********************!*\
-  !*** ./js/main.js ***!
-  \********************/
+/***/ "./js/script.js":
+/*!**********************!*\
+  !*** ./js/script.js ***!
+  \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/**\n * A test function for jsdoc and jest\n *\n * @param {number} a The first number\n * @param {*} b The second number\n * @returns {number} returns a number\n */\n\nfunction addTest(a, b) {\n  return a + b\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addTest);\nconsole.log('success!!!')\n\n\n//# sourceURL=webpack://source/./js/main.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _widgets_drag_view_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./widgets/drag-view.js */ \"./js/widgets/drag-view.js\");\n/* harmony import */ var _widgets_drag_view_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_widgets_drag_view_js__WEBPACK_IMPORTED_MODULE_0__);\n\n\nlet page = document.createElement('drag-view')\ndocument.getElementsByTagName('main')[0].appendChild(page)\n\nvar toolselected = 'text'\n\nfunction openIndex() {\n  console.log(document.querySelector('.left-pane'))\n  document.querySelector('.left-pane').style.height = '100px'\n}\n\nfunction editPage() {\n  console.log('clicked on page', document.querySelector())\n  if (toolselected == 'text') {\n  }\n  if (toolselected == 'image') {\n  }\n}\n\n\n//# sourceURL=webpack://source/./js/script.js?");
+
+/***/ }),
+
+/***/ "./js/widgets/drag-view.js":
+/*!*********************************!*\
+  !*** ./js/widgets/drag-view.js ***!
+  \*********************************/
+/***/ (() => {
+
+eval("class DragView extends HTMLElement {\n  constructor() {\n    super()\n    const template = document.createElement('template')\n    template.innerHTML = `\n        <div class=\"drag-frame\">\n          <div class=\"page\" contenteditable=\"true\" onclick=editPage()>\n            <h1>New Notes</h1>\n            <ol>\n              <li>Notes 1</li>\n            </ol>\n            <br />\n            <ul>\n              <li>Notes 2</li>\n            </ul>\n          </div>\n        </div>\n        `\n    \n    // template.addEventListener('click',editPage());\n\n    const link = document.createElement('link')\n    link.setAttribute('rel', 'stylesheet')\n    link.setAttribute('href', 'style.css')\n\n    this.attachShadow({ mode: 'open' })\n    this.shadowRoot.appendChild(link)\n    this.shadowRoot.appendChild(template.content.cloneNode(true))\n  }\n}\n\ncustomElements.define('drag-view', DragView)\n\n\n//# sourceURL=webpack://source/./js/widgets/drag-view.js?");
 
 /***/ })
 
 /******/ 	});
 /************************************************************************/
-/******/ 	// The require scope
-/******/ 	var __webpack_require__ = {};
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -59,8 +102,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./js/main.js"](0, __webpack_exports__, __webpack_require__);
+/******/ 	var __webpack_exports__ = __webpack_require__("./js/script.js");
 /******/ 	
 /******/ })()
 ;

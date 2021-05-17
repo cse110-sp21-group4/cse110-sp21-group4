@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build_test": "webpack ./js/tests/* --output-path ./build/js/tests/ --output-filename test_bundle.test.js --mode development",
-    "build": "webpack ./js/*.js --output-path ./build/js/ --output-filename bundle.js --mode development",
+    "build_js": "webpack ./js/script.js --output-path ./build/js/ --output-filename bundle.js --mode development",
     "doc": "jsdoc ./js -r -c ./jsdoc.json -d ../docs"
   },
   "keywords": [],

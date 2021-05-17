@@ -1,4 +1,6 @@
-page = document.createElement('drag-view')
+import { DragView } from './widgets/drag-view.js'
+
+let page = document.createElement('drag-view')
 document.getElementsByTagName('main')[0].appendChild(page)
 
 var toolselected = 'text'
