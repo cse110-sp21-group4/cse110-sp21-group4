@@ -1,6 +1,8 @@
 import { DragView } from './widgets/drag-view.js'
+import { MainPageController } from './main-page-controller.js'
 
 let page = document.createElement('drag-view')
+
 document.getElementsByTagName('main')[0].appendChild(page)
 
 var toolselected = 'text'
@@ -17,3 +19,9 @@ function editPage() {
   if (toolselected == 'image') {
   }
 }
+
+/**
+ * Main page control
+ */
+const mainPageBody = document.querySelector('body')
+const mainPageController = new MainPageController(mainPageBody)
