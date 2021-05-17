@@ -25,8 +25,3 @@ function editPage() {
  */
 const mainPageBody = document.querySelector('body')
 const mainPageController = new MainPageController(mainPageBody)
-
-/**
- * Code Example
- */
-mainPageController.onTasksButtonClicked()
