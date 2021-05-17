@@ -4,12 +4,13 @@
 ## How to Contrubute
 
 ### Before Coding
-- Please install **Prettier Code Formatter** extension before coding
+- Make sure node.js is installed correctly on your system
+- Please install **Prettier Code Formatter** extension before coding(It will be hard to pass the checks on CI/CD without auto formatting)
 - Change VSCode configurations 
 	- "Default Formatter" to "Prettier-Code formatter"
 	- Check "Format on Save"
 	- Check "Prettier:Require Config"
-- Make sure node.js is installed correctly on your system
+
 - **The build process works on Linux/Mac system. Please contact me if you have to code in Windows**
 
 ### Directories
@@ -43,12 +44,12 @@
 
 - Create feature branch before coding anything
 - Pull and merge main frequently(as frequent as multiple times a day) to reduce the possibility of conflictions.
-- Always pull and merge main branch before you create the pull request to merge to the main.
+- Always pull and merge main branch before you create the pull request.
 
 ### Recommandations
 
 - Create independent widgets or modules for different parts of the application.
-- Reduce the lines of code in index.html, style.css, script.js files. (The code will be impossible to maintain if we put all things together, try to mudulize the code.)
+- Reduce the lines of code in index.html, style.css, script.js files. (The code will be impossible to maintain if we put all things together, try to modulize the code.)
 
 
 
