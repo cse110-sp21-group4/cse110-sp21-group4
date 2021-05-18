@@ -22,7 +22,7 @@
 
 - source
 
-  - css: all css file
+  - css: all css file (css files are temporarily located in source/)
   - js: all js file
   - js/tests: unit test files
   - images: all image files
