@@ -17,7 +17,7 @@ body {
 }
 
 
-#Rectangle_57 {
+#outer-rectangle {
 	fill: rgba(171,187,175,1);
 	stroke: rgba(112,112,112,1);
 	stroke-width: 1px;
@@ -25,8 +25,8 @@ body {
 	stroke-linecap: butt;
 	stroke-miterlimit: 4;
 	shape-rendering: auto;
-}
-.Rectangle_57 {
+
+	/* Redudant information from Class Selector*/
 	position: absolute;
 	overflow: visible;
 	width: 406px;
@@ -34,7 +34,16 @@ body {
 	left: 23px;
 	top: 111px;
 }
-#Ellipse_1 {
+.outer-rectangle {
+	position: absolute;
+	overflow: visible;
+	width: 406px;
+	height: 803px;
+	left: 23px;
+	top: 111px;
+	
+}
+#index-button {
 	fill: rgba(129,150,134,1);
 	stroke: rgba(112,112,112,1);
 	stroke-width: 1px;
@@ -43,7 +52,7 @@ body {
 	stroke-miterlimit: 4;
 	shape-rendering: auto;
 }
-.Ellipse_1 {
+.index-button {
 	position: absolute;
 	overflow: visible;
 	width: 80px;
@@ -176,7 +185,7 @@ body {
 	top: 726.105px;
 	transform: matrix(1,0,0,1,0,0);
 }
-#Rectangle_56 {
+#inner_rectangle {
 	fill: rgba(230,230,230,1);
 	stroke: rgba(112,112,112,1);
 	stroke-width: 1px;
@@ -185,7 +194,7 @@ body {
 	stroke-miterlimit: 4;
 	shape-rendering: auto;
 }
-.Rectangle_56 {
+.inner_rectangle {
 	position: absolute;
 	overflow: visible;
 	width: 387px;
@@ -249,7 +258,7 @@ body {
 	font-size: 30px;
 	color: rgba(255,255,255,1);
 }
-#Ellipse_7 {
+#add-entry-button {
 	fill: rgba(230,230,230,1);
 	stroke: rgba(112,112,112,1);
 	stroke-width: 2px;
@@ -258,7 +267,7 @@ body {
 	stroke-miterlimit: 4;
 	shape-rendering: auto;
 }
-.Ellipse_7 {
+.add-entry-button{
 	position: absolute;
 	overflow: visible;
 	width: 40px;
