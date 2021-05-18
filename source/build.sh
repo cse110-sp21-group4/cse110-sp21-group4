@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$1" ] && [ "$1" = "-i" ]; then
+if [ "$1" = "-i" ]; then
     npm i -D jest
     npm i webpack
     npm i -D webpack-cli
