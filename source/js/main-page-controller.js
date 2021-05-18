@@ -1,6 +1,11 @@
 export class MainPageController {
   constructor(view) {
     this.view = view
+    registerListeners()
+  }
+
+  registerListeners() {
+    document.querySelector('').addEventListener('', () => {})
   }
 
   //Example code
