@@ -46,7 +46,7 @@
 
 ### Unit Testing
 
-- Test files are located in js/tests, you can create any test file in this folder. (Please refer the example test in this directory)
+- Test files are located in js/tests, you can create any test file in this folder. (Please refer to the example test in this directory)
 - Run tests: Build the project, the building process includes building the tests and run them.
 
 ### Git
