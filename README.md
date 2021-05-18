@@ -2,7 +2,7 @@
 
 [Team Page](https://github.com/cse110-sp21-group4/cse110-sp21-group4/blob/main/admin/team.md)
 
-## How to Contrubute
+## How to Contribute
 
 ### Before Coding
 
