@@ -9,6 +9,17 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./js/main-page-controller.js":
+/*!************************************!*\
+  !*** ./js/main-page-controller.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"MainPageController\": () => (/* binding */ MainPageController)\n/* harmony export */ });\nclass MainPageController {\n  constructor(view) {\n    this.view = view\n  }\n\n  onTasksButtonClicked() {\n    console.log('Tasks button clicked...')\n  }\n}\n\n\n//# sourceURL=webpack://source/./js/main-page-controller.js?");
+
+/***/ }),
+
 /***/ "./js/script.js":
 /*!**********************!*\
   !*** ./js/script.js ***!
@@ -16,7 +27,7 @@
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _widgets_drag_view_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./widgets/drag-view.js */ \"./js/widgets/drag-view.js\");\n/* harmony import */ var _widgets_drag_view_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_widgets_drag_view_js__WEBPACK_IMPORTED_MODULE_0__);\n\n\nlet page = document.createElement('drag-view')\ndocument.getElementsByTagName('main')[0].appendChild(page)\n\nvar toolselected = 'text'\n\nfunction openIndex() {\n  console.log(document.querySelector('.left-pane'))\n  document.querySelector('.left-pane').style.height = '100px'\n}\n\nfunction editPage() {\n  console.log('clicked on page', document.querySelector())\n  if (toolselected == 'text') {\n  }\n  if (toolselected == 'image') {\n  }\n}\n\n\n//# sourceURL=webpack://source/./js/script.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _widgets_drag_view_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./widgets/drag-view.js */ \"./js/widgets/drag-view.js\");\n/* harmony import */ var _widgets_drag_view_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_widgets_drag_view_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _main_page_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main-page-controller.js */ \"./js/main-page-controller.js\");\n\n\n\nlet page = document.createElement('drag-view')\n\ndocument.getElementsByTagName('main')[0].appendChild(page)\n\nvar toolselected = 'text'\n\nfunction openIndex() {\n  console.log(document.querySelector('.left-pane'))\n  document.querySelector('.left-pane').style.height = '100px'\n}\n\nfunction editPage() {\n  console.log('clicked on page', document.querySelector())\n  if (toolselected == 'text') {\n  }\n  if (toolselected == 'image') {\n  }\n}\n\n/**\n * Main page control\n */\nconst mainPageBody = document.querySelector('body')\nconst mainPageController = new _main_page_controller_js__WEBPACK_IMPORTED_MODULE_1__.MainPageController(mainPageBody)\n\n/**\n * Code Example\n */\nmainPageController.onTasksButtonClicked()\n\n\n//# sourceURL=webpack://source/./js/script.js?");
 
 /***/ }),
 

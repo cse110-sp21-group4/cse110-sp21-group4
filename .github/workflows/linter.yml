@@ -4,14 +4,12 @@ on:
     push:
         branches:
             - main
-            - develop
         paths:
             - 'source/**'
             - '.github/**'
     pull_request:
         branches:
             - main
-            - develop
         paths:
             - 'source/**'
             - '.github/**'
@@ -30,7 +28,7 @@ jobs:
                   DEFAULT_BRANCH: main
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   IGNORE_GITIGNORED_FILES: true
-                  DISABLE_ERRORS: false
+                  DISABLE_ERRORS: true
                   VALIDATE_ALL_CODEBASE: false
                   JAVASCRIPT_DEFAULT_STYLE: prettier
                   FILTER_REGEX_EXCLUDE: source/build/**

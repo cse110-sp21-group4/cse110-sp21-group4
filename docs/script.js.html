@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: script.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,45 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: script.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { DragView } from './widgets/drag-view.js'
+import { MainPageController } from './main-page-controller.js'
 
+let page = document.createElement('drag-view')
 
-    <h3> </h3>
+document.getElementsByTagName('main')[0].appendChild(page)
 
+var toolselected = 'text'
 
+function openIndex() {
+  console.log(document.querySelector('.left-pane'))
+  document.querySelector('.left-pane').style.height = '100px'
+}
 
+function editPage() {
+  console.log('clicked on page', document.querySelector())
+  if (toolselected == 'text') {
+  }
+  if (toolselected == 'image') {
+  }
+}
 
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ * Main page control
+ */
+const mainPageBody = document.querySelector('body')
+const mainPageController = new MainPageController(mainPageBody)
+</code></pre>
+        </article>
+    </section>
 
 
 
