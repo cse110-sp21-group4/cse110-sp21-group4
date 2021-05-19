@@ -6,7 +6,19 @@ export class MainPageController {
   }
 
   registerListeners() {
-    document.querySelector('').addEventListener('', () => {})
+    document.querySelector("#index-button").addEventListener("click", () => {
+      /*
+      var v = document.getElementById("left-pane");
+      if (v.style.display === "none") {
+         v.style.display = "block";
+      } else {
+         v.style.display = "none";
+      }
+      */
+     console.log("hello");
+
+    })
+    
   }
 
   //Example code
