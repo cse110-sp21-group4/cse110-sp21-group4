@@ -28,6 +28,9 @@ export class TextBox {
   }
 
   set bullet(bullet) {
+    if (this.bullet) {
+      this.removeBullet()
+    }
     this.blt = bullet
     this.draggableFrame.appendChild(this.blt)
     const bulletStyle = window.getComputedStyle(this.blt)
@@ -66,6 +69,19 @@ export class TextBox {
       }
     })
     this.textListeners.push({
+      eventType: 'mouseover',
+      callback: (e) => {
+        this.text.classList.add('mouse-over')
+      }
+    })
+    this.textListeners.push({
+      eventType: 'mouseout',
+      callback: (e) => {
+        this.text.classList.remove('mouse-over')
+      }
+    })
+
+    this.textListeners.push({
       eventType: 'focus',
       callback: (e) => {
         //console.log('focus')
@@ -80,8 +96,17 @@ export class TextBox {
       eventType: 'blur',
       callback: (e) => {
         //console.log('blur')
-        this.text.classList.remove('focus')
-        this.text.style.resize = 'none'
+        //console.log(this.text.value.trim() === '')
+        //console.log(this.text.classList.contains('mouse-over'))
+        if (
+          this.text.value.trim() === '' &&
+          !this.text.classList.contains('mouse-over')
+        ) {
+          this.removeSelf()
+        } else {
+          this.text.classList.remove('focus')
+          this.text.style.resize = 'none'
+        }
       }
     })
     this.textListeners.push({
@@ -89,12 +114,18 @@ export class TextBox {
       callback: (e) => {
         if (e.key === 'Delete') {
           //console.log('delete')
-          this.draggableFrame.removeChild(this.text)
-          this.observers.remove.forEach((callback, i) => {
-            callback(this)
-          })
+          this.removeSelf()
         }
       }
+    })
+  }
+  removeSelf() {
+    this.draggableFrame.removeChild(this.text)
+    if (this.bullet) {
+      this.draggableFrame.removeChild(this.bullet)
+    }
+    this.observers.remove.forEach((callback, i) => {
+      callback(this)
     })
   }
 

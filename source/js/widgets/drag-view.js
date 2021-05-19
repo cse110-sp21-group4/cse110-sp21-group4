@@ -40,27 +40,29 @@ export class DragView extends HTMLElement {
             position:absolute;
             background-color: black;
             display:block;
-            height: 8px;
-            width: 8px;
+            border: 1.5px solid black;
+            height: 4px;
+            width: 4px;
           }
           .bullet-circle {
             display:block;
             position:absolute;
-            corner-radius: 4px;
+            border-radius: 50%;
             background: transparent;
-            border: 1px solid black;
+            border: 1.5px solid black;
             display:block;
-            height: 8px;
-            width: 8px;
+            height: 4px;
+            width: 4px;
           }
           .bullet-dot {
-            display:block;
+            display: block;
             position:absolute;
-            corner-radius: 4px;
+            border-radius: 50%;
+            border: 1.5px solid black;
             background-color: black;
             display:block;
-            height: 8px;
-            width: 8px;
+            height: 4px;
+            width: 4px;
           }
 
         </style>
@@ -126,7 +128,7 @@ export class DragView extends HTMLElement {
    * @returns {Image} a block displayed bullet(Image)
    */
   addBulletToText(textBox, bulletType) {
-    const bullet = document.createElement('div')
+    const bullet = document.createElement('span')
     switch (bulletType) {
       case 'circle':
         bullet.classList.add('bullet-circle')
