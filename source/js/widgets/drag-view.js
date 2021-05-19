@@ -128,7 +128,10 @@ export class DragView extends HTMLElement {
    * @returns {Image} a block displayed bullet(Image)
    */
   addBulletToText(textBox, bulletType) {
-    const bullet = document.createElement('span')
+    if (textBox.text.value.trim() === '') {
+      return
+    }
+    const bullet = document.createElement('div')
     switch (bulletType) {
       case 'circle':
         bullet.classList.add('bullet-circle')
