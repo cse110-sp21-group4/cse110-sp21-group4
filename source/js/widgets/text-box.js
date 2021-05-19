@@ -7,8 +7,9 @@ export class TextBox {
       this.blt = bullet
     }
     this.textListeners = []
+    this.bulletMargin = 10
 
-    this.observers = { remove: [] }
+    this.observers = { remove: [], focus: [] }
 
     this.initializeText()
     this.initializeEventListeners()
@@ -21,8 +22,35 @@ export class TextBox {
     this.text.style.background = 'transparent'
   }
 
+  removeBullet() {
+    this.draggableFrame.removeChild(this.blt)
+    this.blt = undefined
+  }
+
   set bullet(bullet) {
     this.blt = bullet
+    this.draggableFrame.appendChild(this.blt)
+    const bulletStyle = window.getComputedStyle(this.blt)
+    const textStyle = window.getComputedStyle(this.text)
+    //console.log(bulletStyle.height, bulletStyle.bottom)
+    this.bulletHeight = parseFloat(bulletStyle.height)
+    this.bulletWidth = parseFloat(bulletStyle.width)
+
+    const topBulletMargin =
+      parseFloat(textStyle.padding) +
+      0.6 * parseFloat(textStyle.fontSize) -
+      this.bulletHeight / 2
+    this.blt.style.top = parseFloat(textStyle.top) + topBulletMargin + 'px'
+    this.blt.style.left =
+      parseFloat(textStyle.left) -
+      this.bulletWidth / 2 -
+      this.bulletMargin +
+      'px'
+
+    //console.log(this.bulletHeight)
+    //console.log(topBulletMargin)
+    //console.log(textStyle.top)
+
     this.setEventListeners()
   }
 
@@ -40,15 +68,18 @@ export class TextBox {
     this.textListeners.push({
       eventType: 'focus',
       callback: (e) => {
-        console.log('focus')
+        //console.log('focus')
         this.text.classList.add('focus')
         this.text.style.resize = 'both'
+        this.observers.focus.forEach((callback, i) => {
+          callback(this)
+        })
       }
     })
     this.textListeners.push({
       eventType: 'blur',
       callback: (e) => {
-        console.log('blur')
+        //console.log('blur')
         this.text.classList.remove('focus')
         this.text.style.resize = 'none'
       }
@@ -57,7 +88,7 @@ export class TextBox {
       eventType: 'keydown',
       callback: (e) => {
         if (e.key === 'Delete') {
-          console.log('delete')
+          //console.log('delete')
           this.draggableFrame.removeChild(this.text)
           this.observers.remove.forEach((callback, i) => {
             callback(this)
@@ -85,27 +116,46 @@ export class TextBox {
     this.text.draggable = true
     let framePosition = {}
     let mousePosition = {}
-    let elementPosition = {}
     this.text.addEventListener('dragstart', (e) => {
       framePosition = this.draggableFrame.getBoundingClientRect()
-      elementPosition = this.text.getBoundingClientRect()
-
       mousePosition.x = e.clientX
       mousePosition.y = e.clientY
+
+      //console.log('dragstart')
+      if (this.bullet) {
+        this.bullet.classList.add('dragging')
+        this.bullet.style.display = 'none'
+      }
     })
     this.text.addEventListener('drag', (e) => {
-      e.target.classList.add('dragging')
+      this.text.classList.add('dragging')
+      //console.log('dragging')
     })
     this.text.addEventListener('dragend', (e) => {
       e.preventDefault()
+
       //console.log('dragend')
-      e.target.classList.remove('dragging')
+      this.text.classList.remove('dragging')
 
       const deltaX = e.clientX - mousePosition.x
       const deltaY = e.clientY - mousePosition.y
 
-      this.text.style.left = elementPosition.x - framePosition.x + deltaX + 'px'
-      this.text.style.top = elementPosition.y - framePosition.y + deltaY + 'px'
+      const textPosition = this.text.getBoundingClientRect()
+      this.text.style.left = textPosition.x - framePosition.x + deltaX + 'px'
+      this.text.style.top = textPosition.y - framePosition.y + deltaY + 'px'
+
+      //console.log(this.bullet)
+
+      if (this.bullet) {
+        this.bullet.style.display = 'block'
+        const bulletPosition = this.bullet.getBoundingClientRect()
+        this.bullet.style.left =
+          bulletPosition.x - framePosition.x + deltaX + 'px'
+        this.bullet.style.top =
+          bulletPosition.y - framePosition.y + deltaY + 'px'
+        this.bullet.classList.remove('dragging')
+      }
+
       this.text.focus()
     })
   }
@@ -124,10 +174,14 @@ export class TextBox {
   }
 
   removeAllListeners() {
-    this.observers = { remove: [] }
+    this.observers = { remove: [], focus: [] }
   }
 
   focus() {
     this.text.focus()
   }
+
+  /**
+   * Helpers
+   */
 }

@@ -32,16 +32,20 @@ export class DragView extends HTMLElement {
             height: 20px;
             font-size: 20px;
             width: 200px;
-            border: 1px solid red;
+            border: none;
           }
 
           .bullet-square {
+            display:block;
+            position:absolute;
             background-color: black;
             display:block;
             height: 8px;
             width: 8px;
           }
           .bullet-circle {
+            display:block;
+            position:absolute;
             corner-radius: 4px;
             background: transparent;
             border: 1px solid black;
@@ -50,6 +54,8 @@ export class DragView extends HTMLElement {
             width: 8px;
           }
           .bullet-dot {
+            display:block;
+            position:absolute;
             corner-radius: 4px;
             background-color: black;
             display:block;
@@ -72,7 +78,9 @@ export class DragView extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true))
     //this.shadowRoot.appendChild(link)
     this.draggableFrame = this.shadowRoot.querySelector('.drag-frame')
+    this.lastFocusedText = undefined
     this.textBoxes = []
+    this.bltType = 'dot'
     this.initializeAttributes()
     this.initializeEventListeners()
   }
@@ -81,7 +89,7 @@ export class DragView extends HTMLElement {
     this.draggableFrame.addEventListener('click', (e) => {
       if (this.createTextOnClick) {
         const framePosition = this.draggableFrame.getBoundingClientRect()
-        console.log('frame: ' + framePosition.x + '  mouse: ' + e.clientX)
+        //console.log('frame: ' + framePosition.x + '  mouse: ' + e.clientX)
         const textPosition = {
           left: e.clientX - framePosition.x - 10 + 'px',
           top: e.clientY - framePosition.y - 20 + 'px'
@@ -95,36 +103,41 @@ export class DragView extends HTMLElement {
     this.textOnClick = true
   }
 
+  toggleBulletFromFocusedText() {
+    if (this.lastFocusedText.bullet) {
+      this.removeBulletFromeFocusedText()
+    } else {
+      this.addBulletToFocusedText()
+    }
+  }
+
+  removeBulletFromeFocusedText() {
+    this.lastFocusedText.removeBullet()
+  }
+
+  addBulletToFocusedText() {
+    this.addBulletToText(this.lastFocusedText, this.bltType)
+  }
+
   /**
    * Add a bullet to a text box
    * @param {*} bulletType 'circle', 'square', 'dot'
    * @param {*} textBox
    * @returns {Image} a block displayed bullet(Image)
    */
-  addBulletToText(bulletType, textBox) {
-    const index = this.textBoxes.index(textBox)
-    if (index == -1) {
-      console.log('Text box not found!')
-      return
-    }
-
-    const blt = new Image()
-    blt.style.display = 'block'
+  addBulletToText(textBox, bulletType) {
+    const bullet = document.createElement('div')
     switch (bulletType) {
       case 'circle':
-        blt.classList.add('bullet-circle')
+        bullet.classList.add('bullet-circle')
         break
       case 'square':
-        blt.classList.add('bullet-square')
+        bullet.classList.add('bullet-square')
         break
       default:
-        blt.classList.add('bullet-dot')
-        break
+        bullet.classList.add('bullet-dot')
     }
-    this.bulletTextBoxes.push({ text: textBox, bullet: blt })
-    this.textBoxes.splice(index, 1)
-
-    return blt
+    textBox.bullet = bullet
   }
 
   /**
@@ -141,6 +154,9 @@ export class DragView extends HTMLElement {
       if (index != -1) {
         this.textBoxes.splice(index, 1)
       }
+    })
+    textBox.addEventListener('focus', (focusTextBox) => {
+      this.lastFocusedText = focusTextBox
     })
     this.textBoxes.push(textBox)
     return textBox
