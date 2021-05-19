@@ -1,4 +1,4 @@
-class DragView extends HTMLElement {
+export class DragView extends HTMLElement {
   constructor() {
     super()
     const template = document.createElement('template')

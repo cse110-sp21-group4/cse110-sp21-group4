@@ -26,3 +26,9 @@ function editPage() {
  */
 const mainPageBody = document.querySelector('body')
 const mainPageController = new MainPageController(mainPageBody)
+
+window.addEventListener('load', () => {
+   mainPageController.registerListeners();
+
+
+})
