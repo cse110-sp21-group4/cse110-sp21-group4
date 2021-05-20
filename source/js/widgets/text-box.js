@@ -89,7 +89,7 @@ export class TextBox {
         this.text.classList.add('focus')
         this.text.style.resize = 'both'
         this.observers.focus.forEach((callback, i) => {
-          callback(this)
+          callback()
         })
       }
     })

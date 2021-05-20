@@ -171,8 +171,8 @@ export class DragView extends HTMLElement {
         this.textBoxes.splice(index, 1)
       }
     })
-    textBox.addEventListener('focus', (focusTextBox) => {
-      this.lastFocusedText = focusTextBox
+    textBox.addEventListener('focus', () => {
+      this.lastFocusedText = textBox
     })
 
     this.textBoxes.push(textBox)
