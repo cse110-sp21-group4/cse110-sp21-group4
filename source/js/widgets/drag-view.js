@@ -99,6 +99,17 @@ export class DragView extends HTMLElement {
         this.addDraggableTextBox(textPosition).focus()
       }
     })
+    this.draggableFrame.addEventListener('mouseout', (e) => {
+      this.textBoxes.forEach((textBox, index) => {
+        textBox.onDraggableFrameMouseOut()
+      })
+    })
+
+    this.draggableFrame.addEventListener('mouseenter', (e) => {
+      this.textBoxes.forEach((textBox, index) => {
+        textBox.onDraggableFrameMouseEnter()
+      })
+    })
   }
 
   initializeAttributes() {
@@ -128,7 +139,7 @@ export class DragView extends HTMLElement {
    * @returns {Image} a block displayed bullet(Image)
    */
   addBulletToText(textBox, bulletType) {
-    if (textBox.text.value.trim() === '') {
+    if (textBox.removed) {
       return
     }
     const bullet = document.createElement('div')
@@ -163,7 +174,9 @@ export class DragView extends HTMLElement {
     textBox.addEventListener('focus', (focusTextBox) => {
       this.lastFocusedText = focusTextBox
     })
+
     this.textBoxes.push(textBox)
+
     return textBox
   }
 

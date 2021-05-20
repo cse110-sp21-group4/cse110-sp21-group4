@@ -10,6 +10,7 @@ export class TextBox {
     this.bulletMargin = 10
 
     this.observers = { remove: [], focus: [] }
+    this.removed = false
 
     this.initializeText()
     this.initializeEventListeners()
@@ -95,13 +96,10 @@ export class TextBox {
     this.textListeners.push({
       eventType: 'blur',
       callback: (e) => {
-        //console.log('blur')
+        console.log('blur')
         //console.log(this.text.value.trim() === '')
         //console.log(this.text.classList.contains('mouse-over'))
-        if (
-          this.text.value.trim() === '' &&
-          !this.text.classList.contains('mouse-over')
-        ) {
+        if (this.hasNothing() && !this.text.classList.contains('mouse-over')) {
           this.removeSelf()
         } else {
           this.text.classList.remove('focus')
@@ -119,7 +117,9 @@ export class TextBox {
       }
     })
   }
+
   removeSelf() {
+    this.removed = true
     this.draggableFrame.removeChild(this.text)
     if (this.bullet) {
       this.draggableFrame.removeChild(this.bullet)
@@ -212,6 +212,19 @@ export class TextBox {
     this.text.focus()
   }
 
+  hasNothing() {
+    return this.text.value.trim() === '' && !this.bullet
+  }
+
+  onDraggableFrameMouseOut() {
+    //this.textListeners.forEach((listener, index) => {
+    //this.text.removeEventListener(listener.eventType, listener.callback)
+    //})
+  }
+
+  onDraggableFrameMouseEnter() {
+    //this.setEventListeners()
+  }
   /**
    * Helpers
    */
