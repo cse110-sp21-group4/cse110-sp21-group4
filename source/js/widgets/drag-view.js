@@ -99,7 +99,7 @@ export class DragView extends HTMLElement {
         this.addDraggableTextBox(textPosition).focus()
       }
     })
-    this.draggableFrame.addEventListener('mouseout', (e) => {
+    this.draggableFrame.addEventListener('mouseleave', (e) => {
       this.textBoxes.forEach((textBox, index) => {
         textBox.onDraggableFrameMouseOut()
       })

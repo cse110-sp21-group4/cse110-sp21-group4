@@ -9,7 +9,7 @@ export class TextBox {
     this.textListeners = []
     this.bulletMargin = 10
 
-    this.observers = { remove: [], focus: [] }
+    this.observers = { remove: [], focus: [], blur: [] }
     this.removed = false
 
     this.initializeText()
@@ -76,7 +76,7 @@ export class TextBox {
       }
     })
     this.textListeners.push({
-      eventType: 'mouseout',
+      eventType: 'mouseleave',
       callback: (e) => {
         this.text.classList.remove('mouse-over')
       }
@@ -96,15 +96,18 @@ export class TextBox {
     this.textListeners.push({
       eventType: 'blur',
       callback: (e) => {
-        console.log('blur')
+        //console.log('blur')
+        this.observers.blur.forEach((callback, i) => {
+          callback()
+        })
         //console.log(this.text.value.trim() === '')
         //console.log(this.text.classList.contains('mouse-over'))
         if (this.hasNothing() && !this.text.classList.contains('mouse-over')) {
           this.removeSelf()
         } else {
           this.text.classList.remove('focus')
-          this.text.style.resize = 'none'
         }
+        this.text.style.resize = 'none'
       }
     })
     this.textListeners.push({
@@ -217,13 +220,13 @@ export class TextBox {
   }
 
   onDraggableFrameMouseOut() {
-    //this.textListeners.forEach((listener, index) => {
-    //this.text.removeEventListener(listener.eventType, listener.callback)
-    //})
+    this.textListeners.forEach((listener, index) => {
+      this.text.removeEventListener(listener.eventType, listener.callback)
+    })
   }
 
   onDraggableFrameMouseEnter() {
-    //this.setEventListeners()
+    this.setEventListeners()
   }
   /**
    * Helpers
