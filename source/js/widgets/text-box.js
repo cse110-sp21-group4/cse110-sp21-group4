@@ -179,6 +179,22 @@ export class TextBox {
     return this.pos
   }
 
+  /**
+   * translate vertically
+   * @param {number} targetPosition position in the viewport
+   */
+  translateY(targetPosition) {
+    this.text.transform = 'translateY(' + targetPosition + 'px)'
+    //TODO
+    if (this.bullet) {
+      const deltaY = targetPosition - this.text.getBoundingClientRect().top
+      this.bullet.transform =
+        'translateY(' +
+        (this.bullet.getBoundingClientRect().top + deltaY) +
+        'px)'
+    }
+  }
+
   enableDragAndDrop() {
     this.text.classList.add('draggable')
     this.text.draggable = true

@@ -33,6 +33,7 @@ export class DragView extends HTMLElement {
             font-size: 20px;
             width: 200px;
             border: none;
+            transition: transform 0.5s;
           }
 
           .bullet-square {
@@ -43,7 +44,9 @@ export class DragView extends HTMLElement {
             border: 1.5px solid black;
             height: 4px;
             width: 4px;
+            transition: transform 0.5s;
           }
+
           .bullet-circle {
             display:block;
             position:absolute;
@@ -53,6 +56,7 @@ export class DragView extends HTMLElement {
             display:block;
             height: 4px;
             width: 4px;
+            transition: transform 0.5s;
           }
           .bullet-dot {
             display: block;
@@ -63,9 +67,6 @@ export class DragView extends HTMLElement {
             display:block;
             height: 4px;
             width: 4px;
-          }
-
-          .move-in-ease {
             transition: transform 0.5s;
           }
 
@@ -125,6 +126,8 @@ export class DragView extends HTMLElement {
     this.baselineFontSize = 20
     this.defaultPadding = 15
     this.defaultTabSize = 4
+    this.lineSpacing = 12
+    this.magneticPotentialThreshold = 20
   }
 
   toggleBulletFromFocusedText() {
@@ -210,16 +213,41 @@ export class DragView extends HTMLElement {
   }
 
   magneticPositioning(child) {
-    if (!this.magneticPositioning) return
+    if (!this.enableMagneticPositioning) return
     const nearest = this.getNearestChild(child)
+    if (nearest) {
+      console.log('find nearest')
+      this.moveDraggableChildByAnimation(child.nearest)
+    }
   }
 
   /**
    * move a child to target by animation
    * @param {object} child a draggable child
-   * @returns {object} {element: node, pos: '123px', side: 'bottom'}
+   * @returns {object} {element: node, pos: 123, side: 'bottom'}
    */
-  moveDraggableChildByAnimation(child, target) {}
+  moveDraggableChildByAnimation(child, target) {
+    const framePos = this.draggableFrame.getBoundingClientRect()
+    switch (target.side) {
+      case 'top':
+        child.translateY(framePos.top + target.pos + this.lineSpacing)
+        break
+      case 'bottom':
+        child.translateY(
+          framePos.top +
+            target.pos -
+            (parseInt(child.style.bottom) - parseInt(child.style.top)) -
+            this.lineSpacing
+        )
+        break
+      default:
+        child.translateY(
+          framePos.top +
+            target.pos -
+            (parseInt(child.style.bottom) - parseInt(child.style.top)) / 2
+        )
+    }
+  }
 
   /**
    * Helpers
@@ -251,26 +279,28 @@ export class DragView extends HTMLElement {
           distanceTop,
           distanceCenter
         )
-        if (minObjectsDistance < minDistance) {
+        if (
+          minObjectsDistance < magneticPotentialThreshold &&
+          minObjectsDistance < minDistance
+        ) {
           minDistance = minObjectsDistance
           nearestChild.element = dChild
 
           switch (minObjectsDistance) {
             case distanceBottom:
               nearestChild.side = 'bottom'
-              nearestChild.pos = dChild.style.top
+              nearestChild.pos = parseFloat(dChild.style.top)
               break
             case distanceTop:
               nearestChild.side = 'top'
-              nearestChild.pos = dChild.style.bottom
+              nearestChild.pos = parseFloat(dChild.style.bottom)
               break
             default:
               nearestChild.side = 'cernter'
               nearestChild.pos =
                 (parseFloat(dChild.style.bottom) -
                   parseFloat(dChild.style.top)) /
-                  2 +
-                'px'
+                2
           }
         }
       }
