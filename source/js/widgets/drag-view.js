@@ -89,6 +89,7 @@ export class DragView extends HTMLElement {
         const framePosition = this.draggableFrame.getBoundingClientRect()
         //console.log('frame: ' + framePosition.x + '  mouse: ' + e.clientX)
         const textPosition = {
+          //TODO 10, 20 should be variables
           left: e.clientX - framePosition.x - 10 + 'px',
           top: e.clientY - framePosition.y - 20 + 'px'
         }
@@ -117,6 +118,7 @@ export class DragView extends HTMLElement {
     this.bulletMargin = 10
     this.baselineFontSize = 20
     this.defaultPadding = 15
+    this.defaultTabSize = 4
   }
 
   toggleBulletFromFocusedText() {
@@ -178,6 +180,13 @@ export class DragView extends HTMLElement {
       this.lastFocusedText = textBox
     })
 
+    textBox.addEventListener('tabpressed', () => {
+      const newX = this.getNextTabPosition(textBox.text.getBoundingClientRect())
+      console.log('old: ' + textBox.position.left, textBox.position.top)
+      console.log('new: ' + newX + 'px', textBox.position.top)
+      textBox.position = { left: newX + 'px', top: textBox.position.top }
+    })
+
     this.textBoxes.push(textBox)
 
     return textBox
@@ -191,8 +200,35 @@ export class DragView extends HTMLElement {
    * @returns {null} returns the draggable frame itself
    */
   addDraggableElement(childElement, coordinates) {
-    childElement.addToDraggableFrame(coordinates)
+    childElement.position = coordinates
     childElement.enableDragAndDrop()
+  }
+
+  /**
+   * Helpers
+   */
+
+  /**
+   * Calculate the next tab position
+   * @param {object} childPosition the object return by the getBoundingClientRect() method
+   * @returns the horizontal position relative to the parent
+   */
+  getNextTabPosition(childPosition) {
+    const framePosition = this.draggableFrame.getBoundingClientRect()
+    const frameWidth = framePosition.right - framePosition.left
+
+    const tabIndex = Math.ceil(
+      (childPosition.x -
+        framePosition.x -
+        this.defaultPadding -
+        this.bulletMargin) /
+        (this.baselineFontSize * this.defaultTabSize)
+    )
+    return (
+      this.defaultPadding +
+      this.bulletMargin +
+      tabIndex * (this.baselineFontSize * this.defaultTabSize)
+    )
   }
 
   /**

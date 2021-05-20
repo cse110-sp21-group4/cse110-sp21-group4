@@ -21,6 +21,7 @@ export class TextBox {
     this.text = document.createElement('textarea')
     this.text.classList.add('textbox')
     this.text.style.background = 'transparent'
+    this.draggableFrame.appendChild(this.text)
   }
 
   removeBullet() {
@@ -124,6 +125,7 @@ export class TextBox {
       eventType: 'keydown',
       callback: (e) => {
         if (e.key === 'Tab') {
+          e.preventDefault()
           console.log('Tab')
           this.observers.tabpressed.forEach((callback, i) => {
             callback()
@@ -151,10 +153,30 @@ export class TextBox {
     })
   }
 
-  addToDraggableFrame(coordinates) {
-    this.draggableFrame.appendChild(this.text)
+  /**
+   * Set the position of the text relative to its parent
+   * @param {object} coordinates {left: '123px', top: '1231px'}
+   */
+  set position(coordinates) {
+    if (this.bullet) {
+      this.bullet.style.left =
+        parseFloat(this.bullet.style.left) +
+        parseFloat(coordinates.left) -
+        parseFloat(this.pos.left) +
+        'px'
+      this.bullet.style.top =
+        parseFloat(this.bullet.style.top) +
+        parseFloat(coordinates.top) -
+        parseFloat(this.pos.top) +
+        'px'
+    }
+    this.pos = coordinates
     this.text.style.left = coordinates.left
     this.text.style.top = coordinates.top
+  }
+
+  get position() {
+    return this.pos
   }
 
   enableDragAndDrop() {
@@ -186,20 +208,16 @@ export class TextBox {
       const deltaX = e.clientX - mousePosition.x
       const deltaY = e.clientY - mousePosition.y
 
-      const textPosition = this.text.getBoundingClientRect()
-      this.text.style.left = textPosition.x - framePosition.x + deltaX + 'px'
-      this.text.style.top = textPosition.y - framePosition.y + deltaY + 'px'
-
       //console.log(this.bullet)
 
       if (this.bullet) {
         this.bullet.style.display = 'block'
-        const bulletPosition = this.bullet.getBoundingClientRect()
-        this.bullet.style.left =
-          bulletPosition.x - framePosition.x + deltaX + 'px'
-        this.bullet.style.top =
-          bulletPosition.y - framePosition.y + deltaY + 'px'
         this.bullet.classList.remove('dragging')
+      }
+
+      this.position = {
+        left: parseFloat(this.position.left) + deltaX + 'px',
+        top: parseFloat(this.position.top) + deltaY + 'px'
       }
 
       this.text.focus()
