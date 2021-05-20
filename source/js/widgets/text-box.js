@@ -220,6 +220,8 @@ export class TextBox {
         top: parseFloat(this.position.top) + deltaY + 'px'
       }
 
+      this.draggableFrame.magneticPositioning(this)
+
       this.text.focus()
     })
   }

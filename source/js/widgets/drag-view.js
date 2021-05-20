@@ -65,6 +65,10 @@ export class DragView extends HTMLElement {
             width: 4px;
           }
 
+          .move-in-ease {
+            transition: transform 0.5s;
+          }
+
         </style>
         <div class="drag-frame">
         </div>
@@ -113,8 +117,10 @@ export class DragView extends HTMLElement {
     this.draggableFrame = this.shadowRoot.querySelector('.drag-frame')
     this.lastFocusedText = undefined
     this.textBoxes = []
+    this.draggableChildren = []
     this.bltType = 'dot'
     this.textOnClick = true
+    this.enableMagneticPositioning = true
     this.bulletMargin = 10
     this.baselineFontSize = 20
     this.defaultPadding = 15
@@ -171,10 +177,8 @@ export class DragView extends HTMLElement {
     const textBox = new TextBox(this.draggableFrame)
     this.addDraggableElement(textBox, coordinates)
     textBox.addEventListener('remove', (child) => {
-      const index = this.textBoxes.indexOf(child)
-      if (index != -1) {
-        this.textBoxes.splice(index, 1)
-      }
+      this.removeArrayElement(child, this.textBoxes)
+      this.removeArrayElement(child, this.draggableChildren)
     })
     textBox.addEventListener('focus', () => {
       this.lastFocusedText = textBox
@@ -188,6 +192,7 @@ export class DragView extends HTMLElement {
     })
 
     this.textBoxes.push(textBox)
+    this.draggableChildren.push[textBox]
 
     return textBox
   }
@@ -199,14 +204,86 @@ export class DragView extends HTMLElement {
    * @param {object} coordinats {left: "123px", top: "356px"}
    * @returns {null} returns the draggable frame itself
    */
-  addDraggableElement(childElement, coordinates) {
-    childElement.position = coordinates
-    childElement.enableDragAndDrop()
+  addDraggableElement(child, coordinates) {
+    child.position = coordinates
+    child.enableDragAndDrop()
   }
+
+  magneticPositioning(child) {
+    if (!this.magneticPositioning) return
+    const nearest = this.getNearestChild(child)
+  }
+
+  /**
+   * move a child to target by animation
+   * @param {object} child a draggable child
+   * @returns {object} {element: node, pos: '123px', side: 'bottom'}
+   */
+  moveDraggableChildByAnimation(child, target) {}
 
   /**
    * Helpers
    */
+
+  /**
+   * Get a nearest draggable element from a child
+   * @param {object} child a draggable child
+   * @returns {object} {element: node, pos: '123px', side: 'bottom'}
+   */
+  getNearestChild(child) {
+    let minDistance = Infinity
+    const nearestChild = {}
+    this.draggableChildren.forEach((dChild, index) => {
+      if (dChild.style.top & dChild.style.bottom) {
+        const distanceBottom = Math.abs(
+          parseFloat(child.style.bottom) - parseFloat(dChild.style.top)
+        )
+        const distanceTop = Math.abs(
+          parseFloat(child.style.top) - parseFloat(dChild.style.bottom)
+        )
+        const distanceCenter = Math.abs(
+          (parseFloat(child.style.bottom) - parseFloat(child.style.top)) / 2 -
+            (parseFloat(dChild.style.bottom) - parseFloat(dChild.style.top)) / 2
+        )
+
+        const minObjectsDistance = Math.min(
+          distanceBottom,
+          distanceTop,
+          distanceCenter
+        )
+        if (minObjectsDistance < minDistance) {
+          minDistance = minObjectsDistance
+          nearestChild.element = dChild
+
+          switch (minObjectsDistance) {
+            case distanceBottom:
+              nearestChild.side = 'bottom'
+              nearestChild.pos = dChild.style.top
+              break
+            case distanceTop:
+              nearestChild.side = 'top'
+              nearestChild.pos = dChild.style.bottom
+              break
+            default:
+              nearestChild.side = 'cernter'
+              nearestChild.pos =
+                (parseFloat(dChild.style.bottom) -
+                  parseFloat(dChild.style.top)) /
+                  2 +
+                'px'
+          }
+        }
+      }
+    })
+    return nearestChild
+  }
+
+  removeArrayElement(element, array) {
+    const index = array.indexOf(element)
+    if (index != -1) {
+      array.splice(index, 1)
+    }
+  }
 
   /**
    * Calculate the next tab position
