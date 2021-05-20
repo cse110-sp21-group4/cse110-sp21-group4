@@ -79,11 +79,7 @@ export class DragView extends HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
     //this.shadowRoot.appendChild(link)
-    this.draggableFrame = this.shadowRoot.querySelector('.drag-frame')
-    this.lastFocusedText = undefined
-    this.textBoxes = []
-    this.bltType = 'dot'
-    this.initializeAttributes()
+    this.initializeFields()
     this.initializeEventListeners()
   }
 
@@ -112,8 +108,15 @@ export class DragView extends HTMLElement {
     })
   }
 
-  initializeAttributes() {
+  initializeFields() {
+    this.draggableFrame = this.shadowRoot.querySelector('.drag-frame')
+    this.lastFocusedText = undefined
+    this.textBoxes = []
+    this.bltType = 'dot'
     this.textOnClick = true
+    this.bulletMargin = 10
+    this.baselineFontSize = 20
+    this.defaultPadding = 15
   }
 
   toggleBulletFromFocusedText() {

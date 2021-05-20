@@ -9,7 +9,7 @@ export class TextBox {
     this.textListeners = []
     this.bulletMargin = 10
 
-    this.observers = { remove: [], focus: [], blur: [] }
+    this.observers = { remove: [], focus: [], blur: [], tabpressed: [] }
     this.removed = false
 
     this.initializeText()
@@ -116,6 +116,18 @@ export class TextBox {
         if (e.key === 'Delete') {
           //console.log('delete')
           this.removeSelf()
+        }
+      }
+    })
+
+    this.textListeners.push({
+      eventType: 'keydown',
+      callback: (e) => {
+        if (e.key === 'Tab') {
+          console.log('Tab')
+          this.observers.tabpressed.forEach((callback, i) => {
+            callback()
+          })
         }
       }
     })
