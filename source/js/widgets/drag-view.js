@@ -211,6 +211,20 @@ export class DragView extends HTMLElement {
         }
       }
     })
+    textBox.addEventListener('shiftenter', (e) => {
+      const framePosition = this.draggableFrame.getBoundingClientRect()
+      //console.log('frame: ' + framePosition.x + '  mouse: ' + e.clientX)
+      const textPosition = {
+        //TODO 10, 20 should be variables
+        left: textBox.position.left,
+        top:
+          parseFloat(textBox.position.top) +
+          textBox.text.getBoundingClientRect().height +
+          this.lineSpacing +
+          'px'
+      }
+      this.addDraggableTextBox(textPosition).focus()
+    })
 
     this.textBoxes.push(textBox)
     this.draggableChildren.push(textBox)
