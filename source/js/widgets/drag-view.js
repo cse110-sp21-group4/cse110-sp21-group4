@@ -124,6 +124,7 @@ export class DragView extends HTMLElement {
     this.defaultTabSize = 2
     this.lineSpacing = 0
     this.magneticPotentialThreshold = 20
+    this.bulletStyles = ['dot', 'circle', 'square']
   }
 
   toggleBulletFromFocusedText() {
@@ -153,16 +154,20 @@ export class DragView extends HTMLElement {
       return
     }
     const bullet = document.createElement('div')
-    switch (bulletType) {
-      case 'circle':
-        bullet.classList.add('bullet-circle')
-        break
-      case 'square':
-        bullet.classList.add('bullet-square')
-        break
-      default:
-        bullet.classList.add('bullet-dot')
+
+    let hasStyle = false
+    this.bulletStyles.forEach((stylestr, index) => {
+      if (bulletType == stylestr) {
+        bullet.classList.add('bullet-' + stylestr)
+        hasStyle = true
+        return true
+      }
+    })
+
+    if (!hasStyle) {
+      bullet.classList.add('bullet-dot')
     }
+
     textBox.bullet = bullet
   }
 
@@ -215,7 +220,6 @@ export class DragView extends HTMLElement {
       const framePosition = this.draggableFrame.getBoundingClientRect()
       //console.log('frame: ' + framePosition.x + '  mouse: ' + e.clientX)
       const textPosition = {
-        //TODO 10, 20 should be variables
         left: textBox.position.left,
         top:
           parseFloat(textBox.position.top) +
@@ -223,9 +227,14 @@ export class DragView extends HTMLElement {
           this.lineSpacing +
           'px'
       }
-      this.addDraggableTextBox(textPosition).focus()
+      const newTextBox = this.addDraggableTextBox(textPosition)
+      newTextBox.focus()
       if (textBox.bullet) {
-        this.addBulletToFocusedText()
+        this.bulletStyles.forEach((style, index) => {
+          if (textBox.bullet.classList.contains('bullet-' + style)) {
+            this.addBulletToText(newTextBox, style)
+          }
+        })
       }
     })
 
