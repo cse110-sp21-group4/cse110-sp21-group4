@@ -193,6 +193,22 @@ export class DragView extends HTMLElement {
       console.log('old: ' + textBox.position.left, textBox.position.top)
       console.log('new: ' + newX + 'px', textBox.position.top)
       textBox.position = { left: newX + 'px', top: textBox.position.top }
+
+      //Change bullet when tab
+      if (textBox.bullet) {
+        let bulletIndex = 0
+        this.bulletStyles.forEach((style, index) => {
+          if (textBox.bullet.classList.contains('bullet-' + style)) {
+            bulletIndex =
+              index < this.bulletStyles.length - 1
+                ? index + 1
+                : this.bulletStyles.length - 1
+            return true
+          }
+        })
+        textBox.removeBullet()
+        this.addBulletToText(textBox, this.bulletStyles[bulletIndex])
+      }
     })
 
     textBox.addEventListener('dragend', () => {
@@ -233,6 +249,7 @@ export class DragView extends HTMLElement {
         this.bulletStyles.forEach((style, index) => {
           if (textBox.bullet.classList.contains('bullet-' + style)) {
             this.addBulletToText(newTextBox, style)
+            return true
           }
         })
       }
