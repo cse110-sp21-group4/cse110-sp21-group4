@@ -14,9 +14,13 @@ export class TextBox {
       focus: [],
       blur: [],
       tabpressed: [],
-      dragend: []
+      dragend: [],
+      backspace: [],
+      enter: [],
+      shiftenter: []
     }
     this.removed = false
+    this.keydowns = new Set()
 
     this.initializeText()
     this.initializeEventListeners()
@@ -110,7 +114,11 @@ export class TextBox {
         })
         //console.log(this.text.value.trim() === '')
         //console.log(this.text.classList.contains('mouse-over'))
-        if (this.hasNothing() && !this.text.classList.contains('mouse-over')) {
+        if (
+          !this.removed &&
+          this.hasNothing() &&
+          !this.text.classList.contains('mouse-over')
+        ) {
           this.removeSelf()
         } else {
           this.text.classList.remove('focus')
@@ -121,23 +129,46 @@ export class TextBox {
     this.textListeners.push({
       eventType: 'keydown',
       callback: (e) => {
-        if (e.key === 'Delete') {
-          //console.log('delete')
-          this.removeSelf()
+        this.keydowns.add(e.key)
+        switch (e.key) {
+          case 'Delete':
+            //console.log('delete')
+            this.removeSelf()
+            break
+          case 'Tab':
+            e.preventDefault()
+            console.log('Tab')
+            this.observers.tabpressed.forEach((callback, i) => {
+              callback()
+            })
+            break
+          case 'Backspace':
+            console.log('Backspace')
+            this.observers.backspace.forEach((callback, i) => {
+              callback()
+            })
+            break
+          case 'Enter':
+            if (this.keydowns.has('Shift')) {
+              console.log('Shift + Enter')
+              this.observers.shiftenter.forEach((callback, i) => {
+                callback()
+              })
+            } else {
+              console.log('Enter')
+              this.observers.enter.forEach((callback, i) => {
+                callback()
+              })
+            }
+            break
         }
       }
     })
 
     this.textListeners.push({
-      eventType: 'keydown',
+      eventType: 'keyup',
       callback: (e) => {
-        if (e.key === 'Tab') {
-          e.preventDefault()
-          console.log('Tab')
-          this.observers.tabpressed.forEach((callback, i) => {
-            callback()
-          })
-        }
+        this.keydowns.delete(e.key)
       }
     })
   }
@@ -149,7 +180,7 @@ export class TextBox {
       this.draggableFrame.removeChild(this.bullet)
     }
     this.observers.remove.forEach((callback, i) => {
-      callback(this)
+      callback()
     })
   }
 
@@ -296,7 +327,7 @@ export class TextBox {
   }
 
   hasNothing() {
-    return this.text.value.trim() === '' && !this.bullet
+    return this.text.value === '' && !this.bullet
   }
 
   onDraggableFrameMouseOut() {

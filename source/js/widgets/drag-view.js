@@ -179,9 +179,9 @@ export class DragView extends HTMLElement {
   addDraggableTextBox(coordinates) {
     const textBox = new TextBox(this.draggableFrame)
     this.addDraggableElement(textBox, coordinates)
-    textBox.addEventListener('remove', (child) => {
-      this.removeArrayElement(child, this.textBoxes)
-      this.removeArrayElement(child, this.draggableChildren)
+    textBox.addEventListener('remove', () => {
+      this.removeArrayElement(textBox, this.textBoxes)
+      this.removeArrayElement(textBox, this.draggableChildren)
     })
     textBox.addEventListener('focus', () => {
       this.lastFocusedText = textBox
@@ -189,8 +189,8 @@ export class DragView extends HTMLElement {
 
     textBox.addEventListener('tabpressed', () => {
       const newX = this.getNextTabPosition(textBox.text.getBoundingClientRect())
-      console.log('old: ' + textBox.position.left, textBox.position.top)
-      console.log('new: ' + newX + 'px', textBox.position.top)
+      //console.log('old: ' + textBox.position.left, textBox.position.top)
+      //console.log('new: ' + newX + 'px', textBox.position.top)
       textBox.position = { left: newX + 'px', top: textBox.position.top }
     })
 
@@ -198,14 +198,34 @@ export class DragView extends HTMLElement {
       this.magneticPositioning(textBox)
     })
 
+    textBox.addEventListener('backspace', () => {
+      if (textBox.hasNothing()) {
+        if (this.isFirstTabPosition(textBox.text.getBoundingClientRect())) {
+          console.log('first position, delete')
+          if (!textBox.removed) {
+            textBox.removeSelf()
+            this.removeArrayElement(textBox, this.textBoxes)
+            this.removeArrayElement(textBox, this.draggableChildren)
+          }
+        } else {
+          console.log('Not first position, move left')
+          const newX = this.getPreviousTabPosition(
+            textBox.text.getBoundingClientRect()
+          )
+          console.log(newX)
+          textBox.position = { left: newX + 'px', top: textBox.position.top }
+        }
+      }
+    })
+
     this.textBoxes.push(textBox)
     this.draggableChildren.push(textBox)
-    console.log(
+    /*console.log(
       'boxes vs children:' +
         this.textBoxes.length +
         '|' +
         this.draggableChildren.length
-    )
+    )*/
 
     return textBox
   }
@@ -238,7 +258,6 @@ export class DragView extends HTMLElement {
    */
   moveDraggableChildByAnimation(child, target) {
     console.log('animate..')
-    const framePos = this.draggableFrame.getBoundingClientRect()
     const childPos = child.text.getBoundingClientRect()
     switch (target.side) {
       case 'top':
@@ -343,14 +362,51 @@ export class DragView extends HTMLElement {
     }
   }
 
+  isFirstTabPosition(childPosition) {
+    const firstPosition = this.defaultPadding + this.bulletMargin
+    const framePosition = this.draggableFrame.getBoundingClientRect()
+    console.log('frame position:' + framePosition.x)
+    console.log(
+      'is first: ' +
+        childPosition.left +
+        '|' +
+        (framePosition.x + firstPosition)
+    )
+    return childPosition.left <= framePosition.x + firstPosition
+  }
+
+  /**
+   * Calculate the previous tab position
+   * @param {object} childPosition the object return by the getBoundingClientRect() method
+   * @returns {number} the horizontal previous position relative to the parent
+   */
+  getPreviousTabPosition(childPosition) {
+    const framePosition = this.draggableFrame.getBoundingClientRect()
+
+    console.log('frame position:' + framePosition.x)
+    const tabIndex = Math.floor(
+      (childPosition.x -
+        framePosition.x -
+        this.defaultPadding -
+        this.bulletMargin) /
+        (this.baselineFontSize * this.defaultTabSize) -
+        1.0
+    )
+    console.log('index:' + tabIndex)
+    return (
+      this.defaultPadding +
+      this.bulletMargin +
+      tabIndex * (this.baselineFontSize * this.defaultTabSize)
+    )
+  }
+
   /**
    * Calculate the next tab position
    * @param {object} childPosition the object return by the getBoundingClientRect() method
-   * @returns the horizontal position relative to the parent
+   * @returns {number} the horizontal position relative to the parent
    */
   getNextTabPosition(childPosition) {
     const framePosition = this.draggableFrame.getBoundingClientRect()
-    const frameWidth = framePosition.right - framePosition.left
 
     const tabIndex = Math.ceil(
       (childPosition.x -
