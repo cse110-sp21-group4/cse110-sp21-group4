@@ -184,9 +184,9 @@ export class DragView extends HTMLElement {
     })
 
     textBox.addEventListener('tabpressed', () => {
-      const newX = this.getNextTabPosition(textBox.text.getBoundingClientRect())
-      //console.log('old: ' + textBox.position.left, textBox.position.top)
-      //console.log('new: ' + newX + 'px', textBox.position.top)
+      const newX = this.getNextTabPosition(textBox)
+      console.log('old: ' + textBox.position.left, textBox.position.top)
+      console.log('new: ' + newX + 'px', textBox.position.top)
       textBox.position = { left: newX + 'px', top: textBox.position.top }
     })
 
@@ -196,7 +196,7 @@ export class DragView extends HTMLElement {
 
     textBox.addEventListener('backspace', () => {
       if (textBox.hasNothing()) {
-        if (this.isFirstTabPosition(textBox.text.getBoundingClientRect())) {
+        if (this.lessThanFirstTabPosition(textBox)) {
           console.log('first position, delete')
           if (!textBox.removed) {
             textBox.removeSelf()
@@ -205,9 +205,7 @@ export class DragView extends HTMLElement {
           }
         } else {
           console.log('Not first position, move left')
-          const newX = this.getPreviousTabPosition(
-            textBox.text.getBoundingClientRect()
-          )
+          const newX = this.getPreviousTabPosition(textBox)
           console.log(newX)
           textBox.position = { left: newX + 'px', top: textBox.position.top }
         }
@@ -358,17 +356,11 @@ export class DragView extends HTMLElement {
     }
   }
 
-  isFirstTabPosition(childPosition) {
+  lessThanFirstTabPosition(textBox) {
     const firstPosition = this.defaultPadding + this.bulletMargin
-    const framePosition = this.draggableFrame.getBoundingClientRect()
-    console.log('frame position:' + framePosition.x)
-    console.log(
-      'is first: ' +
-        childPosition.left +
-        '|' +
-        (framePosition.x + firstPosition)
-    )
-    return childPosition.left <= framePosition.x + firstPosition
+
+    console.log(textBox.text.offsetLeft + '|' + firstPosition)
+    return textBox.text.offsetLeft <= firstPosition
   }
 
   /**
@@ -376,15 +368,9 @@ export class DragView extends HTMLElement {
    * @param {object} childPosition the object return by the getBoundingClientRect() method
    * @returns {number} the horizontal previous position relative to the parent
    */
-  getPreviousTabPosition(childPosition) {
-    const framePosition = this.draggableFrame.getBoundingClientRect()
-
-    console.log('frame position:' + framePosition.x)
-    const tabIndex = Math.floor(
-      (childPosition.x -
-        framePosition.x -
-        this.defaultPadding -
-        this.bulletMargin) /
+  getPreviousTabPosition(textBox) {
+    const tabIndex = Math.ceil(
+      (textBox.text.offsetLeft - this.defaultPadding - this.bulletMargin) /
         (this.baselineFontSize * this.defaultTabSize) -
         1.0
     )
@@ -398,18 +384,14 @@ export class DragView extends HTMLElement {
 
   /**
    * Calculate the next tab position
-   * @param {object} childPosition the object return by the getBoundingClientRect() method
+   * @param {object} textBox
    * @returns {number} the horizontal position relative to the parent
    */
-  getNextTabPosition(childPosition) {
-    const framePosition = this.draggableFrame.getBoundingClientRect()
-
-    const tabIndex = Math.ceil(
-      (childPosition.x -
-        framePosition.x -
-        this.defaultPadding -
-        this.bulletMargin) /
-        (this.baselineFontSize * this.defaultTabSize)
+  getNextTabPosition(textBox) {
+    const tabIndex = Math.floor(
+      (textBox.text.offsetLeft - this.defaultPadding - this.bulletMargin) /
+        (this.baselineFontSize * this.defaultTabSize) +
+        1.0
     )
     return (
       this.defaultPadding +
