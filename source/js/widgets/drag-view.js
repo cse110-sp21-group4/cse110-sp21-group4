@@ -224,6 +224,9 @@ export class DragView extends HTMLElement {
           'px'
       }
       this.addDraggableTextBox(textPosition).focus()
+      if (textBox.bullet) {
+        this.addBulletToFocusedText()
+      }
     })
 
     this.textBoxes.push(textBox)
