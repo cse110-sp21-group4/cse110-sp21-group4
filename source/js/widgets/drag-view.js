@@ -195,7 +195,7 @@ export class DragView extends HTMLElement {
     })
 
     textBox.addEventListener('backspace', () => {
-      if (textBox.hasNothing()) {
+      if (textBox.EmptyContent()) {
         if (this.lessThanFirstTabPosition(textBox)) {
           console.log('first position, delete')
           if (!textBox.removed) {

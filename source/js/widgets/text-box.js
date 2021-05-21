@@ -208,6 +208,7 @@ export class TextBox {
         parseFloat(this.pos.top) +
         'px'
     }
+
     this.pos = coordinates
     this.text.style.left = coordinates.left
     this.text.style.top = coordinates.top
@@ -282,15 +283,15 @@ export class TextBox {
       //console.log('dragend')
       this.text.classList.remove('dragging')
 
-      const deltaX = e.clientX - mousePosition.x
-      const deltaY = e.clientY - mousePosition.y
-
-      //console.log(this.bullet)
-
       if (this.bullet) {
         this.bullet.style.display = 'block'
         this.bullet.classList.remove('dragging')
       }
+
+      //console.log(this.bullet)
+
+      const deltaX = e.clientX - mousePosition.x
+      const deltaY = e.clientY - mousePosition.y
 
       this.position = {
         left: parseFloat(this.position.left) + deltaX + 'px',
@@ -300,7 +301,6 @@ export class TextBox {
       this.observers.dragend.forEach((callback, i) => {
         callback()
       })
-
       this.text.focus()
     })
   }
@@ -330,13 +330,19 @@ export class TextBox {
     return this.text.value === '' && !this.bullet
   }
 
+  EmptyContent() {
+    return this.text.value === ''
+  }
+
   onDraggableFrameMouseOut() {
+    console.log('mouseout!')
     this.textListeners.forEach((listener, index) => {
       this.text.removeEventListener(listener.eventType, listener.callback)
     })
   }
 
   onDraggableFrameMouseEnter() {
+    console.log('mousein!')
     this.setEventListeners()
   }
   /**
