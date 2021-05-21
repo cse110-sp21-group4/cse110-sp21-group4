@@ -33,7 +33,6 @@ export class DragView extends HTMLElement {
             font-size: 20px;
             width: 200px;
             border: none;
-            transition: transform 0.5s;
           }
 
           .bullet-square {
@@ -44,7 +43,6 @@ export class DragView extends HTMLElement {
             border: 1.5px solid black;
             height: 4px;
             width: 4px;
-            transition: transform 0.5s;
           }
 
           .bullet-circle {
@@ -56,7 +54,6 @@ export class DragView extends HTMLElement {
             display:block;
             height: 4px;
             width: 4px;
-            transition: transform 0.5s;
           }
           .bullet-dot {
             display: block;
@@ -67,7 +64,6 @@ export class DragView extends HTMLElement {
             display:block;
             height: 4px;
             width: 4px;
-            transition: transform 0.5s;
           }
 
         </style>
