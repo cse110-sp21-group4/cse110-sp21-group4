@@ -123,7 +123,7 @@ export class DragView extends HTMLElement {
     this.defaultPadding = 15
     this.defaultTabSize = 2
     this.lineSpacing = 0
-    this.magneticPotentialThreshold = 20
+    this.magneticPotentialThreshold = 30
     this.bulletStyles = ['dot', 'circle', 'square']
   }
 
