@@ -27,7 +27,7 @@ export class DragView extends HTMLElement {
 
           .textbox {
             resize: none;
-            padding: 8px;
+            padding: 5px;
             overflow: hidden;
             height: 20px;
             font-size: 20px;
@@ -123,10 +123,10 @@ export class DragView extends HTMLElement {
     this.textOnClick = true
     this.enableMagneticPositioning = true
     this.bulletMargin = 10
-    this.baselineFontSize = 20
+    this.baselineFontSize = 14
     this.defaultPadding = 15
-    this.defaultTabSize = 4
-    this.lineSpacing = 12
+    this.defaultTabSize = 2
+    this.lineSpacing = 0
     this.magneticPotentialThreshold = 20
   }
 
@@ -194,8 +194,18 @@ export class DragView extends HTMLElement {
       textBox.position = { left: newX + 'px', top: textBox.position.top }
     })
 
+    textBox.addEventListener('dragend', () => {
+      this.magneticPositioning(textBox)
+    })
+
     this.textBoxes.push(textBox)
-    this.draggableChildren.push[textBox]
+    this.draggableChildren.push(textBox)
+    console.log(
+      'boxes vs children:' +
+        this.textBoxes.length +
+        '|' +
+        this.draggableChildren.length
+    )
 
     return textBox
   }
@@ -216,35 +226,37 @@ export class DragView extends HTMLElement {
     if (!this.enableMagneticPositioning) return
     const nearest = this.getNearestChild(child)
     if (nearest) {
-      console.log('find nearest')
-      this.moveDraggableChildByAnimation(child.nearest)
+      console.log('find nearest: ' + nearest.pos)
+      this.moveDraggableChildByAnimation(child, nearest)
     }
   }
 
   /**
    * move a child to target by animation
    * @param {object} child a draggable child
-   * @returns {object} {element: node, pos: 123, side: 'bottom'}
+   * @returns {object} {element: node, pos: 123, side: 'bottom'} position related to the viewport
    */
   moveDraggableChildByAnimation(child, target) {
+    console.log('animate..')
     const framePos = this.draggableFrame.getBoundingClientRect()
+    const childPos = child.text.getBoundingClientRect()
     switch (target.side) {
       case 'top':
-        child.translateY(framePos.top + target.pos + this.lineSpacing)
+        console.log('animate top..')
+        child.translateY(target.pos + this.lineSpacing)
         break
       case 'bottom':
+        console.log('animate bottom..')
         child.translateY(
-          framePos.top +
-            target.pos -
-            (parseInt(child.style.bottom) - parseInt(child.style.top)) -
+          target.pos -
+            (parseInt(childPos.bottom) - parseInt(childPos.top)) -
             this.lineSpacing
         )
         break
       default:
+        console.log('animate center..')
         child.translateY(
-          framePos.top +
-            target.pos -
-            (parseInt(child.style.bottom) - parseInt(child.style.top)) / 2
+          target.pos - (parseInt(childPos.bottom) - parseInt(childPos.top)) / 2
         )
     }
   }
@@ -260,47 +272,63 @@ export class DragView extends HTMLElement {
    */
   getNearestChild(child) {
     let minDistance = Infinity
-    const nearestChild = {}
+    let nearestChild = undefined
+    //console.log('looking for nearest...')
+    //console.log('draggable children:' + this.draggableChildren.length)
+    const childStyle = child.text.getBoundingClientRect()
     this.draggableChildren.forEach((dChild, index) => {
-      if (dChild.style.top & dChild.style.bottom) {
-        const distanceBottom = Math.abs(
-          parseFloat(child.style.bottom) - parseFloat(dChild.style.top)
-        )
-        const distanceTop = Math.abs(
-          parseFloat(child.style.top) - parseFloat(dChild.style.bottom)
-        )
+      //console.log('child' + index)
+      if (dChild == child) {
+        return
+      }
+      const style = dChild.text.getBoundingClientRect()
+
+      console.log('dchild: ' + style.bottom + '| ' + style.top)
+      console.log('child: ' + childStyle.bottom + '| ' + childStyle.top)
+      if (style.top && style.bottom) {
+        const distanceBottom = Math.abs(childStyle.bottom - style.top)
+        const distanceTop = Math.abs(childStyle.top - style.bottom)
         const distanceCenter = Math.abs(
-          (parseFloat(child.style.bottom) - parseFloat(child.style.top)) / 2 -
-            (parseFloat(dChild.style.bottom) - parseFloat(dChild.style.top)) / 2
+          (childStyle.top + childStyle.bottom) / 2 -
+            (style.top + style.bottom) / 2
         )
 
+        console.log(
+          'top:' +
+            distanceTop +
+            '| bottom:' +
+            distanceBottom +
+            '| center:' +
+            distanceCenter
+        )
         const minObjectsDistance = Math.min(
           distanceBottom,
           distanceTop,
           distanceCenter
         )
+
+        console.log('min distance: ' + minObjectsDistance)
         if (
-          minObjectsDistance < magneticPotentialThreshold &&
+          minObjectsDistance < this.magneticPotentialThreshold &&
           minObjectsDistance < minDistance
         ) {
+          console.log('found nearer')
+          nearestChild = {}
           minDistance = minObjectsDistance
           nearestChild.element = dChild
 
           switch (minObjectsDistance) {
             case distanceBottom:
               nearestChild.side = 'bottom'
-              nearestChild.pos = parseFloat(dChild.style.top)
+              nearestChild.pos = style.top
               break
             case distanceTop:
               nearestChild.side = 'top'
-              nearestChild.pos = parseFloat(dChild.style.bottom)
+              nearestChild.pos = style.bottom
               break
             default:
               nearestChild.side = 'cernter'
-              nearestChild.pos =
-                (parseFloat(dChild.style.bottom) -
-                  parseFloat(dChild.style.top)) /
-                2
+              nearestChild.pos = (style.bottom + style.top) / 2
           }
         }
       }

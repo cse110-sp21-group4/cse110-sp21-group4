@@ -9,7 +9,13 @@ export class TextBox {
     this.textListeners = []
     this.bulletMargin = 10
 
-    this.observers = { remove: [], focus: [], blur: [], tabpressed: [] }
+    this.observers = {
+      remove: [],
+      focus: [],
+      blur: [],
+      tabpressed: [],
+      dragend: []
+    }
     this.removed = false
 
     this.initializeText()
@@ -70,6 +76,7 @@ export class TextBox {
         e.stopImmediatePropagation()
       }
     })
+
     this.textListeners.push({
       eventType: 'mouseover',
       callback: (e) => {
@@ -89,8 +96,8 @@ export class TextBox {
         //console.log('focus')
         this.text.classList.add('focus')
         this.text.style.resize = 'both'
-        this.observers.focus.forEach((callback, i) => {
-          callback()
+        this.observers.focus.forEach((cb, i) => {
+          cb()
         })
       }
     })
@@ -98,8 +105,8 @@ export class TextBox {
       eventType: 'blur',
       callback: (e) => {
         //console.log('blur')
-        this.observers.blur.forEach((callback, i) => {
-          callback()
+        this.observers.blur.forEach((cb, i) => {
+          cb()
         })
         //console.log(this.text.value.trim() === '')
         //console.log(this.text.classList.contains('mouse-over'))
@@ -181,18 +188,41 @@ export class TextBox {
 
   /**
    * translate vertically
-   * @param {number} targetPosition position in the viewport
+   * @param {number} targetX position in the viewport
+   * @param {number} targetY position in the viewport
+   * @param {number} speed px / second
    */
-  translateY(targetPosition) {
-    this.text.transform = 'translateY(' + targetPosition + 'px)'
-    //TODO
+  translateY(targetY) {
+    console.log('target position:' + targetY)
+    const deltaY = targetY - this.text.getBoundingClientRect().top
+    const anims = []
+    anims.push(
+      this.text.animate([{ transform: 'translateY(' + deltaY + 'px)' }], {
+        duration: 50
+      }).finished
+    )
+
     if (this.bullet) {
-      const deltaY = targetPosition - this.text.getBoundingClientRect().top
-      this.bullet.transform =
-        'translateY(' +
-        (this.bullet.getBoundingClientRect().top + deltaY) +
-        'px)'
+      anims.push(
+        this.bullet.animate(
+          [
+            {
+              transform: 'translateY(' + deltaY + 'px)'
+            }
+          ],
+          {
+            duration: 50
+          }
+        ).finished
+      )
     }
+
+    Promise.all(anims).then((data) => {
+      this.position = {
+        left: this.position.left,
+        top: parseFloat(this.position.top) + deltaY + 'px'
+      }
+    })
   }
 
   enableDragAndDrop() {
@@ -236,7 +266,9 @@ export class TextBox {
         top: parseFloat(this.position.top) + deltaY + 'px'
       }
 
-      this.draggableFrame.magneticPositioning(this)
+      this.observers.dragend.forEach((callback, i) => {
+        callback()
+      })
 
       this.text.focus()
     })
