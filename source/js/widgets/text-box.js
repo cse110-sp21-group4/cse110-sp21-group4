@@ -196,6 +196,18 @@ export class TextBox {
    * @param {object} coordinates {left: '123px', top: '1231px'}
    */
   set position(coordinates) {
+    const framePosition = this.draggableFrame.getBoundingClientRect()
+    if (
+      parseFloat(coordinates.left) - this.bulletMargin < 0 ||
+      parseFloat(coordinates.left) + this.text.getBoundingClientRect().width >
+        framePosition.width ||
+      parseFloat(coordinates.top) < 0 ||
+      parseFloat(coordinates.top) + this.text.getBoundingClientRect().height >
+        framePosition.height
+    ) {
+      return
+    }
+
     if (this.bullet) {
       this.bullet.style.left =
         parseFloat(this.bullet.style.left) +
