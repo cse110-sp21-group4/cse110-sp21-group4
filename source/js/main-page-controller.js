@@ -6,15 +6,16 @@ export class MainPageController {
   }
 
   registerListeners() {
-    document.querySelector("#index-button").addEventListener("click", () => {    
+    document.querySelector("#left-pane-button").addEventListener("click", () => {    
       var v = document.getElementById("left-pane");
+      var p = document.querySelector('drag-view').shadowRoot.querySelector(".page");
       if (v.style.display === "none") {
          v.style.display = "block";
-         // Page moves right
+         p.style.left = "429px";
       } else {
         // Page hides - Move MAIN page left
          v.style.display = "none";
-    
+         p.style.left = "429px";
       }
       
     })
