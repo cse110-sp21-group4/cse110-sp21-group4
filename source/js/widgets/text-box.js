@@ -150,13 +150,13 @@ export class TextBox {
             break
           case 'Enter':
             if (this.keydowns.has('Shift')) {
-              console.log('Shift + Enter')
-              e.preventDefault()
+              //console.log('Shift + Enter')
               this.observers.shiftenter.forEach((callback, i) => {
                 callback()
               })
             } else {
-              console.log('Enter')
+              //console.log('Enter')
+              e.preventDefault()
               this.observers.enter.forEach((callback, i) => {
                 callback()
               })

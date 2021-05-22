@@ -232,7 +232,7 @@ export class DragView extends HTMLElement {
         }
       }
     })
-    textBox.addEventListener('shiftenter', (e) => {
+    textBox.addEventListener('enter', () => {
       const framePosition = this.draggableFrame.getBoundingClientRect()
       //console.log('frame: ' + framePosition.x + '  mouse: ' + e.clientX)
       const textPosition = {
