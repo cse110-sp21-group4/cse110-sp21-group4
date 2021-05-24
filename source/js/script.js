@@ -2,8 +2,10 @@ import { DragView } from './widgets/drag-view.js'
 import { MainPageController } from './main-page-controller.js'
 
 let page = document.createElement('drag-view')
+let left = document.createElement('left-pane')
 
 document.getElementsByTagName('main')[0].appendChild(page)
+document.getElementsByTagName('main')[0].appendChild(left)
 
 var toolselected = 'text'
 

@@ -6,8 +6,8 @@ export class MainPageController {
   }
 
   registerListeners() {
-    document.querySelector("#left-pane-button").addEventListener("click", () => {    
-      var v = document.getElementById("left-pane");
+    document.querySelector('left-pane').shadowRoot.querySelector("#left-pane-button").addEventListener("click", () => {    
+      var v = document.querySelector("left-pane").shadowRoot.querySelector('#left-pane');
       var p = document.querySelector('drag-view').shadowRoot.querySelector(".page");
       if (v.style.display === "none") {
          v.style.display = "block";
