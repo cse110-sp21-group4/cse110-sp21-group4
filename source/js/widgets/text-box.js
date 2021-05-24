@@ -32,6 +32,14 @@ export class TextBox {
     this.text.classList.add('textbox')
     this.text.style.background = 'transparent'
     this.draggableFrame.appendChild(this.text)
+    this.lastScrollHeight = this.text.scrollHeight
+    this.textPadding = parseFloat(
+      window.getComputedStyle(this.text).getPropertyValue('padding-top')
+    )
+    console.log(this.textPadding, this.lastScrollHeight)
+    console.log(
+      'height:' + this.lastTextHeight + ',' + 'extra:' + this.extraHeight
+    )
   }
 
   removeBullet() {
@@ -132,6 +140,9 @@ export class TextBox {
       eventType: 'keydown',
       callback: (e) => {
         this.keydowns.add(e.key)
+        this.resizeToFitText()
+        //console.log(this.text.value.includes('\n'))
+
         switch (e.key) {
           case 'Delete':
             //console.log('delete')
@@ -172,8 +183,23 @@ export class TextBox {
       eventType: 'keyup',
       callback: (e) => {
         this.keydowns.delete(e.key)
+        this.resizeToFitText()
       }
     })
+  }
+
+  resizeToFitText() {
+    //console.log(
+    //  'resize:' + this.text.scrollHeight + '| ' + this.lastScrollHeight
+    //)
+    if (this.text.scrollHeight != this.lastScrollHeight) {
+      this.text.style.height =
+        parseFloat(this.text.getBoundingClientRect().height) +
+        parseFloat(this.text.scrollHeight) -
+        parseFloat(this.lastScrollHeight) +
+        'px'
+      this.lastScrollHeight = this.text.scrollHeight
+    }
   }
 
   removeSelf() {
