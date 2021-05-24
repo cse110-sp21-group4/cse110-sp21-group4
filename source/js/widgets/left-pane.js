@@ -306,6 +306,7 @@ export class LeftPane extends HTMLElement {
 /* Remove margins and padding from the list */
 ul {
   margin: 0;
+  width: 325px;
   padding: 0;
   list-style-type: none;
 }
@@ -315,7 +316,6 @@ ul li {
   cursor: pointer;
   position: relative;
   padding: 12px 8px 12px 40px;
-  background: #eee;
   font-size: 18px;
   transition: 0.2s;
 
@@ -398,12 +398,11 @@ ul li:hover {
       </div>
       <div id="Untitled_Entry">
         <ul id="myUL">
-          <li>Hit the gym</li>
-          <li class="checked">Pay bills</li>
-          <li>Meet George</li>
-          <li>Buy eggs</li>
-          <li>Read a book</li>
-          <li>Organize office</li>
+          <li>Entry 1</li>
+          <li>Entry 2</li>
+          <li>Entry 3</li>
+          <li>Entry 4</li>
+          <li>Entry 5</li>
         </ul>
       </div>
       <svg class="Icon_awesome-plus" viewBox="0 2.25 31.5 31.5">
