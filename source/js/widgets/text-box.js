@@ -21,6 +21,8 @@ export class TextBox {
     }
     this.removed = false
     this.keydowns = new Set()
+    this.mouseEvents = new Set()
+    this.dragThreshold = 5
 
     this.initializeText()
     this.initializeEventListeners()
@@ -122,12 +124,10 @@ export class TextBox {
         this.observers.blur.forEach((cb, i) => {
           cb()
         })
-        //console.log(this.text.value.trim() === '')
-        //console.log(this.text.classList.contains('mouse-over'))
         if (
           !this.removed &&
-          this.hasNothing() &&
-          !this.text.classList.contains('mouse-over')
+          this.hasNothing() /*&&
+          !this.text.classList.contains('mouse-over')*/
         ) {
           this.removeSelf()
         } else {
@@ -298,51 +298,96 @@ export class TextBox {
     })
   }
 
+  /**
+   * Euclidean distance
+   * @param {number} x e.clientX
+   * @param {number} y e.clientY
+   * @param {object} lastPosition {x: 123, y:2323}
+   * @returns
+   */
+  mouseMoveDistance(x, y, lastPosition) {
+    return Math.sqrt(
+      Math.pow(lastPosition.x - x, 2) + Math.pow(lastPosition.y - y, 2)
+    )
+  }
+
   enableDragAndDrop() {
     this.text.classList.add('draggable')
-    this.text.draggable = true
-    let framePosition = {}
+    //this.text.draggable = true
+    //let framePosition = {}
     let mousePosition = {}
-    this.text.addEventListener('dragstart', (e) => {
-      framePosition = this.draggableFrame.getBoundingClientRect()
+    this.text.addEventListener('mousedown', (e) => {
+      //framePosition = this.draggableFrame.getBoundingClientRect()
+
       mousePosition.x = e.clientX
       mousePosition.y = e.clientY
+      this.mouseEvents.add('mousedown')
+    })
+    this.draggableFrame.addEventListener('mousemove', (e) => {
+      if (
+        this.mouseEvents.has('mousedown') /*&&
+        this.mouseMoveDistance(e.clientX, e.clientY, mousePosition) >
+          this.dragThreshold*/
+      ) {
+        if (!this.mouseEvents.has('dragging')) {
+          console.log('dragstart')
+          this.mouseEvents.add('dragging')
+        }
+        if (!this.text.classList.contains('dragging')) {
+          this.text.classList.add('dragging')
+        }
+        if (this.bullet && !this.bullet.classList.contains('dragging')) {
+          this.bullet.classList.add('dragging')
+          //this.bullet.style.display = 'none'
+        }
+        this.mouseEvents.delete('mousedown')
+      }
 
-      //console.log('dragstart')
-      if (this.bullet) {
-        this.bullet.classList.add('dragging')
-        this.bullet.style.display = 'none'
+      if (this.mouseEvents.has('dragging')) {
+        e.preventDefault()
+        //console.log('dragging')
+
+        const deltaX = e.clientX - mousePosition.x
+        const deltaY = e.clientY - mousePosition.y
+        mousePosition.x = e.clientX
+        mousePosition.y = e.clientY
+
+        this.position = {
+          left: parseFloat(this.position.left) + deltaX + 'px',
+          top: parseFloat(this.position.top) + deltaY + 'px'
+        }
       }
     })
-    this.text.addEventListener('drag', (e) => {
-      this.text.classList.add('dragging')
-      //console.log('dragging')
-    })
-    this.text.addEventListener('dragend', (e) => {
-      e.preventDefault()
 
-      //console.log('dragend')
-      this.text.classList.remove('dragging')
-
-      if (this.bullet) {
-        this.bullet.style.display = 'block'
-        this.bullet.classList.remove('dragging')
+    window.addEventListener('mouseup', (e) => {
+      if (this.mouseEvents.has('mousedown')) {
+        this.mouseEvents.delete('mousedown')
       }
+      if (this.mouseEvents.has('dragging')) {
+        e.preventDefault()
+        console.log('dragend')
+        this.mouseEvents.delete('dragging')
+        this.text.classList.remove('dragging')
 
-      //console.log(this.bullet)
+        if (this.bullet) {
+          //this.bullet.style.display = 'block'
+          this.bullet.classList.remove('dragging')
+        }
+        const deltaX = e.clientX - mousePosition.x
+        const deltaY = e.clientY - mousePosition.y
+        mousePosition.x = e.clientX
+        mousePosition.y = e.clientY
 
-      const deltaX = e.clientX - mousePosition.x
-      const deltaY = e.clientY - mousePosition.y
+        this.position = {
+          left: parseFloat(this.position.left) + deltaX + 'px',
+          top: parseFloat(this.position.top) + deltaY + 'px'
+        }
 
-      this.position = {
-        left: parseFloat(this.position.left) + deltaX + 'px',
-        top: parseFloat(this.position.top) + deltaY + 'px'
+        this.observers.dragend.forEach((callback, i) => {
+          callback()
+        })
+        this.text.focus()
       }
-
-      this.observers.dragend.forEach((callback, i) => {
-        callback()
-      })
-      this.text.focus()
     })
   }
 

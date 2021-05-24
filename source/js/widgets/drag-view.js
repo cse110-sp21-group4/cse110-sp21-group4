@@ -19,7 +19,6 @@ export class DragView extends HTMLElement {
           }
 
           .dragging {
-            display:none;
           }
           .focus {
 
@@ -87,6 +86,7 @@ export class DragView extends HTMLElement {
   initializeEventListeners() {
     this.draggableFrame.addEventListener('click', (e) => {
       if (this.createTextOnClick) {
+        console.log('click')
         const framePosition = this.draggableFrame.getBoundingClientRect()
         //console.log('frame: ' + framePosition.x + '  mouse: ' + e.clientX)
         const textPosition = {
