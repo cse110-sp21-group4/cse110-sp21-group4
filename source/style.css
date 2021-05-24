@@ -4,18 +4,7 @@ body {
     'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.page {
-  background-image: url('images/single-paper.jpg'), url('images/paper-book.jpg');
-  position: relative;
-  left: 250px;
-  top: 100px;
-  width: 1000px;
-  height: 1000px;
-  font-size: large;
 
-  padding: 50px;
-  padding-left: 100px;
-}
 
 #rectangle-57 {
   fill: rgba(171, 187, 175, 1);

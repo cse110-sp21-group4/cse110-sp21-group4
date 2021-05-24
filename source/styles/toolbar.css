@@ -1,9 +1,8 @@
 .tool-bar {
   display: flex;
   background-color: white;
-  border-radius: 20px;
   border: 5px solid lightslategray;
-  /* border-width: 20px; */
+  border-radius 20px;
   height: 50px;
   width: 1050px;
   position: absolute;
@@ -16,7 +15,6 @@
 .tool {
   background-color: #f1f1f1;
   margin-left: 20 px;
-  margin: 5px;
   padding: 10px;
 }
 .tool > svg {

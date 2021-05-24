@@ -18,16 +18,31 @@ export class DragView extends HTMLElement {
     //   }
     // }
 
+    // .drag-frame {
+    //   position:relative;
+    //   background: transparent;
+    //   border:1px solid grey;
+    //   width:100%;
+    //   height: 100%;
+    // }
+
     const template = document.createElement('template')
     template.innerHTML = `
         <style>
+          
           .drag-frame {
-            position:relative;
-            background: transparent;
-            border:1px solid grey;
-            width:100%;
-            height: 100%;
+            background-image: url('images/single-paper.jpg');
+            position: relative;
+            left: 250px;
+            top: 100px;
+            width: 1000px;
+            height: 1000px;
+            font-size: large;
+          
+            padding: 50px;
+            padding-left: 100px;
           }
+          
           .draggable {
             display:block;
             position:absolute;
