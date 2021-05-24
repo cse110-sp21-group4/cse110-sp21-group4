@@ -262,7 +262,7 @@ export class LeftPane extends HTMLElement {
         left: 361px;
         top: 221.808px;
     }
-    # {
+    #plus {
         left: 367px;
         top: 210.224px;
         position: absolute;
@@ -302,6 +302,47 @@ export class LeftPane extends HTMLElement {
         top: 823.25px;
         transform: matrix(1,0,0,1,0,0);
     }
+
+/* Remove margins and padding from the list */
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* Style the list items */
+ul li {
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  background: #eee;
+  font-size: 18px;
+  transition: 0.2s;
+
+  /* make the list items unselectable */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+  background: #ddd;
+}
+
+/* Style the close button */
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+}
       </style>
       <div id="left-pane">
       <svg class="outer-rectangle">
@@ -349,11 +390,11 @@ export class LeftPane extends HTMLElement {
         <span>New Label</span>
       </div>
       <svg class="add-entry-button">
-        <ellipse id="add-entry-button" rx="20" ry="20" cx="20" cy="20">
+        <ellipse onclick="newElement()" id="add-entry-button" rx="20" ry="20" cx="20" cy="20">
         </ellipse>
       </svg>
-      <div id="">
-        <span>+</span>
+      <div id="plus">
+        <span></span>
       </div>
       <div id="Untitled_Entry">
         <ul id="myUL">
