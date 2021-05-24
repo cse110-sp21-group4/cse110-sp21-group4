@@ -47,14 +47,16 @@ export class TextBox {
     this.draggableFrame.appendChild(this.blt)
     const bulletStyle = window.getComputedStyle(this.blt)
     const textStyle = window.getComputedStyle(this.text)
-    //console.log(bulletStyle.height, bulletStyle.bottom)
+    //console.log('bulletheight: ' + bulletStyle.height)
+    //console.log('bulletheight: ' + textStyle.top)
     this.bulletHeight = parseFloat(bulletStyle.height)
     this.bulletWidth = parseFloat(bulletStyle.width)
 
     const topBulletMargin =
-      parseFloat(textStyle.padding) +
+      parseFloat(textStyle.getPropertyValue('padding-top')) +
       0.6 * parseFloat(textStyle.fontSize) -
       this.bulletHeight / 2
+    //console.log('textpadding: ' + textStyle.getPropertyValue('padding-top'))
     this.blt.style.top = parseFloat(textStyle.top) + topBulletMargin + 'px'
     this.blt.style.left =
       parseFloat(textStyle.left) -
