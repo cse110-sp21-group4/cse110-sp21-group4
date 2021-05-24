@@ -1,6 +1,7 @@
 class DragView extends HTMLElement {
   constructor() {
     super()
+    console.log('toolbar constr called')
     const template = document.createElement('template')
     template.innerHTML = `
         <div class="drag-frame">
@@ -16,7 +17,7 @@ class DragView extends HTMLElement {
           </div>
         </div>
         `
-    
+
     // template.addEventListener('click',editPage());
 
     const link = document.createElement('link')
