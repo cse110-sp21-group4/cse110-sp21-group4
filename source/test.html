@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .block {
+        display: block;
+        width: 800px;
+        height: 600px;
+        margin: 10px auto auto auto;
+      }
+    </style>
+  </head>
+  <body style="width: 100%">
+    <button style="margin-top: 130px; margin-left: 30px">Text On Click</button>
+    <button id="add-bullet" style="margin-top: 130px; margin-left: 30px">
+      Toggle Bullet
+    </button>
+    <div>
+      <drag-view class="block"></drag-view>
+    </div>
+
+    <script src="./js/widgets/drag-view.js" type="module"></script>
+    <script type="module">
+      import { DragView } from './js/widgets/drag-view.js'
+      const dragView = document.querySelector('drag-view')
+      const textButton = document.querySelector('button')
+      const addBulletButton = document.querySelector('#add-bullet')
+      textButton.addEventListener('click', () => {
+        dragView.textOnClick = dragView.textOnClick ? false : true
+      })
+      addBulletButton.addEventListener('click', () => {
+        dragView.toggleBulletFromFocusedText()
+      })
+    </script>
+  </body>
+</html>
