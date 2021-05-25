@@ -120,11 +120,6 @@ export class DragView extends HTMLElement {
     this.lastFocusedText = undefined
     this.textBoxes = []
     this.draggableChildren = []
-    /**
-     * {element: {keyword, handler}}
-     */
-    this.windowEvents = Map()
-    this.dragFrameEvents = Map()
     this.bltType = 'dot'
     this.textOnClick = true
     this.enableMagneticPositioning = true
@@ -136,6 +131,7 @@ export class DragView extends HTMLElement {
     this.magneticPotentialThreshold = 30
     this.bulletStyles = ['dot', 'circle', 'square']
     this.mouseEvents = new Set()
+    this.movingElement = new Set()
   }
 
   toggleBulletFromFocusedText() {
@@ -293,12 +289,15 @@ export class DragView extends HTMLElement {
     let mousePosition = {}
     child.addEventListener('mousedown', (e) => {
       //framePosition = this.draggableFrame.getBoundingClientRect()
-
+      e.stopPropagation()
       mousePosition.x = e.clientX
       mousePosition.y = e.clientY
       this.mouseEvents.add('mousedown')
+      this.movingElement.add(child)
     })
+
     this.draggableFrame.addEventListener('mousemove', (e) => {
+      if (!this.movingElement.has(child)) return
       if (this.mouseEvents.has('mousedown')) {
         if (!this.mouseEvents.has('dragging')) {
           //console.log('dragstart')
@@ -323,8 +322,6 @@ export class DragView extends HTMLElement {
         mousePosition.x = e.clientX
         mousePosition.y = e.clientY
 
-        console.log(child.text.value)
-
         child.position = {
           left: parseFloat(child.position.left) + deltaX + 'px',
           top: parseFloat(child.position.top) + deltaY + 'px'
@@ -333,6 +330,7 @@ export class DragView extends HTMLElement {
     })
 
     window.addEventListener('mouseup', (e) => {
+      if (!this.movingElement.has(child)) return
       if (this.mouseEvents.has('mousedown')) {
         this.mouseEvents.delete('mousedown')
       }
@@ -358,6 +356,7 @@ export class DragView extends HTMLElement {
         }
 
         this.magneticPositioning(child)
+        this.movingElement.delete(child)
         //child.focus()
       }
     })
