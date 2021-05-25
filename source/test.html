@@ -11,9 +11,20 @@
     </style>
   </head>
   <body style="width: 100%">
+    <input
+      type="file"
+      accept="image/gif, image/jpeg, image/png"
+      name="image"
+      id="image-input"
+      style="display: none"
+    />
+
     <button style="margin-top: 130px; margin-left: 30px">Text On Click</button>
     <button id="add-bullet" style="margin-top: 130px; margin-left: 30px">
       Toggle Bullet
+    </button>
+    <button id="insert-image" style="margin-top: 130px; margin-left: 30px">
+      Insert Image
     </button>
     <div>
       <drag-view class="block"></drag-view>
@@ -25,11 +36,23 @@
       const dragView = document.querySelector('drag-view')
       const textButton = document.querySelector('button')
       const addBulletButton = document.querySelector('#add-bullet')
+      const insertImageButton = document.querySelector('#insert-image')
+      const imageInput = document.querySelector('#image-input')
       textButton.addEventListener('click', () => {
         dragView.textOnClick = dragView.textOnClick ? false : true
       })
       addBulletButton.addEventListener('click', () => {
         dragView.toggleBulletFromFocusedText()
+      })
+
+      insertImageButton.addEventListener('click', () => {
+        imageInput.click()
+      })
+
+      imageInput.addEventListener('change', (e) => {
+        const img = new Image()
+        img.src = URL.createObjectURL(e.target.files[0])
+        dragView.addDraggableImage({ left: '20px', top: '50px' }, img)
       })
     </script>
   </body>

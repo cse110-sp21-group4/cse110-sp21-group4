@@ -85,6 +85,10 @@ export class TextBox {
     return this.blt
   }
 
+  set draggable(dg) {
+    this.text.draggable = dg
+  }
+
   initializeEventListeners() {
     this.text.addEventListener('mousedown', (e) => {
       this.observers.mousedown.forEach((cb, i) => {

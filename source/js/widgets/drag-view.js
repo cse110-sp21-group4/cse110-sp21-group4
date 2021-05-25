@@ -1,4 +1,5 @@
 import { TextBox } from './text-box.js'
+import { ImageView } from './image-view.js'
 
 export class DragView extends HTMLElement {
   constructor() {
@@ -65,6 +66,11 @@ export class DragView extends HTMLElement {
             width: 4px;
           }
 
+          .image {
+            display: block;
+            position: absolute;
+          }
+
         </style>
         <div class="drag-frame">
         </div>
@@ -85,7 +91,8 @@ export class DragView extends HTMLElement {
 
   initializeEventListeners() {
     this.draggableFrame.addEventListener('click', (e) => {
-      if (this.createTextOnClick && !this.mouseEvents.has('dragged')) {
+      if (this.mouseEvents.has('dragged')) return
+      if (this.createTextOnClick) {
         //console.log('click')
         const framePosition = this.draggableFrame.getBoundingClientRect()
         //console.log('frame: ' + framePosition.x + '  mouse: ' + e.clientX)
@@ -179,13 +186,25 @@ export class DragView extends HTMLElement {
   }
 
   /**
+   * Add a draggable image
+   * @param {Image} Image object that contains a image
+   * @param {object} coordinates {left: "123px", top: "222px"}
+   * @returns {object} returns the draggable item
+   */
+  addDraggableImage(coordinates, image) {
+    const img = new ImageView(this.draggableFrame, image)
+    this.addDraggableElement(img, coordinates)
+    this.draggableChildren.push(img)
+  }
+
+  /**
    * Add a editable and draggable text box
    * @param {object} coordinates {left: "123px", top: "222px"}
-   * @param {object} size {width: "123px", height: "123px"}
-   * @returns {HTMLElement} returns the draggable frame itself
+   * @returns {object} returns the draggable item
    */
   addDraggableTextBox(coordinates) {
     const textBox = new TextBox(this.draggableFrame)
+
     this.addDraggableElement(textBox, coordinates)
     textBox.addEventListener('remove', () => {
       this.removeArrayElement(textBox, this.textBoxes)
@@ -283,6 +302,7 @@ export class DragView extends HTMLElement {
   }
 
   enableDragAndDrop(child) {
+    child.draggable = false
     child.addClass('draggable')
     //this.text.draggable = true
     //let framePosition = {}
@@ -290,6 +310,7 @@ export class DragView extends HTMLElement {
     child.addEventListener('mousedown', (e) => {
       //framePosition = this.draggableFrame.getBoundingClientRect()
       e.stopPropagation()
+      e.preventDefault()
       mousePosition.x = e.clientX
       mousePosition.y = e.clientY
       this.mouseEvents.add('mousedown')
@@ -313,9 +334,9 @@ export class DragView extends HTMLElement {
         this.mouseEvents.delete('mousedown')
       }
 
+      console.log('dragging')
       if (this.mouseEvents.has('dragging')) {
         e.preventDefault()
-        //console.log('dragging')
 
         const deltaX = e.clientX - mousePosition.x
         const deltaY = e.clientY - mousePosition.y
@@ -326,6 +347,7 @@ export class DragView extends HTMLElement {
           left: parseFloat(child.position.left) + deltaX + 'px',
           top: parseFloat(child.position.top) + deltaY + 'px'
         }
+        //console.log(this.draggableFrame.getBoundingClientRect())
       }
     })
 
@@ -341,10 +363,10 @@ export class DragView extends HTMLElement {
         this.mouseEvents.add('dragged')
         child.removeClass('dragging')
 
-        //if (this.bullet) {
-        //this.bullet.style.display = 'block'
+        // if (this.bullet) {
+        // this.bullet.style.display = 'block'
         //  this.bullet.classList.remove('dragging')
-        //}
+        // }
         const deltaX = e.clientX - mousePosition.x
         const deltaY = e.clientY - mousePosition.y
         mousePosition.x = e.clientX
@@ -355,10 +377,12 @@ export class DragView extends HTMLElement {
           top: parseFloat(child.position.top) + deltaY + 'px'
         }
 
-        this.magneticPositioning(child)
-        this.movingElement.delete(child)
-        //child.focus()
+        if (child instanceof TextBox) {
+          this.magneticPositioning(child)
+        }
+        child.focus()
       }
+      this.movingElement.delete(child)
     })
   }
 
