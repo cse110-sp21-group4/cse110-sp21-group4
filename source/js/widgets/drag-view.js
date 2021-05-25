@@ -85,8 +85,8 @@ export class DragView extends HTMLElement {
 
   initializeEventListeners() {
     this.draggableFrame.addEventListener('click', (e) => {
-      if (this.createTextOnClick) {
-        console.log('click')
+      if (this.createTextOnClick && !this.mouseEvents.has('dragged')) {
+        //console.log('click')
         const framePosition = this.draggableFrame.getBoundingClientRect()
         //console.log('frame: ' + framePosition.x + '  mouse: ' + e.clientX)
         const textPosition = {
@@ -95,6 +95,11 @@ export class DragView extends HTMLElement {
           top: e.clientY - framePosition.y - 20 + 'px'
         }
         this.addDraggableTextBox(textPosition).focus()
+      }
+    })
+    window.addEventListener('click', (e) => {
+      if (this.mouseEvents.has('dragged')) {
+        this.mouseEvents.delete('dragged')
       }
     })
     this.draggableFrame.addEventListener('mouseleave', (e) => {
@@ -115,6 +120,11 @@ export class DragView extends HTMLElement {
     this.lastFocusedText = undefined
     this.textBoxes = []
     this.draggableChildren = []
+    /**
+     * {element: {keyword, handler}}
+     */
+    this.windowEvents = Map()
+    this.dragFrameEvents = Map()
     this.bltType = 'dot'
     this.textOnClick = true
     this.enableMagneticPositioning = true
@@ -125,6 +135,7 @@ export class DragView extends HTMLElement {
     this.lineSpacing = 0
     this.magneticPotentialThreshold = 30
     this.bulletStyles = ['dot', 'circle', 'square']
+    this.mouseEvents = new Set()
   }
 
   toggleBulletFromFocusedText() {
@@ -190,8 +201,8 @@ export class DragView extends HTMLElement {
 
     textBox.addEventListener('tabpressed', () => {
       const newX = this.getNextTabPosition(textBox)
-      console.log('old: ' + textBox.position.left, textBox.position.top)
-      console.log('new: ' + newX + 'px', textBox.position.top)
+      //console.log('old: ' + textBox.position.left, textBox.position.top)
+      //console.log('new: ' + newX + 'px', textBox.position.top)
       textBox.position = { left: newX + 'px', top: textBox.position.top }
 
       //Change bullet when tab
@@ -211,23 +222,19 @@ export class DragView extends HTMLElement {
       }
     })
 
-    textBox.addEventListener('dragend', () => {
-      this.magneticPositioning(textBox)
-    })
-
     textBox.addEventListener('backspace', () => {
       if (textBox.EmptyContent()) {
         if (this.lessThanFirstTabPosition(textBox)) {
-          console.log('first position, delete')
+          //console.log('first position, delete')
           if (!textBox.removed) {
             textBox.removeSelf()
             this.removeArrayElement(textBox, this.textBoxes)
             this.removeArrayElement(textBox, this.draggableChildren)
           }
         } else {
-          console.log('Not first position, move left')
+          //console.log('Not first position, move left')
           const newX = this.getPreviousTabPosition(textBox)
-          console.log(newX)
+          //console.log(newX)
           textBox.position = { left: newX + 'px', top: textBox.position.top }
         }
       }
@@ -270,20 +277,97 @@ export class DragView extends HTMLElement {
   /**
    * add draggable element to the view
    *
-   * @param {HTMLElement} element the html element to add into this frame
+   * @param {object} child the wrapper of html element to add into this frame
    * @param {object} coordinats {left: "123px", top: "356px"}
    * @returns {null} returns the draggable frame itself
    */
   addDraggableElement(child, coordinates) {
     child.position = coordinates
-    child.enableDragAndDrop()
+    this.enableDragAndDrop(child)
+  }
+
+  enableDragAndDrop(child) {
+    child.addClass('draggable')
+    //this.text.draggable = true
+    //let framePosition = {}
+    let mousePosition = {}
+    child.addEventListener('mousedown', (e) => {
+      //framePosition = this.draggableFrame.getBoundingClientRect()
+
+      mousePosition.x = e.clientX
+      mousePosition.y = e.clientY
+      this.mouseEvents.add('mousedown')
+    })
+    this.draggableFrame.addEventListener('mousemove', (e) => {
+      if (this.mouseEvents.has('mousedown')) {
+        if (!this.mouseEvents.has('dragging')) {
+          //console.log('dragstart')
+          this.mouseEvents.add('dragging')
+        }
+        if (!child.hasClass('dragging')) {
+          child.addClass('dragging')
+        }
+        //if (this.bullet && !this.bullet.classList.contains('dragging')) {
+        //  this.bullet.classList.add('dragging')
+        //this.bullet.style.display = 'none'
+        //}
+        this.mouseEvents.delete('mousedown')
+      }
+
+      if (this.mouseEvents.has('dragging')) {
+        e.preventDefault()
+        //console.log('dragging')
+
+        const deltaX = e.clientX - mousePosition.x
+        const deltaY = e.clientY - mousePosition.y
+        mousePosition.x = e.clientX
+        mousePosition.y = e.clientY
+
+        console.log(child.text.value)
+
+        child.position = {
+          left: parseFloat(child.position.left) + deltaX + 'px',
+          top: parseFloat(child.position.top) + deltaY + 'px'
+        }
+      }
+    })
+
+    window.addEventListener('mouseup', (e) => {
+      if (this.mouseEvents.has('mousedown')) {
+        this.mouseEvents.delete('mousedown')
+      }
+      if (this.mouseEvents.has('dragging')) {
+        e.preventDefault()
+        //console.log('dragend')
+        this.mouseEvents.delete('dragging')
+        this.mouseEvents.add('dragged')
+        child.removeClass('dragging')
+
+        //if (this.bullet) {
+        //this.bullet.style.display = 'block'
+        //  this.bullet.classList.remove('dragging')
+        //}
+        const deltaX = e.clientX - mousePosition.x
+        const deltaY = e.clientY - mousePosition.y
+        mousePosition.x = e.clientX
+        mousePosition.y = e.clientY
+
+        child.position = {
+          left: parseFloat(child.position.left) + deltaX + 'px',
+          top: parseFloat(child.position.top) + deltaY + 'px'
+        }
+
+        this.magneticPositioning(child)
+        //child.focus()
+      }
+    })
   }
 
   magneticPositioning(child) {
     if (!this.enableMagneticPositioning) return
     const nearest = this.getNearestChild(child)
     if (nearest) {
-      console.log('find nearest: ' + nearest.pos)
+      //console.log('find nearest: ' + nearest.pos)
       this.moveDraggableChildByAnimation(child, nearest)
     }
   }
@@ -294,15 +378,15 @@ export class DragView extends HTMLElement {
    * @returns {object} {element: node, pos: 123, side: 'bottom'} position related to the viewport
    */
   moveDraggableChildByAnimation(child, target) {
-    console.log('animate..')
+    //console.log('animate..')
     const childPos = child.text.getBoundingClientRect()
     switch (target.side) {
       case 'top':
-        console.log('animate top..')
+        //console.log('animate top..')
         child.translateY(target.pos + this.lineSpacing)
         break
       case 'bottom':
-        console.log('animate bottom..')
+        //console.log('animate bottom..')
         child.translateY(
           target.pos -
             (parseInt(childPos.bottom) - parseInt(childPos.top)) -
@@ -310,7 +394,7 @@ export class DragView extends HTMLElement {
         )
         break
       default:
-        console.log('animate center..')
+        //console.log('animate center..')
         child.translateY(
           target.pos - (parseInt(childPos.bottom) - parseInt(childPos.top)) / 2
         )
@@ -339,8 +423,8 @@ export class DragView extends HTMLElement {
       }
       const style = dChild.text.getBoundingClientRect()
 
-      console.log('dchild: ' + style.bottom + '| ' + style.top)
-      console.log('child: ' + childStyle.bottom + '| ' + childStyle.top)
+      //console.log('dchild: ' + style.bottom + '| ' + style.top)
+      //console.log('child: ' + childStyle.bottom + '| ' + childStyle.top)
       if (style.top && style.bottom) {
         const distanceBottom = Math.abs(childStyle.bottom - style.top)
         const distanceTop = Math.abs(childStyle.top - style.bottom)
@@ -349,26 +433,26 @@ export class DragView extends HTMLElement {
             (style.top + style.bottom) / 2
         )
 
-        console.log(
+        /*console.log(
           'top:' +
             distanceTop +
             '| bottom:' +
             distanceBottom +
             '| center:' +
             distanceCenter
-        )
+        )*/
         const minObjectsDistance = Math.min(
           distanceBottom,
           distanceTop,
           distanceCenter
         )
 
-        console.log('min distance: ' + minObjectsDistance)
+        //console.log('min distance: ' + minObjectsDistance)
         if (
           minObjectsDistance < this.magneticPotentialThreshold &&
           minObjectsDistance < minDistance
         ) {
-          console.log('found nearer')
+          //console.log('found nearer')
           nearestChild = {}
           minDistance = minObjectsDistance
           nearestChild.element = dChild
@@ -402,7 +486,7 @@ export class DragView extends HTMLElement {
   lessThanFirstTabPosition(textBox) {
     const firstPosition = this.defaultPadding + this.bulletMargin
 
-    console.log(textBox.text.offsetLeft + '|' + firstPosition)
+    //console.log(textBox.text.offsetLeft + '|' + firstPosition)
     return textBox.text.offsetLeft <= firstPosition
   }
 
@@ -417,7 +501,7 @@ export class DragView extends HTMLElement {
         (this.baselineFontSize * this.defaultTabSize) -
         1.0
     )
-    console.log('index:' + tabIndex)
+    //console.log('index:' + tabIndex)
     return (
       this.defaultPadding +
       this.bulletMargin +

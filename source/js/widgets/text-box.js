@@ -17,11 +17,11 @@ export class TextBox {
       dragend: [],
       backspace: [],
       enter: [],
-      shiftenter: []
+      shiftenter: [],
+      mousedown: []
     }
     this.removed = false
     this.keydowns = new Set()
-    this.mouseEvents = new Set()
     this.dragThreshold = 5
 
     this.initializeText()
@@ -38,10 +38,10 @@ export class TextBox {
     this.textPadding = parseFloat(
       window.getComputedStyle(this.text).getPropertyValue('padding-top')
     )
-    console.log(this.textPadding, this.lastScrollHeight)
-    console.log(
+    //console.log(this.textPadding, this.lastScrollHeight)
+    /*console.log(
       'height:' + this.lastTextHeight + ',' + 'extra:' + this.extraHeight
-    )
+    )*/
   }
 
   removeBullet() {
@@ -86,6 +86,11 @@ export class TextBox {
   }
 
   initializeEventListeners() {
+    this.text.addEventListener('mousedown', (e) => {
+      this.observers.mousedown.forEach((cb, i) => {
+        cb(e)
+      })
+    })
     this.textListeners.push({
       eventType: 'click',
       callback: (e) => {
@@ -150,13 +155,13 @@ export class TextBox {
             break
           case 'Tab':
             e.preventDefault()
-            console.log('Tab')
+            //console.log('Tab')
             this.observers.tabpressed.forEach((callback, i) => {
               callback()
             })
             break
           case 'Backspace':
-            console.log('Backspace')
+            //console.log('Backspace')
             this.observers.backspace.forEach((callback, i) => {
               callback()
             })
@@ -266,7 +271,7 @@ export class TextBox {
    * @param {number} speed px / second
    */
   translateY(targetY) {
-    console.log('target position:' + targetY)
+    //console.log('target position:' + targetY)
     const deltaY = targetY - this.text.getBoundingClientRect().top
     const anims = []
     anims.push(
@@ -311,86 +316,6 @@ export class TextBox {
     )
   }
 
-  enableDragAndDrop() {
-    this.text.classList.add('draggable')
-    //this.text.draggable = true
-    //let framePosition = {}
-    let mousePosition = {}
-    this.text.addEventListener('mousedown', (e) => {
-      //framePosition = this.draggableFrame.getBoundingClientRect()
-
-      mousePosition.x = e.clientX
-      mousePosition.y = e.clientY
-      this.mouseEvents.add('mousedown')
-    })
-    this.draggableFrame.addEventListener('mousemove', (e) => {
-      if (
-        this.mouseEvents.has('mousedown') /*&&
-        this.mouseMoveDistance(e.clientX, e.clientY, mousePosition) >
-          this.dragThreshold*/
-      ) {
-        if (!this.mouseEvents.has('dragging')) {
-          console.log('dragstart')
-          this.mouseEvents.add('dragging')
-        }
-        if (!this.text.classList.contains('dragging')) {
-          this.text.classList.add('dragging')
-        }
-        if (this.bullet && !this.bullet.classList.contains('dragging')) {
-          this.bullet.classList.add('dragging')
-          //this.bullet.style.display = 'none'
-        }
-        this.mouseEvents.delete('mousedown')
-      }
-
-      if (this.mouseEvents.has('dragging')) {
-        e.preventDefault()
-        //console.log('dragging')
-
-        const deltaX = e.clientX - mousePosition.x
-        const deltaY = e.clientY - mousePosition.y
-        mousePosition.x = e.clientX
-        mousePosition.y = e.clientY
-
-        this.position = {
-          left: parseFloat(this.position.left) + deltaX + 'px',
-          top: parseFloat(this.position.top) + deltaY + 'px'
-        }
-      }
-    })
-
-    window.addEventListener('mouseup', (e) => {
-      if (this.mouseEvents.has('mousedown')) {
-        this.mouseEvents.delete('mousedown')
-      }
-      if (this.mouseEvents.has('dragging')) {
-        e.preventDefault()
-        console.log('dragend')
-        this.mouseEvents.delete('dragging')
-        this.text.classList.remove('dragging')
-
-        if (this.bullet) {
-          //this.bullet.style.display = 'block'
-          this.bullet.classList.remove('dragging')
-        }
-        const deltaX = e.clientX - mousePosition.x
-        const deltaY = e.clientY - mousePosition.y
-        mousePosition.x = e.clientX
-        mousePosition.y = e.clientY
-
-        this.position = {
-          left: parseFloat(this.position.left) + deltaX + 'px',
-          top: parseFloat(this.position.top) + deltaY + 'px'
-        }
-
-        this.observers.dragend.forEach((callback, i) => {
-          callback()
-        })
-        this.text.focus()
-      }
-    })
-  }
-
   addEventListener(eventType, callback) {
     this.observers[eventType].push(callback)
   }
@@ -421,16 +346,29 @@ export class TextBox {
   }
 
   onDraggableFrameMouseOut() {
-    console.log('mouseout!')
+    //console.log('mouseout!')
     this.textListeners.forEach((listener, index) => {
       this.text.removeEventListener(listener.eventType, listener.callback)
     })
   }
 
   onDraggableFrameMouseEnter() {
-    console.log('mousein!')
+    //console.log('mousein!')
     this.setEventListeners()
   }
+
+  addClass(cl) {
+    this.text.classList.add(cl)
+  }
+
+  hasClass(cl) {
+    return this.text.classList.contains(cl)
+  }
+
+  removeClass(cl) {
+    this.text.classList.remove(cl)
+  }
+
   /**
    * Helpers
    */
