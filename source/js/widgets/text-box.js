@@ -195,7 +195,7 @@ export class TextBox {
       eventType: 'keyup',
       callback: (e) => {
         this.keydowns.delete(e.key)
-        //this.resizeToFitText()
+        this.resizeToFitText()
       }
     })
   }
