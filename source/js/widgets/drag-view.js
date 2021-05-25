@@ -71,6 +71,10 @@ export class DragView extends HTMLElement {
             position: absolute;
           }
 
+          .image-frame {
+            display: block;
+          }
+
         </style>
         <div class="drag-frame">
         </div>
@@ -212,6 +216,9 @@ export class DragView extends HTMLElement {
     img.addEventListener('remove', () => {
       this.removeArrayElement(img, this.draggableChildren)
     })
+    img.addEventListener('click', () => {
+      this.focusedChild = img
+    })
   }
 
   /**
@@ -326,6 +333,7 @@ export class DragView extends HTMLElement {
     let mousePosition = {}
     child.addEventListener('mousedown', (e) => {
       //framePosition = this.draggableFrame.getBoundingClientRect()
+      console.log('mousedown')
       this.focusedChild = child
       e.stopPropagation()
       mousePosition.x = e.clientX
@@ -335,7 +343,6 @@ export class DragView extends HTMLElement {
       } else {
         this.mouseEvents.add('mousedownresize')
       }
-
       this.movingElement.add(child)
     })
 
@@ -357,6 +364,7 @@ export class DragView extends HTMLElement {
       }
 
       if (this.mouseEvents.has('dragging')) {
+        //console.log('dragging')
         e.preventDefault()
 
         const deltaX = e.clientX - mousePosition.x
@@ -378,14 +386,17 @@ export class DragView extends HTMLElement {
     })
 
     window.addEventListener('mouseup', (e) => {
+      //console.log('mouseup')
       if (!this.movingElement.has(child)) return
       if (this.mouseEvents.has('mousedown')) {
         this.mouseEvents.delete('mousedown')
       }
       if (this.mouseEvents.has('dragging')) {
         //e.preventDefault()
-        console.log('add dragged')
+        //console.log('add dragged')
+        //console.log(this.mouseEvents)
         this.mouseEvents.delete('dragging')
+        //console.log(this.mouseEvents)
         child.removeClass('dragging')
 
         // if (this.bullet) {

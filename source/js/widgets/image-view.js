@@ -6,7 +6,8 @@ export class ImageView {
 
     this.observers = {
       mousedown: [],
-      remove: []
+      remove: [],
+      click: []
       //delete: []
     }
     /*
@@ -27,6 +28,14 @@ export class ImageView {
       eventType: 'mousedown',
       callback: (e) => {
         this.observers.mousedown.forEach((cb, i) => {
+          cb(e)
+        })
+      }
+    })
+    this.imageListeners.push({
+      eventType: 'click',
+      callback: (e) => {
+        this.observers.click.forEach((cb, i) => {
           cb(e)
         })
       }
