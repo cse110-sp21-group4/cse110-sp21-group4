@@ -45,7 +45,7 @@ export class RightPane extends HTMLElement {
       this.attachShadow({ mode: 'open' })
       this.shadowRoot.appendChild(link)
       this.shadowRoot.appendChild(template.content.cloneNode(true))
-    }
+    
 
     const date = new Date();
 
@@ -121,6 +121,7 @@ export class RightPane extends HTMLElement {
 
     renderCalendar();
 
+  }    
 }
 
   customElements.define('right-pane', RightPane)
