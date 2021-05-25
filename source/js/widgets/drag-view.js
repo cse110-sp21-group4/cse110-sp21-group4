@@ -330,7 +330,12 @@ export class DragView extends HTMLElement {
       e.stopPropagation()
       mousePosition.x = e.clientX
       mousePosition.y = e.clientY
-      this.mouseEvents.add('mousedown')
+      if (!child.isResizing(e.clientX, e.clientY)) {
+        this.mouseEvents.add('mousedown')
+      } else {
+        this.mouseEvents.add('mousedownresize')
+      }
+
       this.movingElement.add(child)
     })
 
@@ -364,6 +369,11 @@ export class DragView extends HTMLElement {
           top: parseFloat(child.position.top) + deltaY + 'px'
         }
         //console.log(this.draggableFrame.getBoundingClientRect())
+      }
+
+      if (this.mouseEvents.has('mousedownresize') && child instanceof TextBox) {
+        child.resized = true
+        this.mouseEvents.delete('mousedownresize')
       }
     })
 

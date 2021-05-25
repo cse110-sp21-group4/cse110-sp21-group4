@@ -16,6 +16,7 @@ export class ImageView {
     */
 
     this.hasFocus = false
+    this.resizingWidth = 8
     this.initializeImage()
     this.initializeListeners()
     this.setEventListeners()
@@ -83,6 +84,15 @@ export class ImageView {
 
   focus() {
     this.img.focus()
+  }
+  isResizing(x, y) {
+    const box = this.img.getBoundingClientRect()
+    return (
+      x >= box.right - this.resizingWidth &&
+      x <= box.right &&
+      y >= box.bottom - this.resizingWidth &&
+      y <= box.bottom
+    )
   }
 
   set draggable(dg) {

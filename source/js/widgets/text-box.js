@@ -23,6 +23,8 @@ export class TextBox {
     this.removed = false
     this.keydowns = new Set()
     this.dragThreshold = 5
+    this.resizingWidth = 8
+    this.resized = false
 
     this.initializeText()
     this.initializeEventListeners()
@@ -126,6 +128,7 @@ export class TextBox {
         })
       }
     })
+
     this.textListeners.push({
       eventType: 'blur',
       callback: (e) => {
@@ -192,21 +195,28 @@ export class TextBox {
       eventType: 'keyup',
       callback: (e) => {
         this.keydowns.delete(e.key)
-        this.resizeToFitText()
+        //this.resizeToFitText()
       }
     })
   }
 
   resizeToFitText() {
-    //console.log(
-    //  'resize:' + this.text.scrollHeight + '| ' + this.lastScrollHeight
-    //)
+    // console.log(
+    //   'resize?' + this.lastScrollHeight + '| ' + this.text.scrollHeight
+    // )
     if (this.text.scrollHeight != this.lastScrollHeight) {
-      this.text.style.height =
-        parseFloat(this.text.getBoundingClientRect().height) +
-        parseFloat(this.text.scrollHeight) -
-        parseFloat(this.lastScrollHeight) +
-        'px'
+      console.log(this.resized)
+      if (!this.resized) {
+        //console.log('resize:' + this.text.style.height)
+        this.text.style.height =
+          parseFloat(window.getComputedStyle(this.text).height) +
+          parseFloat(this.text.scrollHeight) -
+          parseFloat(this.lastScrollHeight) +
+          'px'
+      } else {
+        this.resized = false
+      }
+      //console.log('final:' + this.text.style.height)
       this.lastScrollHeight = this.text.scrollHeight
     }
   }
@@ -371,6 +381,16 @@ export class TextBox {
 
   removeClass(cl) {
     this.text.classList.remove(cl)
+  }
+
+  isResizing(x, y) {
+    const box = this.text.getBoundingClientRect()
+    return (
+      x >= box.right - this.resizingWidth &&
+      x <= box.right &&
+      y >= box.bottom - this.resizingWidth &&
+      y <= box.bottom
+    )
   }
 
   /**
