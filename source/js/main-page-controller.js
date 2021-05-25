@@ -1,15 +1,14 @@
-import { DragView } from './js/widgets/drag-view.js'
+import { DragView } from './widgets/drag-view.js'
 export class MainPageController {
   constructor(view) {
     this.view = view
-
   }
 
   registerListeners() {
     // document.querySelector('').addEventListener('', () => {})
-    let main = document.querySelector('main')
-    let toolbar = main.querySelector('tool-bar')
-    console.log(main, toolbar)
+    console.log(
+      document.querySelector('tool-bar').shadowRoot.querySelector('#text-tool')
+    )
     // Toolbar buttons
     document
       .querySelector('tool-bar')
@@ -18,8 +17,8 @@ export class MainPageController {
         console.log(event.target)
         let dragView = document.querySelector('drag-view')
         console.log(dragView)
+        console.log(dragView.textOnClick)
         dragView.textOnClick = dragView.textOnClick ? false : true
-        console.log('clicked text tool, textOnClick:', textOnClick)
       })
   }
 
