@@ -94,10 +94,10 @@ export class DragView extends HTMLElement {
   }
 
   initializeEventListeners() {
-    this.draggableFrame.addEventListener('keydown', (e) => {
+    window.addEventListener('keydown', (e) => {
       switch (e.key) {
         case 'Delete':
-          console.log('del')
+          //console.log('del')
           if (this.focusedChild) {
             this.focusedChild.removeSelf()
           }
@@ -219,6 +219,7 @@ export class DragView extends HTMLElement {
     img.addEventListener('click', () => {
       this.focusedChild = img
     })
+    this.focusedChild = img
   }
 
   /**
@@ -303,6 +304,7 @@ export class DragView extends HTMLElement {
 
     this.textBoxes.push(textBox)
     this.draggableChildren.push(textBox)
+    this.focusedChild = textBox
     /*console.log(
       'boxes vs children:' +
         this.textBoxes.length +
@@ -333,7 +335,7 @@ export class DragView extends HTMLElement {
     let mousePosition = {}
     child.addEventListener('mousedown', (e) => {
       //framePosition = this.draggableFrame.getBoundingClientRect()
-      console.log('mousedown')
+      // console.log('mousedown')
       this.focusedChild = child
       e.stopPropagation()
       mousePosition.x = e.clientX

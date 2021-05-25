@@ -223,6 +223,7 @@ export class TextBox {
 
   removeSelf() {
     this.removed = true
+    //console.log('remove')
     this.draggableFrame.removeChild(this.text)
     if (this.bullet) {
       this.draggableFrame.removeChild(this.bullet)
