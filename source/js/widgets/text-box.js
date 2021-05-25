@@ -153,10 +153,10 @@ export class TextBox {
         //console.log(this.text.value.includes('\n'))
 
         switch (e.key) {
-          case 'Delete':
-            //console.log('delete')
-            this.removeSelf()
-            break
+          // case 'Delete':
+          //   //console.log('delete')
+          //   this.removeSelf()
+          //   break
           case 'Tab':
             e.preventDefault()
             //console.log('Tab')

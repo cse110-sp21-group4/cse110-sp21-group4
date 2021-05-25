@@ -90,10 +90,21 @@ export class DragView extends HTMLElement {
   }
 
   initializeEventListeners() {
+    this.draggableFrame.addEventListener('keydown', (e) => {
+      switch (e.key) {
+        case 'Delete':
+          console.log('del')
+          if (this.focusedChild) {
+            this.focusedChild.removeSelf()
+          }
+          break
+      }
+    })
     this.draggableFrame.addEventListener('click', (e) => {
-      if (this.mouseEvents.has('dragged')) return
+      //console.log('click?')
+      if (this.mouseEvents.has('imagedragged')) return
+      //console.log('click')
       if (this.createTextOnClick) {
-        //console.log('click')
         const framePosition = this.draggableFrame.getBoundingClientRect()
         //console.log('frame: ' + framePosition.x + '  mouse: ' + e.clientX)
         const textPosition = {
@@ -105,8 +116,9 @@ export class DragView extends HTMLElement {
       }
     })
     window.addEventListener('click', (e) => {
-      if (this.mouseEvents.has('dragged')) {
-        this.mouseEvents.delete('dragged')
+      if (this.mouseEvents.has('imagedragged')) {
+        //console.log('remove dragged...')
+        this.mouseEvents.delete('imagedragged')
       }
     })
     this.draggableFrame.addEventListener('mouseleave', (e) => {
@@ -139,6 +151,7 @@ export class DragView extends HTMLElement {
     this.bulletStyles = ['dot', 'circle', 'square']
     this.mouseEvents = new Set()
     this.movingElement = new Set()
+    this.focusedChild = undefined
   }
 
   toggleBulletFromFocusedText() {
@@ -195,6 +208,10 @@ export class DragView extends HTMLElement {
     const img = new ImageView(this.draggableFrame, image)
     this.addDraggableElement(img, coordinates)
     this.draggableChildren.push(img)
+
+    img.addEventListener('remove', () => {
+      this.removeArrayElement(img, this.draggableChildren)
+    })
   }
 
   /**
@@ -309,8 +326,8 @@ export class DragView extends HTMLElement {
     let mousePosition = {}
     child.addEventListener('mousedown', (e) => {
       //framePosition = this.draggableFrame.getBoundingClientRect()
+      this.focusedChild = child
       e.stopPropagation()
-      e.preventDefault()
       mousePosition.x = e.clientX
       mousePosition.y = e.clientY
       this.mouseEvents.add('mousedown')
@@ -334,7 +351,6 @@ export class DragView extends HTMLElement {
         this.mouseEvents.delete('mousedown')
       }
 
-      console.log('dragging')
       if (this.mouseEvents.has('dragging')) {
         e.preventDefault()
 
@@ -357,10 +373,9 @@ export class DragView extends HTMLElement {
         this.mouseEvents.delete('mousedown')
       }
       if (this.mouseEvents.has('dragging')) {
-        e.preventDefault()
-        //console.log('dragend')
+        //e.preventDefault()
+        console.log('add dragged')
         this.mouseEvents.delete('dragging')
-        this.mouseEvents.add('dragged')
         child.removeClass('dragging')
 
         // if (this.bullet) {
@@ -375,6 +390,10 @@ export class DragView extends HTMLElement {
         child.position = {
           left: parseFloat(child.position.left) + deltaX + 'px',
           top: parseFloat(child.position.top) + deltaY + 'px'
+        }
+
+        if (child instanceof ImageView) {
+          this.mouseEvents.add('imagedragged')
         }
 
         if (child instanceof TextBox) {
@@ -441,9 +460,10 @@ export class DragView extends HTMLElement {
     const childStyle = child.text.getBoundingClientRect()
     this.draggableChildren.forEach((dChild, index) => {
       //console.log('child' + index)
-      if (dChild == child) {
+      if (dChild == child || dChild instanceof ImageView) {
         return
       }
+
       const style = dChild.text.getBoundingClientRect()
 
       //console.log('dchild: ' + style.bottom + '| ' + style.top)

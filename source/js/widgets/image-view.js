@@ -5,7 +5,9 @@ export class ImageView {
     this.image = img
 
     this.observers = {
-      mousedown: []
+      mousedown: [],
+      remove: []
+      //delete: []
     }
     /*
     this.removed = false
@@ -13,8 +15,36 @@ export class ImageView {
     this.dragThreshold = 5
     */
 
+    this.hasFocus = false
     this.initializeImage()
-    // this.setEventListeners()
+    this.initializeListeners()
+    this.setEventListeners()
+  }
+
+  initializeListeners() {
+    this.imageListeners.push({
+      eventType: 'mousedown',
+      callback: (e) => {
+        this.observers.mousedown.forEach((cb, i) => {
+          cb(e)
+        })
+      }
+    })
+  }
+
+  setEventListeners() {
+    this.imageListeners.forEach((listener, index) => {
+      this.img.removeEventListener(listener.eventType, listener.callback)
+      this.img.addEventListener(listener.eventType, listener.callback)
+    })
+  }
+
+  removeSelf() {
+    this.removed = true
+    this.draggableFrame.removeChild(this.img)
+    this.observers.remove.forEach((callback, i) => {
+      callback()
+    })
   }
 
   initializeImage() {
@@ -22,16 +52,8 @@ export class ImageView {
     this.draggableFrame.appendChild(this.img)
   }
 
-  // setEventListeners() {
-  //   Object.entries(this.observers).forEach((entry, index) => {
-  //     this.image.removeEventListener(entry[0], entry[1])
-  //     this.image.addEventListener(entry[0], entry[1])
-  //   })
-  // }
-
   addEventListener(eventType, callback) {
     this.observers[eventType].push(callback)
-    this.img.addEventListener(eventType, callback)
   }
 
   removeEventListener(eventType, callback) {
