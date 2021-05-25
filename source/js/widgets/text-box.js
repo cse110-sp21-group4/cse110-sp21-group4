@@ -205,7 +205,7 @@ export class TextBox {
     //   'resize?' + this.lastScrollHeight + '| ' + this.text.scrollHeight
     // )
     if (this.text.scrollHeight != this.lastScrollHeight) {
-      console.log(this.resized)
+      //console.log(this.resized)
       if (!this.resized) {
         //console.log('resize:' + this.text.style.height)
         this.text.style.height =
