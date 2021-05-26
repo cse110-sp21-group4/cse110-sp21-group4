@@ -17,7 +17,7 @@ export class ImageView {
     */
 
     this.hasFocus = false
-    this.resizingWidth = 8
+    this.resizingWidth = 10
     this.initializeImage()
     this.initializeListeners()
     this.setEventListeners()
@@ -60,6 +60,15 @@ export class ImageView {
   initializeImage() {
     this.img.classList.add('image')
     this.draggableFrame.appendChild(this.img)
+
+    this.img.addEventListener('mousemove', (e) => {
+      //console.log('resize')
+      if (!this.isResizing(e.clientX, e.clientY)) {
+        this.img.style.cursor = 'pointer'
+      } else {
+        this.img.style.cursor = 'nwse-resize'
+      }
+    })
   }
 
   addEventListener(eventType, callback) {

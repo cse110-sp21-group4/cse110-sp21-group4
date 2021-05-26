@@ -68,11 +68,14 @@ export class DragView extends HTMLElement {
 
           .image {
             display: block;
-            position: absolute;
+            width: 100%
+            height:100%
           }
 
           .image-frame {
             display: block;
+            position: absolute;
+            resize: both;
           }
 
         </style>
