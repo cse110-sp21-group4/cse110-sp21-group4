@@ -311,7 +311,8 @@ export class DragView extends HTMLElement {
       }
     })
 
-    textBox.text.style.fontSize = this.fontSize
+    console.log('new text:' + this.fontSize)
+    textBox.text.style.fontSize = this.fontSize + 'px'
     textBox.text.style.color = this.textColor
     this.textBoxes.push(textBox)
     this.draggableChildren.push(textBox)
@@ -630,7 +631,6 @@ export class DragView extends HTMLElement {
       this.lastFocusedText.text.style.fontSize = this.fontSize + 'px'
       this.lastFocusedText.resizeToFitText()
     }
-    //TODO change current text font size
   }
 
   get fontSize() {
