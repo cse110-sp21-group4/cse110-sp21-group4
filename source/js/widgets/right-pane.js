@@ -19,34 +19,38 @@ export class RightPane extends HTMLElement {
                 }
 
                 .container{
-                    width: 100%;
-                    height: 100vh;
-                    background-color: #12121f;
+                    width: 414px;
+                    height: 990px;
+                    top: 90px;
+                    left: 1506px;
+                    background-color: rgba(171,187,175,1);#f44336;
                     color: #eee;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                 }
 
+                .pane{
+                    background-color: rgba(500,50,50,50);
+                    position: absolute;
+                    /*overflow: visible; */
+                    width: 414px;
+                    height: 990px;
+                    left: 1506px;
+                    top: 90px;
+	            }
 
                 .calendar{
-                    /*width: 45rem;
-                    height: 52rem;*/
-                    width: 45rem;
-                    height: 52rem;
+                    width: 350px;
+	                height: 400px;
                     background-color: #222227;
                     box-shadow: 0 0.5rem 3rem rgba(0,0,0,.4);
-                    /*position: relative; left: 37%; */
-                    /*position: absolute;*/
-		            /*width: 350px;
-		            height: 400px;
-		            left: 1540px;
-		            top: 121px */
+                    position: relative; top: -25%;
                 }
 
                 .month{
                     width: 100%;
-                    height: 12rem;
+                    height: 65px;
                     background-color: #167e56;
                     display: flex;
                     justify-content: space-between;
@@ -57,35 +61,36 @@ export class RightPane extends HTMLElement {
                 }
 
                 .month i{
-                    font-size: 2.5rem;
+                    font-size: 2rem;
                     cursor: pointer;     /* change ur cursor to a pointer*/
                 }
 
                 .month h1{
-                    font-size: 3rem;
+                    font-size: 1.5rem;
                     font-weight: 500;    /* boldness */
                     text-transform: uppercase;
                     letter-spacing: 0.2rem;
-                    margin-bottom: 1rem;
+                    margin-bottom: 0.2rem;
                 }
 
                 .month p{
-                    font-size: 1.6rem;
+                    font-size: 1.2rem;
                 }
 
                 .weekdays{
                     width: 100%;
-                    height: 5rem;
+                    height: 3rem;
+                    margin-bottom: -0.3rem;
                     padding: 0 0.4rem;
                     display: flex;
                     align-items: center;
                 }
 
                 .weekdays div{
-                    font-size: 1.5rem;
+                    font-size: 1.2rem;
                     font-weight: 400;
                     letter-spacing: 0.1rem;
-                    width: calc(44.2rem / 7);
+                    width: calc(25rem / 7);
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -100,10 +105,10 @@ export class RightPane extends HTMLElement {
                 }
 
                 .days div{
-                    font-size: 1.4rem;
-                    margin: 0.3rem;
-                    width: calc(40.2rem / 7);
-                    height: 5rem;
+                    font-size: 1rem;
+                    margin: 0.2rem;
+                    width: calc(18.5rem / 7);
+                    height: 2.5rem;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -128,15 +133,7 @@ export class RightPane extends HTMLElement {
                     background-color: #167e56;
                 }
 
-                .pane{
-                    background-color: rgba(50,50,50,50);
-                    position: absolute;
-                    /*overflow: visible; */
-                    width: 414px;
-                    height: 990px;
-                    left: 1506px;
-                    top: 90px;
-	            }
+                
 
         </style>
         <div class="pane">
