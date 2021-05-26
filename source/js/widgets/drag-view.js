@@ -163,6 +163,7 @@ export class DragView extends HTMLElement {
     this.mouseEvents = new Set()
     this.movingElement = new Set()
     this.focusedChild = undefined
+    this.fontSz = 20
   }
 
   toggleBulletFromFocusedText() {
@@ -309,9 +310,11 @@ export class DragView extends HTMLElement {
       }
     })
 
+    textBox.text.style.fontSize = this.fontSize
     this.textBoxes.push(textBox)
     this.draggableChildren.push(textBox)
     this.focusedChild = textBox
+
     /*console.log(
       'boxes vs children:' +
         this.textBoxes.length +
@@ -615,6 +618,21 @@ export class DragView extends HTMLElement {
 
   get textOnClick() {
     return this.createTextOnClick
+  }
+
+  set fontSize(fontSize) {
+    this.fontSz = fontSize
+
+    if (this.lastFocusedText) {
+      console.log('change font size to ' + this.fontSize)
+      this.lastFocusedText.text.style.fontSize = this.fontSize + 'px'
+      this.lastFocusedText.resizeToFitText()
+    }
+    //TODO change current text font size
+  }
+
+  get fontSize() {
+    return this.fontSz
   }
 }
 

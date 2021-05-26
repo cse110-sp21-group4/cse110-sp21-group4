@@ -26,6 +26,16 @@
     <button id="insert-image" style="margin-top: 130px; margin-left: 30px">
       Insert Image
     </button>
+    <select
+      name="font-size"
+      id="font-size-sel"
+      style="margin-top: 130px; margin-left: 30px"
+    >
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="30">30</option>
+      <option value="40">40</option>
+    </select>
     <div>
       <drag-view class="block"></drag-view>
     </div>
@@ -39,6 +49,7 @@
       const insertImageButton = document.querySelector('#insert-image')
       const imageInput = document.querySelector('#image-input')
       const showFocusButton = document.querySelector('#show-focus')
+      const sel = document.querySelector('#font-size-sel')
       textButton.addEventListener('click', () => {
         dragView.textOnClick = dragView.textOnClick ? false : true
       })
@@ -54,6 +65,11 @@
         const img = new Image()
         img.src = URL.createObjectURL(e.target.files[0])
         dragView.addDraggableImage({ left: '20px', top: '50px' }, img)
+      })
+
+      sel.addEventListener('change', (e) => {
+        console.log(sel.value)
+        dragView.fontSize = sel.value
       })
     </script>
   </body>
