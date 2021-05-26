@@ -38,6 +38,7 @@ export class LeftPane extends HTMLElement {
         stroke-linecap: butt;
         stroke-miterlimit: 4;
         shape-rendering: auto;
+        cursor: pointer;
     }
     .index-button {
         position: absolute;
@@ -275,6 +276,7 @@ export class LeftPane extends HTMLElement {
         font-weight: bold;
         font-size: 40px;
         color: rgba(0,0,0,1);
+        cursor: pointer;
     }
     #Untitled_Entry {
         left: 66px;
@@ -303,12 +305,35 @@ export class LeftPane extends HTMLElement {
         transform: matrix(1,0,0,1,0,0);
     }
 
-/* Remove margins and padding from the list */
 ul {
-  margin: 0;
-  width: 325px;
-  padding: 0;
-  list-style-type: none;
+    margin: 0;
+    width: 325px;
+    height: 300px;
+    padding: 0;
+    list-style-type: none;
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(129,150,134,1); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(171,187,175,1); 
 }
 
 /* Style the list items */
@@ -318,6 +343,7 @@ ul li {
   padding: 12px 8px 12px 40px;
   font-size: 18px;
   transition: 0.2s;
+  border-radius: 60px;
 
   /* make the list items unselectable */
   -webkit-user-select: none;
@@ -336,7 +362,8 @@ ul li:hover {
   position: absolute;
   right: 0;
   top: 0;
-  padding: 12px 16px 12px 16px;
+  padding: 12px 18px 12px 18px;
+  border-radius: 60px;
 }
 
 .close:hover {
@@ -394,7 +421,7 @@ ul li:hover {
         </ellipse>
       </svg>
       <div id="plus">
-        <span></span>
+        <span>+</span>
       </div>
       <div id="Untitled_Entry">
         <ul id="myUL">

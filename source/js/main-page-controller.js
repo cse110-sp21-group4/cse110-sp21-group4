@@ -31,7 +31,7 @@ export class MainPageController {
     }
 
     // Click on a close button to hide the current list item
-    var close = document.querySelector('left-pane').shadowRoot.querySelectorAll("close");
+    var close = document.querySelector('left-pane').shadowRoot.querySelectorAll("li > span");
     var i;
     for (i = 0; i < close.length; i++) {
       close[i].onclick = function() {
@@ -39,6 +39,36 @@ export class MainPageController {
         div.style.display = "none";
       }
     }
+
+    document.querySelector('left-pane').shadowRoot.querySelector('#plus').addEventListener('click', () => {
+      var li = document.createElement("li");
+
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0');
+      var yyyy = today.getFullYear();
+      var hr = today.getHours();
+      var min = today.getMinutes();
+      today = mm + '/' + dd + '/' + yyyy + ' @ ' + hr + ':' + min;
+      var inputValue = today;
+      var t = document.createTextNode(inputValue);
+      li.appendChild(t);
+      document.querySelector('left-pane').shadowRoot.querySelector('#myUL').appendChild(li);
+    
+      var span = document.createElement("SPAN");
+      var txt = document.createTextNode("\u00D7");
+      span.className = "close";
+      span.appendChild(txt);
+      li.appendChild(span);
+    
+      var close = document.querySelector('left-pane').shadowRoot.querySelectorAll("li > span");
+      for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+          var div = this.parentElement;
+          div.style.display = "none";
+        }
+      }
+    });
 
 
 
