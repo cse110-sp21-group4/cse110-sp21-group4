@@ -425,11 +425,6 @@ ul li:hover {
       </div>
       <div id="Untitled_Entry">
         <ul id="myUL">
-          <li>Entry 1</li>
-          <li>Entry 2</li>
-          <li>Entry 3</li>
-          <li>Entry 4</li>
-          <li>Entry 5</li>
         </ul>
       </div>
       <svg class="Icon_awesome-plus" viewBox="0 2.25 31.5 31.5">
