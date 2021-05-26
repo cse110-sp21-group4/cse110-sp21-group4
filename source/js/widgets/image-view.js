@@ -117,6 +117,19 @@ export class ImageView {
     this.img.draggable = dg
   }
 
+  resize(x, y) {
+    // console.log('client:' + x + '|' + y)
+    this.img.style.width = window.getComputedStyle(this.img).width
+    this.img.style.height = window.getComputedStyle(this.img).height
+    // console.log(
+    //   'original:' + this.img.style.width + '|' + this.img.style.height
+    // )
+
+    this.img.style.width = x - this.img.getBoundingClientRect().left + 'px'
+    this.img.style.height = y - this.img.getBoundingClientRect().top + 'px'
+    //console.log('changed:' + this.img.style.width + '|' + this.img.style.height)
+  }
+
   /**
    * Set the position of the text relative to its parent
    * @param {object} coordinates {left: '123px', top: '1231px'}

@@ -111,6 +111,10 @@ export class DragView extends HTMLElement {
       //console.log('click?')
       if (this.mouseEvents.has('imagedragged')) return
       //console.log('click')
+      if (this.mouseEvents.has('resized')) {
+        this.mouseEvents.delete('resized')
+        return
+      }
       if (this.createTextOnClick) {
         const framePosition = this.draggableFrame.getBoundingClientRect()
         //console.log('frame: ' + framePosition.x + '  mouse: ' + e.clientX)
@@ -369,7 +373,7 @@ export class DragView extends HTMLElement {
       }
 
       if (this.mouseEvents.has('dragging')) {
-        //console.log('dragging')
+        console.log('dragging')
         e.preventDefault()
 
         const deltaX = e.clientX - mousePosition.x
@@ -383,14 +387,20 @@ export class DragView extends HTMLElement {
         }
         //console.log(this.draggableFrame.getBoundingClientRect())
       }
-
-      if (this.mouseEvents.has('mousedownresize') && child instanceof TextBox) {
-        child.resized = true
-        this.mouseEvents.delete('mousedownresize')
+      if (this.mouseEvents.has('mousedownresize')) {
+        if (child instanceof TextBox) {
+          child.resized = true
+        } else if (child instanceof ImageView) {
+          child.resize(e.clientX, e.clientY)
+        }
       }
     })
 
     window.addEventListener('mouseup', (e) => {
+      if (this.mouseEvents.has('mousedownresize')) {
+        this.mouseEvents.delete('mousedownresize')
+        this.mouseEvents.add('resized')
+      }
       //console.log('mouseup')
       if (!this.movingElement.has(child)) return
       if (this.mouseEvents.has('mousedown')) {
