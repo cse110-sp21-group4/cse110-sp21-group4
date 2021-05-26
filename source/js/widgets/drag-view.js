@@ -164,6 +164,7 @@ export class DragView extends HTMLElement {
     this.movingElement = new Set()
     this.focusedChild = undefined
     this.fontSz = 20
+    this.txtColor = 'black'
   }
 
   toggleBulletFromFocusedText() {
@@ -311,6 +312,7 @@ export class DragView extends HTMLElement {
     })
 
     textBox.text.style.fontSize = this.fontSize
+    textBox.text.style.color = this.textColor
     this.textBoxes.push(textBox)
     this.draggableChildren.push(textBox)
     this.focusedChild = textBox
@@ -633,6 +635,20 @@ export class DragView extends HTMLElement {
 
   get fontSize() {
     return this.fontSz
+  }
+
+  set textColor(textColor) {
+    this.txtColor = textColor
+
+    if (this.lastFocusedText) {
+      console.log('change text color to ' + this.textColor)
+      this.lastFocusedText.text.style.color = this.textColor
+    }
+    //TODO change current text font size
+  }
+
+  get textColor() {
+    return this.txtColor
   }
 }
 
