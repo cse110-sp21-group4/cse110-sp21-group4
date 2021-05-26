@@ -311,7 +311,7 @@ export class DragView extends HTMLElement {
       }
     })
 
-    console.log('new text:' + this.fontSize)
+    //console.log('new text:' + this.fontSize)
     textBox.text.style.fontSize = this.fontSize + 'px'
     textBox.text.style.color = this.textColor
     this.textBoxes.push(textBox)
@@ -379,7 +379,7 @@ export class DragView extends HTMLElement {
       }
 
       if (this.mouseEvents.has('dragging')) {
-        console.log('dragging')
+        //console.log('dragging')
         e.preventDefault()
 
         const deltaX = e.clientX - mousePosition.x
@@ -627,7 +627,7 @@ export class DragView extends HTMLElement {
     this.fontSz = fontSize
 
     if (this.lastFocusedText) {
-      console.log('change font size to ' + this.fontSize)
+      //console.log('change font size to ' + this.fontSize)
       this.lastFocusedText.text.style.fontSize = this.fontSize + 'px'
       this.lastFocusedText.resizeToFitText()
     }
@@ -641,7 +641,7 @@ export class DragView extends HTMLElement {
     this.txtColor = textColor
 
     if (this.lastFocusedText) {
-      console.log('change text color to ' + this.textColor)
+      //console.log('change text color to ' + this.textColor)
       this.lastFocusedText.text.style.color = this.textColor
     }
     //TODO change current text font size
