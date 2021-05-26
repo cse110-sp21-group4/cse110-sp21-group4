@@ -20,6 +20,8 @@ export class MainPageController {
       
     })
 
+
+    // This block of code selects all the list elements and appends an 'X' button to the end
     var myNodelist = document.querySelector('left-pane').shadowRoot.querySelectorAll("LI");
     var i;
     for (i = 0; i < myNodelist.length; i++) {
@@ -40,6 +42,8 @@ export class MainPageController {
       }
     }
 
+
+    // This block of code allows you to add entries
     document.querySelector('left-pane').shadowRoot.querySelector('#plus').addEventListener('click', () => {
       var li = document.createElement("li");
 
@@ -54,13 +58,16 @@ export class MainPageController {
       var t = document.createTextNode(inputValue);
       li.appendChild(t);
       document.querySelector('left-pane').shadowRoot.querySelector('#myUL').appendChild(li);
-    
+
+
+      // This creates the X button for the new entries we made
       var span = document.createElement("SPAN");
       var txt = document.createTextNode("\u00D7");
       span.className = "close";
       span.appendChild(txt);
       li.appendChild(span);
-    
+
+      // Click on a close button for the new ENTRIES we created to hide the current list item
       var close = document.querySelector('left-pane').shadowRoot.querySelectorAll("li > span");
       for (i = 0; i < close.length; i++) {
         close[i].onclick = function() {
