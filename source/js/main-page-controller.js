@@ -15,13 +15,21 @@ export class MainPageController {
       .shadowRoot.querySelector('#text-tool')
 
     textTool.addEventListener('click', (event) => {
-      // event.target could be button/svg/path so we query again
       if (textTool.classList.contains('selected-tool')) {
         textTool.classList.remove('selected-tool')
       } else {
-        let textTool = document
-      .querySelector('tool-bar')
-      .shadowRoot.querySelector('.selected-tool')
+        if (
+          document
+            .querySelector('tool-bar')
+            .shadowRoot.querySelector('.selected-tool')
+        ) {
+          document
+            .querySelector('tool-bar')
+            .shadowRoot.querySelector('.selected-tool')
+            .classList.remove('selected-tool')
+        } else {
+          console.log('No tool selected')
+        }
         textTool.classList.add('selected-tool')
       }
 
@@ -30,8 +38,39 @@ export class MainPageController {
       console.log(dragView.textOnClick)
       dragView.textOnClick = dragView.textOnClick ? false : true
     })
-    
+    /// image tool
+    let imageTool = document
+      .querySelector('tool-bar')
+      .shadowRoot.querySelector('#image-tool')
 
+    console.log('Image tool', imageTool)
+
+    imageTool.addEventListener('click', (event) => {
+      console.log('You just clicked image tool')
+      if (imageTool.classList.contains('selected-tool')) {
+        imageTool.classList.remove('selected-tool')
+      } else {
+        if (
+          document
+            .querySelector('tool-bar')
+            .shadowRoot.querySelector('.selected-tool')
+        ) {
+          let selectedTool = document
+            .querySelector('tool-bar')
+            .shadowRoot.querySelector('.selected-tool')
+
+          console.log('You had selected', selectedTool)
+
+          selectedTool.classList.remove('selected-tool')
+        } else {
+          console.log('No tool selected')
+        }
+        imageTool.classList.add('selected-tool')
+      }
+
+      // let imageView = document.querySelector('image-view')
+      // console.log(imageView)
+    })
   }
 
   //Example code

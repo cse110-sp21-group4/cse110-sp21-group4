@@ -37,7 +37,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mai
   \**********************************/
 /***/ (() => {
 
-eval("/**\n * @jest-environment jsdom\n */\n\ndescribe('Text tool clicking', () => {\n  test('selected by default', () => {\n    expect(\n      document\n        .querySelector('tool-bar')\n        .shadowRoot.querySelector('#text-tool')\n        .classList.contains('selected-tool')\n    ).toBeTruthy()\n  })\n})\n\n\n//# sourceURL=webpack://source/./js/tests/toolbar.test.js?");
+eval("/**\n * @jest-environment jsdom\n */\n\n// describe('Text tool clicking', () => {\n//   test('selected by default', () => {\n//     expect(\n//       document\n//         .querySelector('tool-bar')\n//         .shadowRoot.querySelector('#text-tool')\n//         .classList.contains('selected-tool')\n//     ).toBeTruthy()\n//   })\n// })\n\n\n//# sourceURL=webpack://source/./js/tests/toolbar.test.js?");
 
 /***/ })
 
