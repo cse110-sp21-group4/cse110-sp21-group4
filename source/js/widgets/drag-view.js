@@ -332,7 +332,6 @@ export class DragView extends HTMLElement {
    *
    * @param {object} child the wrapper of html element to add into this frame
    * @param {object} coordinats {left: "123px", top: "356px"}
-   * @returns {null} returns the draggable frame itself
    */
   addDraggableElement(child, coordinates) {
     child.position = coordinates
