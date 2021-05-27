@@ -10,16 +10,28 @@ export class MainPageController {
       document.querySelector('tool-bar').shadowRoot.querySelector('#text-tool')
     )
     // Toolbar buttons
-    document
+    let textTool = document
       .querySelector('tool-bar')
       .shadowRoot.querySelector('#text-tool')
-      .addEventListener('click', (event) => {
-        console.log(event.target)
-        let dragView = document.querySelector('drag-view')
-        console.log(dragView)
-        console.log(dragView.textOnClick)
-        dragView.textOnClick = dragView.textOnClick ? false : true
-      })
+
+    textTool.addEventListener('click', (event) => {
+      // event.target could be button/svg/path so we query again
+      if (textTool.classList.contains('selected-tool')) {
+        textTool.classList.remove('selected-tool')
+      } else {
+        let textTool = document
+      .querySelector('tool-bar')
+      .shadowRoot.querySelector('.selected-tool')
+        textTool.classList.add('selected-tool')
+      }
+
+      let dragView = document.querySelector('drag-view')
+      console.log(dragView)
+      console.log(dragView.textOnClick)
+      dragView.textOnClick = dragView.textOnClick ? false : true
+    })
+    
+
   }
 
   //Example code
