@@ -1,4 +1,6 @@
 body {
+  height: 100%;
+  width: 100%;
   background-image: url('images/cover-background.png');
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
     'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -8,18 +10,36 @@ body {
   background-image: url('images/single-paper.jpg'), url('images/paper-book.jpg');
   position: absolute;
   display: block;
+  z-index: -100;
   top: 111px;
-  left: 429px;
+  left: 439px;
   width: 1000px;
   height: 1000px;
+  border: 1px solid blue;
 }
 
 drag-view {
   position: absolute;
+  display: block;
   left: 74px;
   top: 15px;
   height: 974px;
   width: 920px;
   background: transparent;
   border: 1px solid Grey;
+}
+
+main {
+  display: block;
+  width: 100%;
+  height: 1111px;
+  border: 1px solid green;
+}
+
+.main-frame {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
 }

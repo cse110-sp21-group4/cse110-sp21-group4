@@ -8,5 +8,6 @@ const mainPageBody = document.querySelector('body')
 const mainPageController = new MainPageController(mainPageBody)
 
 window.addEventListener('load', () => {
+  mainPageController.initializeAttributes()
   mainPageController.registerListeners()
 })

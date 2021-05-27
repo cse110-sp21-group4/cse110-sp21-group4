@@ -469,7 +469,7 @@ ul li:hover {
     this.leftPane = this.shadowRoot.querySelector('#left-pane')
     this.leftPaneButton = this.shadowRoot.querySelector('#left-pane-button')
     this.plusButton = this.shadowRoot.querySelector('#plus')
-
+    // this.style.display = 'none'
     this.setupListeners()
   }
 
