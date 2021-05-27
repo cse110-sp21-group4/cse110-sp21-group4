@@ -14,24 +14,32 @@ export class MainPageController {
     this.main = document.querySelector('main')
     this.page = document.querySelector('main .page')
     this.left = document.querySelector('left-pane')
-    this.leftPaneButton = this.left.shadowRoot.querySelector('#index-button')
+    this.leftPaneButton = this.view.querySelector('#index-button')
     this.leftPaneFrame = this.left.shadowRoot.querySelector('#outer-rectangle')
   }
 
   registerListeners() {
-    this.left.addEventListener('open', () => {
-      //TODO: move the page to the right
-      console.log('open')
+    this.leftPaneButton.addEventListener('click', () => {
+      this.toggleLeftPane()
+    })
+    document
+      .querySelector('#icon-ionic-ios-book')
+      .addEventListener('click', () => {
+        this.toggleLeftPane()
+      })
+  }
+
+  toggleLeftPane() {
+    if (this.left.style.display === 'none') {
+      this.left.style.display = 'block'
       this.page.style.left = this.leftPaneWidth + this.leftMargin + 'px'
-      console.log(this.leftPaneWidth + this.leftMargin + 'px')
-    })
-    this.left.addEventListener('close', () => {
+      console.log('open')
+    } else {
+      // Page hides - Move MAIN page left
+      this.left.style.display = 'none'
+      this.page.style.left = this.leftPaneButtonWidth + this.leftMargin + 'px'
       console.log('close')
-      //TODO: move the page back
-      console.log(this.page.left)
-      this.page.style.left = this.leftPaneButtonWidth + this.lefgMargin + 'px'
-      console.log(this.leftPaneButtonWidth + this.leftMargin + 'px')
-    })
+    }
   }
 
   //Example code
