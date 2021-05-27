@@ -459,6 +459,114 @@ ul li:hover {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(link)
     this.shadowRoot.appendChild(template.content.cloneNode(true))
+    this.initializeUI()
+
+    this.observers = {
+      open: [],
+      close: []
+    }
+
+    this.leftPane = this.shadowRoot.querySelector('#left-pane')
+    this.leftPaneButton = this.shadowRoot.querySelector('#left-pane-button')
+    this.plusButton = this.shadowRoot.querySelector('#plus')
+
+    this.setupListeners()
+  }
+
+  initializeUI() {
+    // This block of code selects all the list elements and appends an 'X' button to the end
+    let myNodelist = this.shadowRoot.querySelectorAll('LI')
+    for (let i = 0; i < myNodelist.length; i++) {
+      const span = document.createElement('SPAN')
+      const txt = document.createTextNode('\u00D7') // x symbol
+      span.className = 'close'
+      span.appendChild(txt)
+      myNodelist[i].appendChild(span)
+    }
+
+    //Click on a close button to hide the current list item
+    let close = this.shadowRoot.querySelectorAll('li > span')
+    for (let i = 0; i < close.length; i++) {
+      close[i].onclick = function () {
+        let div = this.parentElement
+        div.style.display = 'none'
+      }
+    }
+  }
+
+  setupListeners() {
+    this.leftPaneButton.addEventListener('click', () => {
+      // var p = this.page.shadowRoot.querySelector('.page')
+      if (this.leftPane.style.display === 'none') {
+        this.leftPane.style.display = 'block'
+        // p.style.left = '429px'
+        this.observers.open.forEach((cb, i) => {
+          cb()
+        })
+      } else {
+        // Page hides - Move MAIN page left
+        this.leftPane.style.display = 'none'
+        // p.style.left = '429px'
+        this.observers.close.forEach((cb, i) => {
+          cb()
+        })
+      }
+    })
+
+    this.plusButton.addEventListener('click', () => {
+      console.log('plus')
+      var li = document.createElement('li')
+
+      var today = new Date()
+      var dd = String(today.getDate()).padStart(2, '0')
+      var mm = String(today.getMonth() + 1).padStart(2, '0')
+      var yyyy = today.getFullYear()
+      var hr = today.getHours()
+      var min = today.getMinutes()
+      today = mm + '/' + dd + '/' + yyyy + ' @ ' + hr + ':' + min
+      var inputValue = today
+      var t = document.createTextNode(inputValue)
+      li.appendChild(t)
+      document
+        .querySelector('left-pane')
+        .shadowRoot.querySelector('#myUL')
+        .appendChild(li)
+
+      // This creates the X button for the new entries we made
+      var span = document.createElement('SPAN')
+      var txt = document.createTextNode('\u00D7')
+      span.className = 'close'
+      span.appendChild(txt)
+      li.appendChild(span)
+
+      // Click on a close button for the new ENTRIES we created to hide the current list item
+      var close = document
+        .querySelector('left-pane')
+        .shadowRoot.querySelectorAll('li > span')
+      for (let i = 0; i < close.length; i++) {
+        close[i].onclick = function () {
+          var div = this.parentElement
+          div.style.display = 'none'
+        }
+      }
+    })
+  }
+
+  addEventListener(eventType, callback) {
+    this.observers[eventType].push(callback)
+  }
+
+  removeEventListener(eventType, callback) {
+    this.observers[eventType].forEach((c, i) => {
+      if (callback == c) {
+        this.observers[eventType].splice(i, 0)
+        return false
+      }
+    })
+  }
+
+  removeAllListeners() {
+    this.observers = { open: [], close: [] }
   }
 }
 

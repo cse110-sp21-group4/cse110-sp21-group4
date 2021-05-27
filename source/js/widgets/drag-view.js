@@ -10,7 +10,6 @@ export class DragView extends HTMLElement {
           .drag-frame {
             position:relative;
             background: transparent;
-            border:1px solid grey;
             width:100%;
             height: 100%;
           }

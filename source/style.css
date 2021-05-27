@@ -12,9 +12,14 @@ body {
   left: 429px;
   width: 1000px;
   height: 1000px;
-  border: 1px solid red;
 }
 
-.main-frame {
-  margin-top: 111px, auto, auto, 23px;
+drag-view {
+  position: absolute;
+  left: 74px;
+  top: 15px;
+  height: 974px;
+  width: 920px;
+  background: transparent;
+  border: 1px solid Grey;
 }
