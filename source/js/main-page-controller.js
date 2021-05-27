@@ -1,26 +1,35 @@
 export class MainPageController {
   constructor(view) {
     this.view = view
+    this.initializeAttributes()
+    this.initializePage()
+  }
+
+  initializeAttributes() {
+    this.leftPaneSize = 429
+  }
+
+  initializePage() {
+    this.main = document.querySelector('main')
+    this.page = document.querySelector('drag-view')
+    this.left = document.querySelector('left-pane')
+    // this.main.appendChild(this.left)
+    // this.main.appendChild(this.page)
   }
 
   registerListeners() {
-    document
-      .querySelector('left-pane')
-      .shadowRoot.querySelector('#left-pane-button')
+    this.left.shadowRoot
+      .querySelector('#left-pane-button')
       .addEventListener('click', () => {
-        var v = document
-          .querySelector('left-pane')
-          .shadowRoot.querySelector('#left-pane')
-        var p = document
-          .querySelector('drag-view')
-          .shadowRoot.querySelector('.page')
-        if (v.style.display === 'none') {
-          v.style.display = 'block'
-          p.style.left = '429px'
+        const leftPane = this.left.shadowRoot.querySelector('#left-pane')
+        // var p = this.page.shadowRoot.querySelector('.page')
+        if (leftPane.style.display === 'none') {
+          leftPane.style.display = 'block'
+          // p.style.left = '429px'
         } else {
           // Page hides - Move MAIN page left
-          v.style.display = 'none'
-          p.style.left = '429px'
+          leftPane.style.display = 'none'
+          // p.style.left = '429px'
         }
       })
 

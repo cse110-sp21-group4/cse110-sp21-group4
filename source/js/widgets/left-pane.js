@@ -28,7 +28,6 @@ export class LeftPane extends HTMLElement {
         height: 803px;
         left: 23px;
         top: 111px;
-        
     }
     #index-button {
         fill: rgba(129,150,134,1);
