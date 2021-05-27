@@ -328,7 +328,7 @@ export class TextBox {
    * @param {number} x e.clientX
    * @param {number} y e.clientY
    * @param {object} lastPosition {x: 123, y:2323}
-   * @returns
+   * @returns {number} distance
    */
   mouseMoveDistance(x, y, lastPosition) {
     return Math.sqrt(
