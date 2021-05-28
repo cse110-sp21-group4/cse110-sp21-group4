@@ -1,4 +1,4 @@
-class ToolBar extends HTMLElement {
+export class ToolBar extends HTMLElement {
   constructor() {
     super()
     console.log('toolbar constr called')

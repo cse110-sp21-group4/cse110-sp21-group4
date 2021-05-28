@@ -3,29 +3,40 @@ export class MainPageController {
   constructor(view) {
     this.view = view
 
-  this.initializePage()
-}
+    this.initializePage()
+  }
 
-initializeAttributes() {
-  this.leftPaneWidth = this.leftPaneFrame.getBoundingClientRect().width
-  this.leftPaneButtonWidth = this.leftPaneButton.getBoundingClientRect().width
-  this.leftMargin = this.leftPaneFrame.getBoundingClientRect().left
-}
+  initializeAttributes() {
+    this.leftPaneWidth = this.leftPaneFrame.getBoundingClientRect().width
+    this.leftPaneButtonWidth = this.leftPaneButton.getBoundingClientRect().width
+    this.leftMargin = this.leftPaneFrame.getBoundingClientRect().left
+  }
 
-initializePage() {
-  this.main = document.querySelector('main')
-  this.page = document.querySelector('main .page')
-  this.left = document.querySelector('left-pane')
-  this.leftPaneButton = this.view.querySelector('#index-button')
-  this.leftPaneFrame = this.left.shadowRoot.querySelector('#outer-rectangle')
-}
+  initializePage() {
+    this.main = document.querySelector('main')
+    this.page = document.querySelector('main .page')
+    this.left = document.querySelector('left-pane')
+    console.log(this.left)
+    console.log(this.left.shadowRoot)
+    console.log(this.left.querySelector('#outer-rectangle'))
+
+    this.leftPaneButton = this.view.querySelector('#index-button')
+    this.leftPaneFrame = this.left.shadowRoot.querySelector('#outer-rectangle')
+  }
   registerListeners() {
     // document.querySelector('').addEventListener('', () => {})
+    console.log(
+      document.querySelector('main'),
+      document.querySelector('main tool-bar'),
+      document.querySelector('main > tool-bar'),
+      document.querySelector('tool-bar')
+    )
     console.log(
       document.querySelector('tool-bar').shadowRoot.querySelector('#text-tool')
     )
 
     function selectTool(toolToBeSelected) {
+      console.log(toolToBeSelected, 'selected')
       if (toolToBeSelected.classList.contains('selected-tool')) {
         toolToBeSelected.classList.remove('selected-tool')
       } else {
@@ -63,45 +74,44 @@ initializePage() {
       .querySelector('tool-bar')
       .shadowRoot.querySelector('#image-tool')
 
-      imageTool.addEventListener('click', (event) => {
+    imageTool.addEventListener('click', (event) => {
       selectTool(imageTool)
     })
-  
-  //Bullets Tool
-  let bulletsTool = document
+
+    //Bullets Tool
+    let bulletsTool = document
       .querySelector('tool-bar')
       .shadowRoot.querySelector('#bullets-tool')
 
-      bulletsTool.addEventListener('click', (event) => {
+    bulletsTool.addEventListener('click', (event) => {
       selectTool(bulletsTool)
-  })
-  //Bold Tool
-  let boldTool = document
-    .querySelector('tool-bar')
-    .shadowRoot.querySelector('#bold-tool')
+    })
+    //Bold Tool
+    let boldTool = document
+      .querySelector('tool-bar')
+      .shadowRoot.querySelector('#bold-tool')
 
     boldTool.addEventListener('click', (event) => {
-    selectTool(boldTool)
-  })
+      selectTool(boldTool)
+    })
 
-  //Italics Tool
-  let italicsTool = document
-    .querySelector('tool-bar')
-    .shadowRoot.querySelector('#italics-tool')
+    //Italics Tool
+    let italicsTool = document
+      .querySelector('tool-bar')
+      .shadowRoot.querySelector('#italics-tool')
 
     italicsTool.addEventListener('click', (event) => {
-    selectTool(italicsTool)
-  })
+      selectTool(italicsTool)
+    })
 
-  //Underline Tool
-  let underlineTool = document
-    .querySelector('tool-bar')
-    .shadowRoot.querySelector('#underline-tool')
+    //Underline Tool
+    let underlineTool = document
+      .querySelector('tool-bar')
+      .shadowRoot.querySelector('#underline-tool')
 
     underlineTool.addEventListener('click', (event) => {
-    selectTool(underlineTool)
-  })
-    
+      selectTool(underlineTool)
+    })
 
     this.leftPaneButton.addEventListener('click', () => {
       this.toggleLeftPane()
@@ -126,26 +136,23 @@ initializePage() {
     }
   }
 
-  
+  // //Example code
+  // onTextOnClickChanged(isTextOnClick) {
+  //   console.log('TextOnClick change to: ' + isTextOnClick)
+  // }
 
-  }
-  //Example code
-  onTextOnClickChanged(isTextOnClick) {
-    console.log('TextOnClick change to: ' + isTextOnClick)
-  }
+  // /**
+  //  * @param {String} textColor rgb text color or name (e.g. "back", "red", "#fffeee")
+  //  */
+  // OnTextColorChanged(textColor) {
+  //   console.log('Text color change to: ' + textColor)
+  // }
 
-  /**
-   * @param {String} textColor rgb text color or name (e.g. "back", "red", "#fffeee")
-   */
-  OnTextColorChanged(textColor) {
-    console.log('Text color change to: ' + textColor)
-  }
-
-  /**
-   * @param {object} position { left: '20px', top: '50px' }
-   * @param {Image} img
-   */
-  insertImage(position, img) {
-    console.log('Insert image at position: ' + position)
-  }
+  // /**
+  //  * @param {object} position { left: '20px', top: '50px' }
+  //  * @param {Image} img
+  //  */
+  // insertImage(position, img) {
+  //   console.log('Insert image at position: ' + position)
+  // }
 }

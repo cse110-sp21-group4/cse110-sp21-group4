@@ -650,4 +650,4 @@ export class DragView extends HTMLElement {
   }
 }
 
-customElements.define('drag-view', DragView)
+customElements.get('drag-view') || customElements.define('drag-view', DragView)
