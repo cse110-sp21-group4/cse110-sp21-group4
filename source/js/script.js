@@ -8,11 +8,6 @@ let toolbar = document.createElement('tool-bar')
 document.getElementsByTagName('main')[0].appendChild(page)
 document.getElementsByTagName('main')[0].appendChild(toolbar)
 
-function openIndex() {
-  console.log(document.querySelector('.left-pane'))
-  document.querySelector('.left-pane').style.height = '100px'
-}
-
 /**
  * Main page control
  */
@@ -20,5 +15,6 @@ const mainPageBody = document.querySelector('body')
 const mainPageController = new MainPageController(mainPageBody)
 
 window.addEventListener('load', () => {
+  mainPageController.initializeAttributes()
   mainPageController.registerListeners()
 })

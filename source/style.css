@@ -1,41 +1,48 @@
 body {
+  height: 100%;
+  width: 100%;
   background-image: url('images/cover-background.png');
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
     'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-
-
-#rectangle-57 {
-  fill: rgba(171, 187, 175, 1);
-  stroke: rgba(112, 112, 112, 1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-  opacity: 0.7;
-}
-.rectangle-57 {
+.page {
+  background-image: url('images/single-paper.jpg'), url('images/paper-book.jpg');
   position: absolute;
-  overflow: visible;
-  width: 330px;
-  height: 1000px;
-  left: 10px;
   top: 111px;
-}
-.rectangle-57 rect {
-  position: absolute;
-  overflow: visible;
-  width: 330px;
+  left: 439px;
+  width: 1000px;
   height: 1000px;
-  left: 10px;
-  top: 100px;
+  border: 1px solid blue;
 }
-.left-pane {
-  height: 100px;
+
+drag-view {
+  position: absolute;
+  display: block;
+  left: 74px;
+  top: 15px;
+  height: 974px;
+  width: 920px;
+  background: transparent;
+  border: 1px solid Grey;
 }
-#ellipse-left-button {
+
+main {
+  display: block;
+  width: 100%;
+  height: 1111px;
+  border: 1px solid green;
+}
+
+.main-frame {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+}
+
+#index-button {
   fill: rgba(129, 150, 134, 1);
   stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
@@ -45,26 +52,27 @@ body {
   shape-rendering: auto;
   cursor: pointer;
 }
-.ellipse-left-button {
-  position: absolute;
+.index-button {
+  position: relative;
   overflow: visible;
   width: 80px;
   height: 80px;
-  left: 15px;
-  top: 115px;
+  left: 28px;
+  top: 117px;
 }
-#icon-left-button {
+#icon-ionic-ios-book {
   position: absolute;
   width: 29.236px;
   height: 26.997px;
-  left: 40px;
-  top: 140px;
+  left: 53.382px;
+  top: 143.501px;
   overflow: visible;
+  cursor: pointer;
 }
-#path-1 {
+#Path_1 {
   fill: rgba(171, 187, 175, 1);
 }
-.path-1 {
+.Path_1 {
   overflow: visible;
   position: absolute;
   width: 13.915px;
@@ -73,10 +81,10 @@ body {
   top: 0.007px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
-#path-2 {
+#Path_2 {
   fill: rgba(171, 187, 175, 1);
 }
-.path-2 {
+.Path_2 {
   overflow: visible;
   position: absolute;
   width: 13.915px;
@@ -85,182 +93,12 @@ body {
   top: 0px;
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
-#ellipse-recipes {
-  fill: rgba(129, 150, 134, 1);
-  stroke: rgba(112, 112, 112, 1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.ellipse-recipes {
-  position: absolute;
-  overflow: visible;
+
+#left-pane-button {
   width: 80px;
   height: 80px;
   left: 28px;
-  top: 664px;
-}
-#Line_1 {
-  fill: transparent;
-  stroke: rgba(129, 150, 134, 1);
-  stroke-width: 3px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.Line_1 {
-  overflow: visible;
-  position: absolute;
-  width: 406.044px;
-  height: 9px;
-  left: 23.5px;
-  top: 197.5px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
-}
-#ellipse-diary {
-  fill: rgba(129, 150, 134, 1);
-  stroke: rgba(112, 112, 112, 1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.ellipse-diary {
-  position: absolute;
-  overflow: visible;
-  width: 80px;
-  height: 80px;
-  left: 29px;
-  top: 866px;
-}
-#ellipse-assignments {
-  fill: rgba(129, 150, 134, 1);
-  stroke: rgba(112, 112, 112, 1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.ellipse-assignments {
-  position: absolute;
-  overflow: visible;
-  width: 80px;
-  height: 80px;
-  left: 29px;
-  top: 765px;
-}
-#icon-recipes {
-  fill: rgba(255, 255, 255, 1);
-}
-.icon-recipes {
-  overflow: visible;
-  position: absolute;
-  width: 34.56px;
-  height: 30.296px;
-  left: 48.058px;
-  top: 682.501px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
-}
-#icon-assignments {
-  /* fill: rgba(171,187,175,1); */
-  fill: rgba(255, 255, 255, 1);
-}
-.icon-assignments {
-  overflow: visible;
-  position: absolute;
-  width: 31.5px;
-  height: 27px;
-  left: 49.588px;
-  top: 791.5px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
-}
-#icon-diary {
-  fill: rgba(255, 255, 255, 1);
-}
-.icon-diary {
-  overflow: visible;
-  position: absolute;
-  width: 30.849px;
-  height: 28.907px;
-  left: 49.914px;
-  top: 891.546px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
-}
-#rectangle-56 {
-  fill: rgba(230, 230, 230, 1);
-  stroke: rgba(112, 112, 112, 1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.rectangle-56 {
-  position: absolute;
-  overflow: visible;
-  width: 387px;
-  height: 436px;
-  left: 20px;
-  top: 213px;
-}
-#entries {
-  left: 48px;
-  top: 227px;
-  position: absolute;
-  overflow: visible;
-  width: 93px;
-  white-space: nowrap;
-  text-align: center;
-  /* font-family: Segoe UI; */
-  font-style: normal;
-  font-weight: bold;
-  font-size: 30px;
-  color: rgba(0, 0, 0, 1);
-}
-#recipes {
-  left: 120px;
-  top: 684px;
-  position: absolute;
-  overflow: visible;
-  width: 101px;
-  white-space: nowrap;
-  text-align: left;
-  /* font-family: Segoe UI; */
-  font-style: normal;
-  font-weight: normal;
-  font-size: 30px;
-  color: rgba(255, 255, 255, 1);
-}
-#assignments {
-  left: 120px;
-  top: 789px;
-  position: absolute;
-  overflow: visible;
-  width: 147px;
-  white-space: nowrap;
-  text-align: left;
-  /* font-family: Segoe UI; */
-  font-style: normal;
-  font-weight: normal;
-  font-size: 26px;
-  color: rgba(255, 255, 255, 1);
-}
-#diary {
-  left: 120px;
-  top: 886px;
-  position: absolute;
-  overflow: visible;
-  width: 70px;
-  white-space: nowrap;
-  text-align: left;
-  /* font-family: Segoe UI; */
-  font-style: normal;
-  font-weight: normal;
-  font-size: 30px;
-  color: rgba(255, 255, 255, 1);
+  top: 117px;
+  border: 1px solid purple;
+  display: block;
 }
