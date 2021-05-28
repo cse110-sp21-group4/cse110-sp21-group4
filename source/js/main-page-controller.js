@@ -45,10 +45,18 @@ export class MainPageController {
             .querySelector('tool-bar')
             .shadowRoot.querySelector('.selected-tool')
         ) {
-          document
+          let prevSelectedTool = document
             .querySelector('tool-bar')
             .shadowRoot.querySelector('.selected-tool')
-            .classList.remove('selected-tool')
+          let textTool = document
+            .querySelector('tool-bar')
+            .shadowRoot.querySelector('#text-tool')
+          console.log(prevSelectedTool, textTool)
+          if (prevSelectedTool == textTool) {
+            let dragView = document.querySelector('drag-view')
+            dragView.textOnClick = dragView.textOnClick ? false : true
+          }
+          prevSelectedTool.classList.remove('selected-tool')
         } else {
           console.log('No tool selected')
         }
