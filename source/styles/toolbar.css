@@ -2,10 +2,6 @@
 
 .tool-bar {
   display: flex;
-  /* flex-wrap: nowrap; */
-  /* flex-flow: row nowrap; */
-  /* align-items: left; */
-  /* justify-content: center; */
   background-color: white;
   border: 5px solid lightslategray;
   border-radius: 25px;
@@ -29,14 +25,10 @@
 
 .selected-tool {
   background-color: rgba(129, 150, 134, 1);
-
   border: 3px solid lightgrey;
   border-radius: 10px;
-  /* padding: 10px; */
 }
-/* #text-tool {
-  margin-left: 120px;
-} */
+
 
 .tool > svg {
   width: 30px;
@@ -44,25 +36,3 @@
   transform: matrix(1, 0, 0, 1, 0, 0);
 }
 
-/*.icon-text {
-  width: 30px;
-  height: 30px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
-}
-.icon-image {
-  width: 45px;
-  height: 45px;
-  margin-top: 5px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
-}
-.icon-bullet {
-  width: 45px;
-  height: 45px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
-}
-
-.icon-bold {
-  width: 30px;
-  height: 30px;
-  transform: matrix(1, 0, 0, 1, 0, 0);
-}*/

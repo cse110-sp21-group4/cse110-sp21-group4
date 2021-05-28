@@ -29,6 +29,7 @@ export class MainPageController {
         toolToBeSelected.classList.add('selected-tool')
       }
     }
+
     // Toolbar buttons
     let textTool = document
       .querySelector('tool-bar')
@@ -42,50 +43,43 @@ export class MainPageController {
       console.log(dragView.textOnClick)
       dragView.textOnClick = dragView.textOnClick ? false : true
     })
-    /// image tool
+    //Image Tool
     let imageTool = document
       .querySelector('tool-bar')
       .shadowRoot.querySelector('#image-tool')
 
-    console.log('Image tool', imageTool)
-
-    imageTool.addEventListener('click', (event) => {
-      console.log('You just clicked image tool')
-
+      imageTool.addEventListener('click', (event) => {
       selectTool(imageTool)
-
-      // let imageView = document.querySelector('image-view')
-      // console.log(imageView)
     })
   
-  // bullets tool
+  //Bullets Tool
   let bulletsTool = document
       .querySelector('tool-bar')
       .shadowRoot.querySelector('#bullets-tool')
 
       bulletsTool.addEventListener('click', (event) => {
-      console.log('You just clicked bullets tool')
       selectTool(bulletsTool)
   })
 
-  // bold tool
+  //Bold Tool
   let boldTool = document
     .querySelector('tool-bar')
     .shadowRoot.querySelector('#bold-tool')
 
     boldTool.addEventListener('click', (event) => {
-    console.log('You just clicked bold tool')
     selectTool(boldTool)
   })
 
-  let italicTool = document
+  //Italics Tool
+  let italicsTool = document
     .querySelector('tool-bar')
-    .shadowRoot.querySelector('#italic-tool')
+    .shadowRoot.querySelector('#italics-tool')
 
-    italicTool.addEventListener('click', (event) => {
-    selectTool(italicTool)
+    italicsTool.addEventListener('click', (event) => {
+    selectTool(italicsTool)
   })
 
+  //Underline Tool
   let underlineTool = document
     .querySelector('tool-bar')
     .shadowRoot.querySelector('#underline-tool')
@@ -93,9 +87,6 @@ export class MainPageController {
     underlineTool.addEventListener('click', (event) => {
     selectTool(underlineTool)
   })
-
-
-
 
   }
   //Example code

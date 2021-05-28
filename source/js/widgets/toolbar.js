@@ -34,7 +34,7 @@ class ToolBar extends HTMLElement {
             </svg>
           </button>
 
-          <button class="tool" id="italic-tool">
+          <button class="tool" id="italics-tool">
             <svg class="icon-italics" viewBox = "0 0 125 125">
               <path d="M32.16,3.37L33.16,0h60l-1.18,3.37c-5.44,0-9.59,1.21-12.46,3.62c-2.88,2.41-5.38,7.45-7.58,15.13l-22.45,78.65 c-1.64,5.57-2.44,9.28-2.44,11.13c0,2.19,0.83,3.86,2.54,5.1c2.17,1.55,6.28,2.41,12.31,2.54l-0.9,3.34H0l0.99-3.34 c6.13,0,10.58-1.18,13.42-3.5c2.85-2.32,5.42-7.42,7.7-15.28l22.64-78.65c1.39-4.83,2.1-8.48,2.1-10.95c0-2.26-0.87-3.99-2.54-5.26 C42.62,4.64,38.57,3.78,32.16,3.37L32.16,3.37L32.16,3.37z">
               </path>
@@ -51,14 +51,6 @@ class ToolBar extends HTMLElement {
         `
 
     // template.addEventListener('click',editPage());
-
-    
-      /* <button class="tool" id="bullet-tool">
-              <svg class="icon-bullet" viewBox="2 2 50 50">
-                <path id="icon-bullet" d="M 4 4 C 1.800781 4 0 5.800781 0 8 C 0 10.199219 1.800781 12 4 12 C 6.199219 12 8 10.199219 8 8 C 8 5.800781 6.199219 4 4 4 Z M 12 6 L 12 10 L 50 10 L 50 6 Z M 4 21 C 1.800781 21 0 22.800781 0 25 C 0 27.199219 1.800781 29 4 29 C 6.199219 29 8 27.199219 8 25 C 8 22.800781 6.199219 21 4 21 Z M 12 23 L 12 27 L 50 27 L 50 23 Z M 4 38 C 1.800781 38 0 39.800781 0 42 C 0 44.199219 1.800781 46 4 46 C 6.199219 46 8 44.199219 8 42 C 8 39.800781 6.199219 38 4 38 Z M 12 40 L 12 44 L 50 44 L 50 40 Z">
-              </svg>
-            </button> */
-    
 
     const link = document.createElement('link')
     link.setAttribute('rel', 'stylesheet')
