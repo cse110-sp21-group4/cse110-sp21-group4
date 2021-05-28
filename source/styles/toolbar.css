@@ -7,9 +7,9 @@
   /* align-items: left; */
   /* justify-content: center; */
   background-color: white;
-  border: 5px solid lightgrey;
-  border-radius: 10px;
-  height: 50px;
+  border: 5px solid lightslategray;
+  border-radius: 25px;
+  height: 60px;
   width: 1050px;
   position: absolute;
   left: 300px;
@@ -19,17 +19,12 @@
 }
 
 .tool {
-  background-color: white;
-  width: 50px;
-
-  border: 0px;
+  margin-left: 20px;
+  padding: 10px;
   display: block;
   margin: auto;
-  /* margin-left: 20px; */
-
-  /* border: 3px solid lightgrey; */
-  /* border-radius: 10px; */
-  /* padding: 10px; */
+  border: 0px;
+  background-color: white;
 }
 
 .selected-tool {
@@ -43,13 +38,13 @@
   margin-left: 120px;
 } */
 
-/* .tool > svg {
+.tool > svg {
   width: 30px;
   height: 30px;
   transform: matrix(1, 0, 0, 1, 0, 0);
-} */
+}
 
-.icon-text {
+/*.icon-text {
   width: 30px;
   height: 30px;
   transform: matrix(1, 0, 0, 1, 0, 0);
@@ -70,4 +65,4 @@
   width: 30px;
   height: 30px;
   transform: matrix(1, 0, 0, 1, 0, 0);
-}
+}*/

@@ -61,19 +61,38 @@ export class MainPageController {
   // bullets tool
   let bulletsTool = document
       .querySelector('tool-bar')
-      .shadowRoot.querySelector('#bullet-tool')
+      .shadowRoot.querySelector('#bullets-tool')
 
       bulletsTool.addEventListener('click', (event) => {
+      console.log('You just clicked bullets tool')
       selectTool(bulletsTool)
+  })
 
-      let dragView = document.querySelector('drag-view')
-      console.log(dragView)
-      console.log(dragView.textOnClick)
-      dragView.textOnClick = dragView.textOnClick ? false : true
-    })
+  // bold tool
+  let boldTool = document
+    .querySelector('tool-bar')
+    .shadowRoot.querySelector('#bold-tool')
 
+    boldTool.addEventListener('click', (event) => {
+    console.log('You just clicked bold tool')
+    selectTool(boldTool)
+  })
 
+  let italicTool = document
+    .querySelector('tool-bar')
+    .shadowRoot.querySelector('#italic-tool')
 
+    italicTool.addEventListener('click', (event) => {
+    selectTool(italicTool)
+  })
+
+  let underlineTool = document
+    .querySelector('tool-bar')
+    .shadowRoot.querySelector('#underline-tool')
+
+    underlineTool.addEventListener('click', (event) => {
+    selectTool(underlineTool)
+  })
 
 
 
