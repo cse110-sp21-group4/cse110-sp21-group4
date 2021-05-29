@@ -33,12 +33,11 @@ jobs:
                   cd source
                   npm i webpack
                   npm i -D webpack-cli
-                  npm i -D jest
+                  npm i --save-dev jest babel-jest @babel/core @babel/preset-env
             - name: Build
               run: |
                   cd source
                   npm run build_js
-                  npm run build_test
             - name: Testing
               run: |
                   cd source
