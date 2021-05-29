@@ -1,17 +1,104 @@
 body {
-  background-image: url("images/cover-background.png");
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  height: 100%;
+  width: 100%;
+  background-image: url('images/cover-background.png');
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .page {
-  background-image: url("images/single-paper.jpg"),url("images/paper-book.jpg");
-  position: relative;
-  left: 429px;
-  top: 100px;
+  background-image: url('images/single-paper.jpg'), url('images/paper-book.jpg');
+  position: absolute;
+  top: 111px;
+  left: 439px;
   width: 1000px;
   height: 1000px;
-  font-size: large;
+  border: 1px solid blue;
+}
 
-  padding: 50px;
-  padding-left: 100px;
+drag-view {
+  position: absolute;
+  display: block;
+  left: 74px;
+  top: 15px;
+  height: 974px;
+  width: 920px;
+  background: transparent;
+  border: 1px solid Grey;
+}
+
+main {
+  display: block;
+  width: 100%;
+  height: 1111px;
+  border: 1px solid green;
+}
+
+.main-frame {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+}
+
+#index-button {
+  fill: rgba(129, 150, 134, 1);
+  stroke: rgba(112, 112, 112, 1);
+  stroke-width: 1px;
+  stroke-linejoin: miter;
+  stroke-linecap: butt;
+  stroke-miterlimit: 4;
+  shape-rendering: auto;
+  cursor: pointer;
+}
+.index-button {
+  position: relative;
+  overflow: visible;
+  width: 80px;
+  height: 80px;
+  left: 28px;
+  top: 117px;
+}
+#icon-ionic-ios-book {
+  position: absolute;
+  width: 29.236px;
+  height: 26.997px;
+  left: 53.382px;
+  top: 143.501px;
+  overflow: visible;
+  cursor: pointer;
+}
+#Path_1 {
+  fill: rgba(171, 187, 175, 1);
+}
+.Path_1 {
+  overflow: visible;
+  position: absolute;
+  width: 13.915px;
+  height: 26.99px;
+  left: 0px;
+  top: 0.007px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+#Path_2 {
+  fill: rgba(171, 187, 175, 1);
+}
+.Path_2 {
+  overflow: visible;
+  position: absolute;
+  width: 13.915px;
+  height: 26.99px;
+  left: 15.321px;
+  top: 0px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+#left-pane-button {
+  width: 80px;
+  height: 80px;
+  left: 28px;
+  top: 117px;
+  border: 1px solid purple;
+  display: block;
 }
