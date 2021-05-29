@@ -1,24 +1,38 @@
 import { DragView } from './widgets/drag-view.js'
 import { MainPageController } from './main-page-controller.js'
-import { ToolBar } from './widgets/toolbar.js'
 
-// let page = document.createElement('drag-view')
-// let toolbar = document.createElement('tool-bar')
+let page = document.createElement('drag-view')
+let left = document.createElement('left-pane')
+let right = document.createElement('right-pane')
 
-// document.getElementsByTagName('main')[0].appendChild(page)
-// document.getElementsByTagName('main')[0].appendChild(toolbar)
+document.getElementsByTagName('main')[0].appendChild(page)
+document.getElementsByTagName('main')[0].appendChild(left)
+document.getElementsByTagName('main')[0].appendChild(right)
+
+var toolselected = 'text'
+
+function openIndex() {
+  console.log(document.querySelector('.left-pane'))
+  document.querySelector('.left-pane').style.height = '100px'
+
+}
+
+function editPage() {
+  console.log('clicked on page', document.querySelector())
+  if (toolselected == 'text') {
+  }
+  if (toolselected == 'image') {
+  }
+}
 
 /**
  * Main page control
  */
 const mainPageBody = document.querySelector('body')
-console.log('callling const')
 const mainPageController = new MainPageController(mainPageBody)
-console.log('const called')
 
 window.addEventListener('load', () => {
-  console.log('initializing atts')
-  mainPageController.initializeAttributes()
-  console.log('atts initialized')
-  mainPageController.registerListeners()
+   mainPageController.registerListeners();
+
+
 })

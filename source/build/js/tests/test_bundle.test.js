@@ -7,6 +7,7 @@
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./js/main.js":
@@ -15,7 +16,6 @@
   \********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/**\n * A test function for jsdoc and jest\n *\n * @param {number} a The first number\n * @param {*} b The second number\n * @returns {number} returns a number\n */\n\nfunction addTest(a, b) {\n  return a + b\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addTest);\nconsole.log('success!!!')\n\n\n//# sourceURL=webpack://source/./js/main.js?");
 
 /***/ }),
@@ -26,18 +26,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _main_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../main.js */ \"./js/main.js\");\n\n\ntest('Testing adds 3 + 2', () => {\n  expect((0,_main_js__WEBPACK_IMPORTED_MODULE_0__.default)(3, 2)).toBe(5)\n})\n\n\n\n\n\n//# sourceURL=webpack://source/./js/tests/main-test.js?");
-
-/***/ }),
-
-/***/ "./js/tests/toolbar.test.js":
-/*!**********************************!*\
-  !*** ./js/tests/toolbar.test.js ***!
-  \**********************************/
-/***/ (() => {
-
-eval("/**\n * @jest-environment jsdom\n */\n\n// describe('Text tool clicking', () => {\n//   test('selected by default', () => {\n//     expect(\n//       document\n//         .querySelector('tool-bar')\n//         .shadowRoot.querySelector('#text-tool')\n//         .classList.contains('selected-tool')\n//     ).toBeTruthy()\n//   })\n// })\n\n\n//# sourceURL=webpack://source/./js/tests/toolbar.test.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _main_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../main.js */ \"./js/main.js\");\n\n\ntest('Testing adds 3 + 2', () => {\n  expect((0,_main_js__WEBPACK_IMPORTED_MODULE_0__.default)(3, 2)).toBe(5)\n})\n\n\n//# sourceURL=webpack://source/./js/tests/main-test.js?");
 
 /***/ })
 
@@ -101,8 +90,7 @@ eval("/**\n * @jest-environment jsdom\n */\n\n// describe('Text tool clicking', 
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	__webpack_require__("./js/tests/main-test.js");
-/******/ 	var __webpack_exports__ = __webpack_require__("./js/tests/toolbar.test.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./js/tests/main-test.js");
 /******/ 	
 /******/ })()
 ;
