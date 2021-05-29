@@ -1,7 +1,7 @@
 
 **.DS_Store
 
-source/coverage/
+source/coverage
 source/package-lock.json
 source/node_modules/
 source/build/
