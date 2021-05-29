@@ -1,279 +1,104 @@
 body {
-  background-image: url("images/cover-background.png");
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  height: 100%;
+  width: 100%;
+  background-image: url('images/cover-background.png');
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .page {
-  background-image: url("images/single-paper.jpg"),url("images/paper-book.jpg");
-  position: relative;
-  left: 250px;
-  top: 100px;
+  background-image: url('images/single-paper.jpg'), url('images/paper-book.jpg');
+  position: absolute;
+  top: 111px;
+  left: 439px;
   width: 1000px;
   height: 1000px;
-  font-size: large;
-
-  padding: 50px;
-  padding-left: 100px;
+  border: 1px solid blue;
 }
 
-#Rectangle-57 {
-  fill: rgba(171,187,175,1);
-  stroke: rgba(112,112,112,1);
+drag-view {
+  position: absolute;
+  display: block;
+  left: 74px;
+  top: 15px;
+  height: 974px;
+  width: 920px;
+  background: transparent;
+  border: 1px solid Grey;
+}
+
+main {
+  display: block;
+  width: 100%;
+  height: 1111px;
+  border: 1px solid green;
+}
+
+.main-frame {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid red;
+}
+
+#index-button {
+  fill: rgba(129, 150, 134, 1);
+  stroke: rgba(112, 112, 112, 1);
   stroke-width: 1px;
   stroke-linejoin: miter;
   stroke-linecap: butt;
   stroke-miterlimit: 4;
   shape-rendering: auto;
-  opacity: 0.7;
-}
-.Rectangle-57 {
-  position: absolute;
-  overflow: visible;
-  width: 330px;
-  height: 1000px;
-  left: 10px;
-  top: 111px;
-}
-.Rectangle-57 rect{
-  position: absolute;
-  overflow: visible;
-  width: 330px;
-  height: 1000px;
-  left: 10px;
-  top: 100px;
-}
-.left-pane{
-  height: 100px;
-}
-#Ellipse-left-button {
-  fill: rgba(129,150,134,1);
-  stroke: rgba(112,112,112,1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-  --web-animation: fadein 0.3s ease-out;
-  --web-action-type: page;
-  --web-action-target: Web_1920___1.html;
   cursor: pointer;
 }
-.Ellipse-left-button {
-  position: absolute;
+.index-button {
+  position: relative;
   overflow: visible;
   width: 80px;
   height: 80px;
-  left: 15px;
-  top: 115px;
+  left: 28px;
+  top: 117px;
 }
-#Icon-left-button {
+#icon-ionic-ios-book {
   position: absolute;
   width: 29.236px;
   height: 26.997px;
-  left: 40px;
-  top: 140px;
+  left: 53.382px;
+  top: 143.501px;
   overflow: visible;
+  cursor: pointer;
 }
-#Path-1 {
-  fill: rgba(171,187,175,1);
+#Path_1 {
+  fill: rgba(171, 187, 175, 1);
 }
-.Path-1 {
+.Path_1 {
   overflow: visible;
   position: absolute;
   width: 13.915px;
   height: 26.99px;
   left: 0px;
   top: 0.007px;
-  transform: matrix(1,0,0,1,0,0);
+  transform: matrix(1, 0, 0, 1, 0, 0);
 }
-#Path-2 {
-  fill: rgba(171,187,175,1);
+#Path_2 {
+  fill: rgba(171, 187, 175, 1);
 }
-.Path-2 {
+.Path_2 {
   overflow: visible;
   position: absolute;
   width: 13.915px;
   height: 26.99px;
   left: 15.321px;
   top: 0px;
-  transform: matrix(1,0,0,1,0,0);
+  transform: matrix(1, 0, 0, 1, 0, 0);
 }
-#Ellipse-recipes {
-  fill: rgba(129,150,134,1);
-  stroke: rgba(112,112,112,1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.Ellipse-recipes {
-  position: absolute;
-  overflow: visible;
+
+#left-pane-button {
   width: 80px;
   height: 80px;
   left: 28px;
-  top: 664px;
-}
-#Line_1 {
-  fill: transparent;
-  stroke: rgba(129,150,134,1);
-  stroke-width: 3px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.Line_1 {
-  overflow: visible;
-  position: absolute;
-  width: 406.044px;
-  height: 9px;
-  left: 23.5px;
-  top: 197.5px;
-  transform: matrix(1,0,0,1,0,0);
-}
-#Ellipse-diary {
-  fill: rgba(129,150,134,1);
-  stroke: rgba(112,112,112,1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.Ellipse-diary {
-  position: absolute;
-  overflow: visible;
-  width: 80px;
-  height: 80px;
-  left: 29px;
-  top: 866px;
-}
-#Ellipse-assignments {
-  fill: rgba(129,150,134,1);
-  stroke: rgba(112,112,112,1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.Ellipse-assignments {
-  position: absolute;
-  overflow: visible;
-  width: 80px;
-  height: 80px;
-  left: 29px;
-  top: 765px;
-}
-#Icon-recipes {
-  fill: rgba(255,255,255,1);
-}
-.Icon-recipes {
-  overflow: visible;
-  position: absolute;
-  width: 34.56px;
-  height: 30.296px;
-  left: 48.058px;
-  top: 682.501px;
-  transform: matrix(1,0,0,1,0,0);
-}
-#Icon-assignments {
-  /* fill: rgba(171,187,175,1); */
-  fill: rgba(255,255,255,1);
-}
-.Icon-assignments {
-  overflow: visible;
-  position: absolute;
-  width: 31.5px;
-  height: 27px;
-  left: 49.588px;
-  top: 791.5px;
-  transform: matrix(1,0,0,1,0,0);
-}
-#Icon-diary {
-  fill: rgba(255,255,255,1);
-}
-.Icon-diary {
-  overflow: visible;
-  position: absolute;
-  width: 30.849px;
-  height: 28.907px;
-  left: 49.914px;
-  top: 891.546px;
-  transform: matrix(1,0,0,1,0,0);
-}
-#Rectangle-56 {
-  fill: rgba(230,230,230,1);
-  stroke: rgba(112,112,112,1);
-  stroke-width: 1px;
-  stroke-linejoin: miter;
-  stroke-linecap: butt;
-  stroke-miterlimit: 4;
-  shape-rendering: auto;
-}
-.Rectangle-56 {
-  position: absolute;
-  overflow: visible;
-  width: 387px;
-  height: 436px;
-  left: 20px;
-  top: 213px;
-}
-#Entries {
-  left: 48px;
-  top: 227px;
-  position: absolute;
-  overflow: visible;
-  width: 93px;
-  white-space: nowrap;
-  text-align: center;
-  /* font-family: Segoe UI; */
-  font-style: normal;
-  font-weight: bold;
-  font-size: 30px;
-  color: rgba(0,0,0,1);
-}
-#Recipes {
-  left: 120px;
-  top: 684px;
-  position: absolute;
-  overflow: visible;
-  width: 101px;
-  white-space: nowrap;
-  text-align: left;
-  /* font-family: Segoe UI; */
-  font-style: normal;
-  font-weight: normal;
-  font-size: 30px;
-  color: rgba(255,255,255,1);
-}
-#Assignments {
-  left: 120px;
-  top: 789px;
-  position: absolute;
-  overflow: visible;
-  width: 147px;
-  white-space: nowrap;
-  text-align: left;
-  /* font-family: Segoe UI; */
-  font-style: normal;
-  font-weight: normal;
-  font-size: 26px;
-  color: rgba(255,255,255,1);
-}
-#Diary {
-  left: 120px;
-  top: 886px;
-  position: absolute;
-  overflow: visible;
-  width: 70px;
-  white-space: nowrap;
-  text-align: left;
-  /* font-family: Segoe UI; */
-  font-style: normal;
-  font-weight: normal;
-  font-size: 30px;
-  color: rgba(255,255,255,1);
+  top: 117px;
+  border: 1px solid purple;
+  display: block;
 }
