@@ -1,0 +1,37 @@
+/* tools selected*/
+
+.tool-bar {
+  display: flex;
+  background-color: white;
+  border: 5px solid lightslategray;
+  border-radius: 25px;
+  height: 60px;
+  width: 1050px;
+  position: absolute;
+  top: 1050px;
+  left: 450px;
+}
+.tool > svg > path {
+  fill: rgba(0, 0, 0, 1);
+}
+
+.tool {
+  margin-left: 20px;
+  padding: 10px;
+  display: block;
+  margin: auto;
+  border: 0px;
+  background-color: white;
+}
+
+.selected-tool {
+  background-color: rgba(129, 150, 134, 1);
+  border: 3px solid lightgrey;
+  border-radius: 10px;
+}
+
+.tool > svg {
+  width: 30px;
+  height: 30px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+}
