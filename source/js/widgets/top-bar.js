@@ -3,17 +3,25 @@ export class TopBar extends HTMLElement {
     super()
     const template = document.createElement('template')
     template.innerHTML = `
-        <div class="drag-frame">
-          <div class="page" contenteditable="true" onclick=editPage()>
-            <h1>New Notes</h1>
-            <ol>
-              <li>Notes 1</li>
-            </ol>
-            <br />
-            <ul>
-              <li>Notes 2</li>
-            </ul>
-          </div>
+      <style>
+
+        #Rectangle_1 {
+          fill: rgba(129,150,134,1);
+        }
+
+        .Rectangle_1 {
+          position: absolute;
+          overflow: visible;
+          width: 1920px;
+          height: 90px;
+          left: 0px;
+          top: 0px;
+        }
+        
+      </style>
+
+        <div class="top-bar">
+         
         </div>
         `
     
