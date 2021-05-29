@@ -20,44 +20,48 @@ export class RightPane extends HTMLElement {
 
                 .container{
                     width: 414px;
-                    height: 990px;
-                    top: 90px;
+                    height: 800px;
+                    top: 111px;
                     left: 1506px;
                     background-color: rgba(171,187,175,1);#f44336;
-                    color: #eee;
+                    color: #333;
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    border-radius: 60px;
                 }
-
                 .pane{
-                    background-color: rgba(500,50,50,50);
+                    background-color: rgb(171,187,175);
                     position: absolute;
                     /*overflow: visible; */
                     width: 414px;
-                    height: 990px;
+                    height: 800px;
                     left: 1506px;
-                    top: 90px;
+                    top: 111px;
+                    border-radius: 60px;
 	            }
 
                 .calendar{
                     width: 350px;
 	                height: 400px;
-                    background-color: #222227;
+                    position: relative; top: -17.5%;
+                    background-color: #ccc;
                     box-shadow: 0 0.5rem 3rem rgba(0,0,0,.4);
-                    position: relative; top: -25%;
+                    border-radius: 10px;
                 }
 
                 .month{
                     width: 100%;
                     height: 65px;
-                    background-color: #167e56;
+                    background-color: #aaa;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     padding: 0 2rem;
                     text-align: center;
                     text-shadow: 0 .3rem .5rem rgba(0,0,0,.5);
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
                 }
 
                 .month i{
@@ -114,11 +118,12 @@ export class RightPane extends HTMLElement {
                     align-items: center;
                     text-shadow: 0 .3rem .5rem rgba(0,0,0,.5);
                     transition: background-color 0.2s;
+                    background-color: rgb(242, 242, 242);
+                    text-color: black;
                 }
 
                 /*if not today */
                 .days div:hover:not(.today){
-                    background-color: #262626;
                     border: .2rem solid#777;
                     cursor: pointer;
                 }
@@ -163,7 +168,6 @@ export class RightPane extends HTMLElement {
             </div>
         </div>
     </div>
-     <h1>asdasdas</h1>
     </div>
 
 
