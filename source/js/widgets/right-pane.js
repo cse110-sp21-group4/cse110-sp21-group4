@@ -59,7 +59,7 @@ export class RightPane extends HTMLElement {
                     align-items: center;
                     padding: 0 2rem;
                     text-align: center;
-                    text-shadow: 0 .3rem .5rem rgba(0,0,0,.5);
+                    text-shadow: 0 .2rem .9rem rgba(0,0,0,.5);
                     border-top-left-radius: 10px;
                     border-top-right-radius: 10px;
                 }
@@ -108,7 +108,7 @@ export class RightPane extends HTMLElement {
                     padding: 0.2rem;
                 }
 
-                .days div{
+                .days div:not(.today){
                     font-size: 1rem;
                     margin: 0.2rem;
                     width: calc(18.5rem / 7);
@@ -116,7 +116,7 @@ export class RightPane extends HTMLElement {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    text-shadow: 0 .3rem .5rem rgba(0,0,0,.5);
+                    text-shadow: 0 .2rem .9rem rgba(0,0,0,.5);
                     transition: background-color 0.2s;
                     background-color: rgb(242, 242, 242);
                     text-color: black;
@@ -135,7 +135,17 @@ export class RightPane extends HTMLElement {
                 }
 
                 .today{
-                    background-color: #167e56;
+                    background-color: #f39507;
+                    font-size: 1rem;
+                    margin: 0.2rem;
+                    width: calc(18.5rem / 7);
+                    height: 2.5rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-shadow: 0 .2rem .9rem rgba(0,0,0,.5);
+                    transition: background-color 0.2s;
+                    text-color: white;
                 }
 
                 
