@@ -19,9 +19,13 @@ export class MainPageController {
     console.log(this.left)
     console.log(this.left.shadowRoot)
     console.log(this.left.querySelector('#outer-rectangle'))
-
+    this.dragview = document.querySelector('drag-view')
     this.leftPaneButton = this.view.querySelector('#index-button')
     this.leftPaneFrame = this.left.shadowRoot.querySelector('#outer-rectangle')
+
+    // Toolbar
+    this.toolbar = document.querySelector('tool-bar')
+    this.imageInput = this.toolbar.shadowRoot.querySelector('#image-input')
   }
   registerListeners() {
     // document.querySelector('').addEventListener('', () => {})
@@ -65,57 +69,50 @@ export class MainPageController {
     }
 
     // Toolbar buttons
-    let textTool = document
-      .querySelector('tool-bar')
-      .shadowRoot.querySelector('#text-tool')
+    let textTool = this.toolbar.shadowRoot.querySelector('#text-tool')
 
     textTool.addEventListener('click', (event) => {
       selectTool(textTool)
 
-      let dragView = document.querySelector('drag-view')
-      console.log(dragView)
-      console.log(dragView.textOnClick)
-      dragView.textOnClick = dragView.textOnClick ? false : true
+      console.log(this.dragview)
+      console.log(this.dragview.textOnClick)
+      this.dragview.textOnClick = this.dragview.textOnClick ? false : true
     })
     //Image Tool
-    let imageTool = document
-      .querySelector('tool-bar')
-      .shadowRoot.querySelector('#image-tool')
-
+    let imageTool = this.toolbar.shadowRoot.querySelector('#image-tool')
+    this.imageInput.addEventListener('change', (e) => {
+      const img = new Image()
+      img.src = URL.createObjectURL(e.target.files[0])
+      this.dragview.addDraggableImage({ left: '20px', top: '50px' }, img)
+    })
     imageTool.addEventListener('click', (event) => {
       selectTool(imageTool)
+
+      this.imageInput.click()
     })
 
     //Bullets Tool
-    let bulletsTool = document
-      .querySelector('tool-bar')
-      .shadowRoot.querySelector('#bullets-tool')
+    let bulletsTool = this.toolbar.shadowRoot.querySelector('#bullets-tool')
 
     bulletsTool.addEventListener('click', (event) => {
       selectTool(bulletsTool)
     })
     //Bold Tool
-    let boldTool = document
-      .querySelector('tool-bar')
-      .shadowRoot.querySelector('#bold-tool')
+    let boldTool = this.toolbar.shadowRoot.querySelector('#bold-tool')
 
     boldTool.addEventListener('click', (event) => {
       selectTool(boldTool)
     })
 
     //Italics Tool
-    let italicsTool = document
-      .querySelector('tool-bar')
-      .shadowRoot.querySelector('#italics-tool')
+    let italicsTool = this.toolbar.shadowRoot.querySelector('#italics-tool')
 
     italicsTool.addEventListener('click', (event) => {
       selectTool(italicsTool)
     })
 
     //Underline Tool
-    let underlineTool = document
-      .querySelector('tool-bar')
-      .shadowRoot.querySelector('#underline-tool')
+    let underlineTool = this.toolbar.shadowRoot.querySelector('#underline-tool')
 
     underlineTool.addEventListener('click', (event) => {
       selectTool(underlineTool)

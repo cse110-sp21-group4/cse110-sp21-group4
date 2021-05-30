@@ -9,7 +9,7 @@
   width: 1050px;
   position: absolute;
   top: 1050px;
-  left: 450px;
+  left: 425px;
 }
 .tool > svg > path {
   fill: rgba(0, 0, 0, 1);
@@ -18,10 +18,11 @@
 .tool {
   margin-left: 20px;
   padding: 10px;
-  display: block;
+  display: inline block;
   margin: auto;
   border: 0px;
   background-color: white;
+  cursor: pointer;
 }
 
 .selected-tool {
