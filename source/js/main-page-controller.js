@@ -10,13 +10,14 @@ export class MainPageController {
     this.leftPaneWidth = this.leftPaneFrame.getBoundingClientRect().width
     this.leftPaneButtonWidth = this.leftPaneButton.getBoundingClientRect().width
     this.leftMargin = this.leftPaneFrame.getBoundingClientRect().left
+    
   }
 
   initializePage() {
     this.main = document.querySelector('main')
     this.page = document.querySelector('main .page')
     this.left = document.querySelector('left-pane')
-    this.right = document.querySelector()
+    /*this.right = document.querySelector()*/
     console.log(this.left)
     console.log(this.left.shadowRoot)
     console.log(this.left.querySelector('#outer-rectangle'))

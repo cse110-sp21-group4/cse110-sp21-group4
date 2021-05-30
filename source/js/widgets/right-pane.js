@@ -36,8 +36,8 @@ export class RightPane extends HTMLElement {
                     /*overflow: visible; */
                     width: 414px;
                     height: 800px;
-                    left: 1506px;
-                    top: 111px;
+                    left: 1475px;
+                    top: 120px;
                     border-radius: 60px;
 	            }
 
