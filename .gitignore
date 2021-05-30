@@ -1,7 +1,9 @@
 
 **.DS_Store
 
+source/coverage
 source/package-lock.json
 source/node_modules/
 source/build/
 admin/.DS_Store
+source/js/.Rhistory
