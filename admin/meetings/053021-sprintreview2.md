@@ -1,7 +1,7 @@
 # Sprint Review 2
 
 Date: May 30, 2021
-Participants: Zhongkang Fang, Bozhi Wang, Christopher Vu, Yang Lu, Ishaan Gupta, Tri Tran
+Participants: Zhongkang Fang, Darian Hong, Christopher Vu, Bozhi Wang, RJ Singh, Yang Lu, Ishaan Gupta, Tri Tran
 Type: Sprint Review
 
 Time In: 1:00

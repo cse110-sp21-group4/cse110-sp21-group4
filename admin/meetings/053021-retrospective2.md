@@ -1,7 +1,7 @@
 # Retrospective
 
 Date: May 30, 2021
-Participants: Zhongkang Fang, Bozhi Wang, Christopher Vu, Yang Lu, Ishaan Gupta, Tri Tran
+Participants: Zhongkang Fang, Darian Hong, Christopher Vu, Bozhi Wang, RJ Singh, Yang Lu, Ishaan Gupta, Tri Tran
 Type: Retrospective
 
 # What went well?
