@@ -122,6 +122,15 @@ export class DragView extends HTMLElement {
           left: e.clientX - framePosition.x - 10 + 'px',
           top: e.clientY - framePosition.y - 20 + 'px'
         }
+        if (this.shadowRoot.querySelector('.lastselected')) {
+          console.log(
+            'last focussed',
+            this.shadowRoot.querySelector('.lastselected')
+          )
+          this.shadowRoot
+            .querySelector('.lastselected')
+            .classList.remove('lastselected')
+        }
         this.addDraggableTextBox(textPosition).focus()
       }
     })
@@ -167,10 +176,14 @@ export class DragView extends HTMLElement {
   }
 
   toggleBulletFromFocusedText() {
-    if (this.lastFocusedText.bullet) {
-      this.removeBulletFromeFocusedText()
+    if (this.lastFocusedText) {
+      if (this.lastFocusedText.bullet) {
+        this.removeBulletFromeFocusedText()
+      } else {
+        this.addBulletToFocusedText()
+      }
     } else {
-      this.addBulletToFocusedText()
+      console.error('No textbox to add bullets to')
     }
   }
 
@@ -237,7 +250,7 @@ export class DragView extends HTMLElement {
    */
   addDraggableTextBox(coordinates) {
     const textBox = new TextBox(this.draggableFrame)
-
+    console.trace()
     this.addDraggableElement(textBox, coordinates)
     textBox.addEventListener('remove', () => {
       this.removeArrayElement(textBox, this.textBoxes)
@@ -245,6 +258,7 @@ export class DragView extends HTMLElement {
     })
     textBox.addEventListener('focus', () => {
       this.lastFocusedText = textBox
+      this.lastFocusedText.addClass('lastselected')
     })
 
     textBox.addEventListener('tabpressed', () => {
@@ -610,6 +624,30 @@ export class DragView extends HTMLElement {
     )
   }
 
+  toggleBoldFromFocusedText() {
+    if (this.lastFocusedText) {
+      this.lastFocusedText.text.style.fontWeight =
+        this.lastFocusedText.text.style.fontWeight == 'bold' ? 'normal' : 'bold'
+    }
+  }
+
+  toggleItalicsFromFocusedText() {
+    if (this.lastFocusedText) {
+      this.lastFocusedText.text.style.fontStyle =
+        this.lastFocusedText.text.style.fontStyle == 'italic'
+          ? 'normal'
+          : 'italic'
+    }
+  }
+  toggleUnderlineFromFocusedText() {
+    if (this.lastFocusedText) {
+      this.lastFocusedText.text.style.textDecoration =
+        this.lastFocusedText.text.style.textDecoration == 'underline'
+          ? 'none'
+          : 'underline'
+    }
+  }
+
   /**
    * Setter and getter
    */
@@ -622,11 +660,11 @@ export class DragView extends HTMLElement {
   }
 
   set fontSize(fontSize) {
-    this.fontSz = fontSize
+    // this.fontSz = fontSize
 
     if (this.lastFocusedText) {
-      //console.log('change font size to ' + this.fontSize)
-      this.lastFocusedText.text.style.fontSize = this.fontSize + 'px'
+      // console.log('change font size to ' + fontSize)
+      this.lastFocusedText.text.style.fontSize = fontSize + 'px'
       this.lastFocusedText.resizeToFitText()
     }
   }
@@ -635,14 +673,13 @@ export class DragView extends HTMLElement {
     return this.fontSz
   }
 
-  set textColor(textColor) {
-    this.txtColor = textColor
+  set textColor(textClr) {
+    // this.txtColor = textColor
 
     if (this.lastFocusedText) {
-      //console.log('change text color to ' + this.textColor)
-      this.lastFocusedText.text.style.color = this.textColor
+      console.log('change text color to ' + textClr)
+      this.lastFocusedText.text.style.color = textClr
     }
-    //TODO change current text font size
   }
 
   get textColor() {

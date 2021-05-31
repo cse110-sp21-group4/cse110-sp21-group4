@@ -48,16 +48,18 @@ export class ToolBar extends HTMLElement {
             </svg>
           
         </button>
-        <div class="tool" id="text-size">
-          <input type="number" value="42" width=>
+        <div class="tool" id="text-size" >
+          <input type="number" value="20" id="text-size-sel" width="10px">
 
           </input>
         </div>
         <div class="tool" id="text-color">
           <select name="text-color" id="text-color-sel" margin-left: 30px">
+            <option value="black">Black</option>
             <option value="blue">Blue</option>
             <option value="red">Red</option>
-            <option value="black">Black</option>
+            <option value="white">White</option>
+            <option value="brown">Brown</option>
             <option value="purple">Purple</option>
           </select>
       </div>

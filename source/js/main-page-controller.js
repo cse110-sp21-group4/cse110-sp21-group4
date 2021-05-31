@@ -41,9 +41,9 @@ export class MainPageController {
 
     function selectTool(toolToBeSelected) {
       console.log(toolToBeSelected, 'selected')
-      if (toolToBeSelected.classList.contains('selected-tool')) {
-        toolToBeSelected.classList.remove('selected-tool')
-      } else {
+      if (!toolToBeSelected.classList.contains('selected-tool')) {
+        // toolToBeSelected.classList.remove('selected-tool')
+        // } else {
         if (
           document
             .querySelector('tool-bar')
@@ -96,12 +96,20 @@ export class MainPageController {
 
     bulletsTool.addEventListener('click', (event) => {
       selectTool(bulletsTool)
+      // console.log(
+      document.querySelector('drag-view').toggleBulletFromFocusedText()
+      document.querySelector('drag-view').click()
+      console.log(document.querySelector('drag-view').lastFocusedText)
+      // .shadowRoot.querySelector('.lastselected')
+      // )
+      // this.dragView.toggleBulletFromFocusedText()
     })
     //Bold Tool
     let boldTool = this.toolbar.shadowRoot.querySelector('#bold-tool')
 
     boldTool.addEventListener('click', (event) => {
       selectTool(boldTool)
+      document.querySelector('drag-view').toggleBoldFromFocusedText()
     })
 
     //Italics Tool
@@ -109,6 +117,7 @@ export class MainPageController {
 
     italicsTool.addEventListener('click', (event) => {
       selectTool(italicsTool)
+      document.querySelector('drag-view').toggleItalicsFromFocusedText()
     })
 
     //Underline Tool
@@ -116,8 +125,22 @@ export class MainPageController {
 
     underlineTool.addEventListener('click', (event) => {
       selectTool(underlineTool)
+      document.querySelector('drag-view').toggleUnderlineFromFocusedText()
     })
 
+    let textSize = this.toolbar.shadowRoot.querySelector('#text-size-sel')
+    textSize.addEventListener('change', (event) => {
+      selectTool(textSize)
+      document.querySelector('drag-view').fontSize = textSize.value
+    })
+
+    let textColor = this.toolbar.shadowRoot.querySelector('#text-color-sel')
+    textColor.addEventListener('change', (event) => {
+      selectTool(textColor)
+      document.querySelector('drag-view').textColor = textColor.value
+    })
+
+    // Left pane
     this.leftPaneButton.addEventListener('click', () => {
       this.toggleLeftPane()
     })
