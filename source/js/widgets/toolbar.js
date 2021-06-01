@@ -122,7 +122,7 @@ export class ToolBar extends HTMLElement {
       const img = new Image()
       img.src = URL.createObjectURL(e.target.files[0])
       this.observers.imageclicked.forEach((cb, i) => {
-        cb({ left: '20px', top: '50px' }, img, e)
+        cb(img, e)
       })
     })
     this.imageTool.addEventListener('click', (event) => {
