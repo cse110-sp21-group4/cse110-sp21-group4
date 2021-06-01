@@ -45,19 +45,18 @@ export class MainPageController {
 
     this.toolbar.addEventListener('bulletclicked', (e) => {
       this.dragview.toggleBulletFromFocusedText()
-      this.dragview.click()
     })
 
     this.toolbar.addEventListener('boldclicked', (e) => {
-      this.dragview.toggleBoldFromFocusedText()
+      this.dragview.toggleBold()
     })
 
     this.toolbar.addEventListener('italicclicked', (e) => {
-      this.dragview.toggleItalicsFromFocusedText()
+      this.dragview.toggleItalic()
     })
 
     this.toolbar.addEventListener('underlineclicked', (e) => {
-      this.dragview.toggleUnderlineFromFocusedText()
+      this.dragview.toggleUnderline()
     })
 
     this.toolbar.addEventListener('sizeclicked', (fontSize, e) => {

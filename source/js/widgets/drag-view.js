@@ -164,6 +164,9 @@ export class DragView extends HTMLElement {
     this.focusedChild = undefined
     this.fontSz = 20
     this.txtColor = 'black'
+    this.bold = false
+    this.italic = false
+    this.underline = false
   }
 
   toggleBulletFromFocusedText() {
@@ -313,6 +316,9 @@ export class DragView extends HTMLElement {
     //console.log('new text:' + this.fontSize)
     textBox.text.style.fontSize = this.fontSize + 'px'
     textBox.text.style.color = this.textColor
+    textBox.underline = this.underline
+    textBox.bold = this.bold
+    textBox.italic = this.italic
     this.textBoxes.push(textBox)
     this.draggableChildren.push(textBox)
     this.focusedChild = textBox
@@ -610,9 +616,31 @@ export class DragView extends HTMLElement {
     )
   }
 
+  toggleUnderline() {
+    this.underline = this.underline ? false : true
+    if (this.lastFocusedText) {
+      this.lastFocusedText.underline = this.underline
+    }
+  }
+
+  toggleBold() {
+    this.bold = this.bold ? false : true
+    if (this.lastFocusedText) {
+      this.lastFocusedText.bold = this.bold
+    }
+  }
+
+  toggleItalic() {
+    this.italic = this.italic ? false : true
+    if (this.lastFocusedText) {
+      this.lastFocusedText.italic = this.italic
+    }
+  }
+
   /**
    * Setter and getter
    */
+
   set textOnClick(isTextOnClick) {
     this.createTextOnClick = isTextOnClick
   }
