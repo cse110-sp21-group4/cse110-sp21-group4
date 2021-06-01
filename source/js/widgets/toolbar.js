@@ -82,6 +82,147 @@ export class ToolBar extends HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(link)
     this.shadowRoot.appendChild(template.content.cloneNode(true))
+
+    this.textTool = this.shadowRoot.querySelector('#text-tool')
+    this.imageInput = this.shadowRoot.querySelector('#image-input')
+    this.imageTool = this.shadowRoot.querySelector('#image-tool')
+    this.bulletsTool = this.shadowRoot.querySelector('#bullets-tool')
+    this.boldTool = this.shadowRoot.querySelector('#bold-tool')
+    this.italicsTool = this.shadowRoot.querySelector('#italics-tool')
+    this.underlineTool = this.shadowRoot.querySelector('#underline-tool')
+    this.textSize = this.shadowRoot.querySelector('#text-size-sel')
+    this.textColor = this.shadowRoot.querySelector('#text-color-sel')
+
+    this.observers = {
+      textclicked: [],
+      imageclicked: [],
+      bulletclicked: [],
+      boldclicked: [],
+      italicclicked: [],
+      underlineclicked: [],
+      sizeclicked: [],
+      colorclicked: []
+    }
+
+    this.setupListeners()
+  }
+
+  setupListeners() {
+    // Tool bar
+    // Text Tool
+    this.textTool.addEventListener('click', (event) => {
+      this.selectTool(this.textTool)
+      this.observers.textclicked.forEach((cb, i) => {
+        cb(event)
+      })
+    })
+
+    //Image Tool
+    this.imageInput.addEventListener('change', (e) => {
+      const img = new Image()
+      img.src = URL.createObjectURL(e.target.files[0])
+      this.observers.imageclicked.forEach((cb, i) => {
+        cb({ left: '20px', top: '50px' }, img, e)
+      })
+    })
+    this.imageTool.addEventListener('click', (event) => {
+      this.selectTool(this.imageTool)
+      this.imageInput.click()
+    })
+
+    //Bullets Tool
+    this.bulletsTool.addEventListener('click', (event) => {
+      this.selectTool(this.bulletsTool)
+      this.observers.bulletclicked.forEach((cb) => {
+        cb(event)
+      })
+    })
+
+    //Bold Tool
+    this.boldTool.addEventListener('click', (event) => {
+      this.selectTool(this.boldTool)
+      this.observers.boldclicked.forEach((cb) => {
+        cb(event)
+      })
+    })
+
+    //Italics Tool
+    this.italicsTool.addEventListener('click', (event) => {
+      this.selectTool(this.italicsTool)
+      this.observers.italicclicked.forEach((cb) => {
+        cb(event)
+      })
+    })
+
+    //Underline Tool
+    this.underlineTool.addEventListener('click', (event) => {
+      this.selectTool(this.underlineTool)
+      this.observers.underlineclicked.forEach((cb) => {
+        cb(event)
+      })
+    })
+
+    //Text Size
+    this.textSize.addEventListener('change', (event) => {
+      this.selectTool(this.textSize)
+      this.observers.sizeclicked.forEach((cb) => {
+        cb(this.textSize.value, event)
+      })
+    })
+
+    //Text Color
+    this.textColor.addEventListener('change', (event) => {
+      this.selectTool(this.textColor)
+      this.observers.colorclicked.forEach((cb) => {
+        cb(this.textColor.value, event)
+      })
+    })
+  }
+
+  selectTool(toolToBeSelected) {
+    //console.log(toolToBeSelected, 'selected')
+    if (!toolToBeSelected.classList.contains('selected-tool')) {
+      // toolToBeSelected.classList.remove('selected-tool')
+      // } else {
+      if (
+        document
+          .querySelector('tool-bar')
+          .shadowRoot.querySelector('.selected-tool')
+      ) {
+        let prevSelectedTool = document
+          .querySelector('tool-bar')
+          .shadowRoot.querySelector('.selected-tool')
+        let textTool = document
+          .querySelector('tool-bar')
+          .shadowRoot.querySelector('#text-tool')
+        console.log(prevSelectedTool, textTool)
+        if (prevSelectedTool == textTool) {
+          let dragView = document.querySelector('drag-view')
+          dragView.textOnClick = dragView.textOnClick ? false : true
+        }
+        prevSelectedTool.classList.remove('selected-tool')
+      } else {
+        console.log('No tool selected')
+      }
+      toolToBeSelected.classList.add('selected-tool')
+    }
+  }
+
+  addEventListener(eventType, callback) {
+    this.observers[eventType].push(callback)
+  }
+
+  removeEventListener(eventType, callback) {
+    this.observers[eventType].forEach((c, i) => {
+      if (callback == c) {
+        this.observers[eventType].splice(i, 0)
+        return false
+      }
+    })
+  }
+
+  removeAllListeners() {
+    this.observers = { open: [], close: [] }
   }
 }
 

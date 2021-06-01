@@ -12,13 +12,13 @@ import { ToolBar } from './widgets/toolbar.js'
  * Main page control
  */
 const mainPageBody = document.querySelector('body')
-console.log('callling const')
+//console.log('callling const')
 const mainPageController = new MainPageController(mainPageBody)
-console.log('const called')
+//console.log('const called')
 
 window.addEventListener('load', () => {
-  console.log('initializing atts')
+  //console.log('initializing atts')
   mainPageController.initializeAttributes()
-  console.log('atts initialized')
+  //console.log('atts initialized')
   mainPageController.registerListeners()
 })

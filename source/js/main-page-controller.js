@@ -16,131 +16,15 @@ export class MainPageController {
     this.main = document.querySelector('main')
     this.page = document.querySelector('main .page')
     this.left = document.querySelector('left-pane')
-    console.log(this.left)
-    console.log(this.left.shadowRoot)
-    console.log(this.left.querySelector('#outer-rectangle'))
     this.dragview = document.querySelector('drag-view')
     this.leftPaneButton = this.view.querySelector('#index-button')
     this.leftPaneFrame = this.left.shadowRoot.querySelector('#outer-rectangle')
 
     // Toolbar
     this.toolbar = document.querySelector('tool-bar')
-    this.imageInput = this.toolbar.shadowRoot.querySelector('#image-input')
   }
   registerListeners() {
-    // document.querySelector('').addEventListener('', () => {})
-    console.log(
-      document.querySelector('main'),
-      document.querySelector('main tool-bar'),
-      document.querySelector('main > tool-bar'),
-      document.querySelector('tool-bar')
-    )
-    console.log(
-      document.querySelector('tool-bar').shadowRoot.querySelector('#text-tool')
-    )
-
-    function selectTool(toolToBeSelected) {
-      console.log(toolToBeSelected, 'selected')
-      if (!toolToBeSelected.classList.contains('selected-tool')) {
-        // toolToBeSelected.classList.remove('selected-tool')
-        // } else {
-        if (
-          document
-            .querySelector('tool-bar')
-            .shadowRoot.querySelector('.selected-tool')
-        ) {
-          let prevSelectedTool = document
-            .querySelector('tool-bar')
-            .shadowRoot.querySelector('.selected-tool')
-          let textTool = document
-            .querySelector('tool-bar')
-            .shadowRoot.querySelector('#text-tool')
-          console.log(prevSelectedTool, textTool)
-          if (prevSelectedTool == textTool) {
-            let dragView = document.querySelector('drag-view')
-            dragView.textOnClick = dragView.textOnClick ? false : true
-          }
-          prevSelectedTool.classList.remove('selected-tool')
-        } else {
-          console.log('No tool selected')
-        }
-        toolToBeSelected.classList.add('selected-tool')
-      }
-    }
-
-    // Toolbar buttons
-    let textTool = this.toolbar.shadowRoot.querySelector('#text-tool')
-
-    textTool.addEventListener('click', (event) => {
-      selectTool(textTool)
-
-      console.log(this.dragview)
-      console.log(this.dragview.textOnClick)
-      this.dragview.textOnClick = this.dragview.textOnClick ? false : true
-    })
-    //Image Tool
-    let imageTool = this.toolbar.shadowRoot.querySelector('#image-tool')
-    this.imageInput.addEventListener('change', (e) => {
-      const img = new Image()
-      img.src = URL.createObjectURL(e.target.files[0])
-      this.dragview.addDraggableImage({ left: '20px', top: '50px' }, img)
-    })
-    imageTool.addEventListener('click', (event) => {
-      selectTool(imageTool)
-
-      this.imageInput.click()
-    })
-
-    //Bullets Tool
-    let bulletsTool = this.toolbar.shadowRoot.querySelector('#bullets-tool')
-
-    bulletsTool.addEventListener('click', (event) => {
-      selectTool(bulletsTool)
-      // console.log(
-      document.querySelector('drag-view').toggleBulletFromFocusedText()
-      document.querySelector('drag-view').click()
-      console.log(document.querySelector('drag-view').lastFocusedText)
-      // .shadowRoot.querySelector('.lastselected')
-      // )
-      // this.dragView.toggleBulletFromFocusedText()
-    })
-    //Bold Tool
-    let boldTool = this.toolbar.shadowRoot.querySelector('#bold-tool')
-
-    boldTool.addEventListener('click', (event) => {
-      selectTool(boldTool)
-      document.querySelector('drag-view').toggleBoldFromFocusedText()
-    })
-
-    //Italics Tool
-    let italicsTool = this.toolbar.shadowRoot.querySelector('#italics-tool')
-
-    italicsTool.addEventListener('click', (event) => {
-      selectTool(italicsTool)
-      document.querySelector('drag-view').toggleItalicsFromFocusedText()
-    })
-
-    //Underline Tool
-    let underlineTool = this.toolbar.shadowRoot.querySelector('#underline-tool')
-
-    underlineTool.addEventListener('click', (event) => {
-      selectTool(underlineTool)
-      document.querySelector('drag-view').toggleUnderlineFromFocusedText()
-    })
-
-    let textSize = this.toolbar.shadowRoot.querySelector('#text-size-sel')
-    textSize.addEventListener('change', (event) => {
-      selectTool(textSize)
-      document.querySelector('drag-view').fontSize = textSize.value
-    })
-
-    let textColor = this.toolbar.shadowRoot.querySelector('#text-color-sel')
-    textColor.addEventListener('change', (event) => {
-      selectTool(textColor)
-      document.querySelector('drag-view').textColor = textColor.value
-    })
-
-    // Left pane
+    // Left Pane
     this.leftPaneButton.addEventListener('click', () => {
       this.toggleLeftPane()
     })
@@ -149,13 +33,47 @@ export class MainPageController {
       .addEventListener('click', () => {
         this.toggleLeftPane()
       })
+
+    //Tool Bar
+    this.toolbar.addEventListener('textclicked', (e) => {
+      this.dragview.textOnClick = this.dragview.textOnClick ? false : true
+    })
+
+    this.toolbar.addEventListener('imageclicked', (coordinates, img, e) => {
+      this.dragview.addDraggableImage(coordinates, img)
+    })
+
+    this.toolbar.addEventListener('bulletclicked', (e) => {
+      this.dragview.toggleBulletFromFocusedText()
+      this.dragview.click()
+    })
+
+    this.toolbar.addEventListener('boldclicked', (e) => {
+      this.dragview.toggleBoldFromFocusedText()
+    })
+
+    this.toolbar.addEventListener('italicclicked', (e) => {
+      this.dragview.toggleItalicsFromFocusedText()
+    })
+
+    this.toolbar.addEventListener('underlineclicked', (e) => {
+      this.dragview.toggleUnderlineFromFocusedText()
+    })
+
+    this.toolbar.addEventListener('sizeclicked', (fontSize, e) => {
+      this.dragview.fontSize = fontSize
+    })
+
+    this.toolbar.addEventListener('colorclicked', (color, e) => {
+      this.dragview.textColor = color
+    })
   }
 
   toggleLeftPane() {
     if (this.left.style.display === 'none') {
       this.left.style.display = 'block'
       this.page.style.left = this.leftPaneWidth + this.leftMargin + 'px'
-      console.log('open')
+      //console.log('open')
     } else {
       // Page hides - Move MAIN page left
       this.left.style.display = 'none'
