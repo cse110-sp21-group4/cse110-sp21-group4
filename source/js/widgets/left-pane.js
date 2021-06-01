@@ -250,6 +250,11 @@ export class LeftPane extends HTMLElement {
         font-size: 40px;
         color: rgba(0,0,0,1);
         cursor: pointer;
+        -webkit-user-select: none; /* Safari */        
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+/Edge */
+        user-select: none; /* Standard */
+
     }
     #Untitled_Entry {
         left: 66px;
