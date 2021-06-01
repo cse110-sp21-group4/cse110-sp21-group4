@@ -33,6 +33,7 @@ export class TextBox {
 
   initializeText() {
     this.text = document.createElement('textarea')
+    this.text.spellcheck = false
     this.text.classList.add('textbox')
     this.text.style.background = 'transparent'
     this.draggableFrame.appendChild(this.text)
@@ -40,6 +41,7 @@ export class TextBox {
     this.textPadding = parseFloat(
       window.getComputedStyle(this.text).getPropertyValue('padding-top')
     )
+
     //console.log(this.textPadding, this.lastScrollHeight)
     /*console.log(
       'height:' + this.lastTextHeight + ',' + 'extra:' + this.extraHeight
@@ -246,10 +248,10 @@ export class TextBox {
    */
   set position(coordinates) {
     const framePosition = this.draggableFrame.getBoundingClientRect()
-    console.log(
+    /*console.log(
       -1.0 * parseFloat(window.getComputedStyle(this.text).width),
       parseFloat(coordinates.left)
-    )
+    )*/
 
     if (
       parseFloat(coordinates.left) <
@@ -400,6 +402,16 @@ export class TextBox {
   }
 
   /**
-   * Helpers
+   * Getters and Setters
    */
+
+  set bold(isBold) {
+    this.text.style.fontWeight = isBold ? 'bold' : 'normal'
+  }
+  set italic(isItalic) {
+    this.text.style.fontStyle = isItalic ? 'italic' : 'normal'
+  }
+  set underline(isUnderline) {
+    this.text.style.textDecoration = isUnderline ? 'underline' : 'none'
+  }
 }
