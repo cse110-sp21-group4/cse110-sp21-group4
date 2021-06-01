@@ -108,24 +108,3 @@ test('constructor', () => {
   newController.constructor(document.body)
   expect(fn).toHaveBeenCalled()
 })
-
-test('onTextOnClickChanged', () => {
-  const fn = jest.spyOn(console, 'log')
-  mainPageController.onTextOnClickChanged()
-
-  expect(fn).toHaveBeenCalled()
-})
-
-test('OnTextColorChanged', () => {
-  const fn = jest.spyOn(console, 'log')
-  mainPageController.OnTextColorChanged()
-
-  expect(fn).toHaveBeenCalled()
-})
-
-test('insertImage', () => {
-  const fn = jest.spyOn(console, 'log')
-  mainPageController.insertImage()
-
-  expect(fn).toHaveBeenCalled()
-})
