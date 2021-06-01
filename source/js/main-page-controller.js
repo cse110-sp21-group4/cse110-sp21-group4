@@ -10,6 +10,7 @@ export class MainPageController {
     this.leftPaneWidth = this.leftPaneFrame.getBoundingClientRect().width
     this.leftPaneButtonWidth = this.leftPaneButton.getBoundingClientRect().width
     this.leftMargin = this.leftPaneFrame.getBoundingClientRect().left
+    this.imageInsertPosition = { left: '20px', top: '50px' }
   }
 
   initializePage() {
@@ -39,8 +40,8 @@ export class MainPageController {
       this.dragview.textOnClick = this.dragview.textOnClick ? false : true
     })
 
-    this.toolbar.addEventListener('imageclicked', (coordinates, img, e) => {
-      this.dragview.addDraggableImage(coordinates, img)
+    this.toolbar.addEventListener('imageclicked', (img, e) => {
+      this.dragview.addDraggableImage(this.imageInsertPosition, img)
     })
 
     this.toolbar.addEventListener('bulletclicked', (e) => {
