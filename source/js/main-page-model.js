@@ -119,7 +119,7 @@ export class MainPageModel {
             complete_fn(url, refStr)
           },
           (e) => {
-            error_fn(err.message)
+            error_fn(e.message)
           }
         )
       }

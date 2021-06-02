@@ -93,7 +93,7 @@ export class DragView extends HTMLElement {
     //this.shadowRoot.appendChild(link)
     this.initializeFields()
     this.initializeEventListeners()
-    this._entry = {}
+    this._entry = { texts: [], images: [] }
   }
 
   initializeEventListeners() {
@@ -124,6 +124,9 @@ export class DragView extends HTMLElement {
           top: e.clientY - framePosition.y - 20 + 'px'
         }
         this.addDraggableTextBox(textPosition).focus()
+        console.log(
+          this.draggableChildren[this.draggableChildren.length - 1].json
+        )
       }
     })
     window.addEventListener('click', (e) => {
@@ -180,10 +183,12 @@ export class DragView extends HTMLElement {
 
   removeBulletFromeFocusedText() {
     this.lastFocusedText.removeBullet()
+    console.log(this.lastFocusedText.json)
   }
 
   addBulletToFocusedText() {
     this.addBulletToText(this.lastFocusedText, this.bltType)
+    console.log(this.lastFocusedText.json)
   }
 
   /**
@@ -202,6 +207,7 @@ export class DragView extends HTMLElement {
     this.bulletStyles.forEach((stylestr, index) => {
       if (bulletType == stylestr) {
         bullet.classList.add('bullet-' + stylestr)
+        textBox.json.bullet = stylestr
         hasStyle = true
         return true
       }
@@ -209,9 +215,9 @@ export class DragView extends HTMLElement {
 
     if (!hasStyle) {
       bullet.classList.add('bullet-dot')
+      textBox.json.bullet = 'dot'
     }
 
-    textBox.json.bullet = stylestr
     textBox.bullet = bullet
   }
 
@@ -229,11 +235,14 @@ export class DragView extends HTMLElement {
 
     img.addEventListener('remove', () => {
       this.removeArrayElement(img, this.draggableChildren)
+      this.removeArrayElement(img.json, this.entry.images)
     })
     img.addEventListener('click', () => {
       this.focusedChild = img
     })
     this.focusedChild = img
+
+    this.entry.images.push(img.json)
   }
 
   /**
@@ -248,6 +257,7 @@ export class DragView extends HTMLElement {
     textBox.addEventListener('remove', () => {
       this.removeArrayElement(textBox, this.textBoxes)
       this.removeArrayElement(textBox, this.draggableChildren)
+      this.removeArrayElement(textBox.json, this.entry.texts)
     })
     textBox.addEventListener('focus', () => {
       this.lastFocusedText = textBox
@@ -282,8 +292,6 @@ export class DragView extends HTMLElement {
           //console.log('first position, delete')
           if (!textBox.removed) {
             textBox.removeSelf()
-            this.removeArrayElement(textBox, this.textBoxes)
-            this.removeArrayElement(textBox, this.draggableChildren)
           }
         } else {
           //console.log('Not first position, move left')
@@ -325,6 +333,9 @@ export class DragView extends HTMLElement {
     this.textBoxes.push(textBox)
     this.draggableChildren.push(textBox)
     this.focusedChild = textBox
+    this.entry.texts.push(textBox.json)
+
+    //console.log(this.entry)
 
     /*console.log(
       'boxes vs children:' +
@@ -640,6 +651,12 @@ export class DragView extends HTMLElement {
     }
   }
 
+  clearAll() {
+    this.draggableChildren.forEach((ch, i) => {
+      ch.removeSelf()
+    })
+  }
+
   /**
    * Setter and getter
    */
@@ -681,7 +698,7 @@ export class DragView extends HTMLElement {
   }
 
   get entry() {
-    this._entry
+    return this._entry
   }
 
   set entry(entry) {

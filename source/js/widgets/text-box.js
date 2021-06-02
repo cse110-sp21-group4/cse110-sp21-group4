@@ -210,6 +210,7 @@ export class TextBox {
         this.keydowns.delete(e.key)
         this.json.text = this.text.value
         this.resizeToFitText()
+        console.log(this.json)
       }
     })
   }
@@ -440,14 +441,13 @@ export class TextBox {
   }
 
   get json() {
-    this._json.size.width = window.getComputedStyle(this.text).style.width
-    this._json.size.height = window.getComputedStyle(this.text).style.height
+    this._json.size.width = window.getComputedStyle(this.text).width
+    this._json.size.height = window.getComputedStyle(this.text).height
     return this._json
   }
 
   set json(json) {
     this._json = json
-    this.load()
   }
 
   load() {

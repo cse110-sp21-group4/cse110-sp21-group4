@@ -55,7 +55,7 @@ export class MainPageController {
         (errorMsg) => {
           console.error(errorMsg)
         },
-        (refStr, url) => {
+        (url, refStr) => {
           //console.log('complete..')
           //console.log('loading...')
           const img = new Image()
@@ -65,6 +65,12 @@ export class MainPageController {
           imageView.json.url = url
           imageView.json.ref = refStr
           this.dragview.addDraggableImage(this.imageInsertPosition, imageView)
+          //console.log('see json')
+          //console.log(
+          // this.dragview.draggableChildren[
+          //   this.dragview.draggableChildren.length - 1
+          // ].json
+          //)
         }
       )
     })

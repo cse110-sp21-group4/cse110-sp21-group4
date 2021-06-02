@@ -182,4 +182,10 @@ export class ImageView {
   set json(json) {
     this._json = json
   }
+
+  load() {
+    this.img.style.width = this.json.size.width
+    this.img.style.height = this.json.size.height
+    this.position = this.json.position
+  }
 }
