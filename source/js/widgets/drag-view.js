@@ -335,7 +335,7 @@ export class DragView extends HTMLElement {
     this.focusedChild = textBox
     this.entry.texts.push(textBox.json)
 
-    //console.log(this.entry)
+    console.log(this.entry)
 
     /*console.log(
       'boxes vs children:' +
@@ -673,7 +673,7 @@ export class DragView extends HTMLElement {
     this.fontSz = fontSize
 
     if (this.lastFocusedText) {
-      //console.log('change font size to ' + this.fontSize)
+      console.log('change font size to ' + this.fontSize)
       this.lastFocusedText.fontSize = this.fontSize + 'px'
       this.lastFocusedText.resizeToFitText()
     }

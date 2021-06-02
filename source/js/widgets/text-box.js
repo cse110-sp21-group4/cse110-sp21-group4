@@ -436,7 +436,7 @@ export class TextBox {
     this.json.color = color
   }
   set fontSize(fontsize) {
-    this.text.style.fontsize = fontsize
+    this.text.style.fontSize = fontsize
     this.json.fontsize = fontsize
   }
 
