@@ -2,12 +2,14 @@ const TEST_USER = 'test@ucsd.edu'
 const TEST_PASSWORD = '12345678'
 
 const testPageData = {
+  timestamp: 22389128371,
+  startDate: '06032011',
   texts: [
     {
       text: 'test in you ass hole',
       size: { width: 100, height: 100 },
       position: { left: '100px', top: '50px' },
-      fontsize: 15,
+      fontsize: 100,
       color: '#ff00ff',
       underline: true,
       bold: true,
@@ -30,9 +32,32 @@ export class MainPageModel {
     this._entry = {}
     this.user = {}
     this.initFirebase()
-    //this.signUp(TEST_USER, TEST_PASSWORD)
-    //this.signIn(TEST_USER, TEST_PASSWORD, () => {})
-    //his.signOut(() => {})
+
+    // this.signIn(TEST_USER, TEST_PASSWORD, () => {
+    // this.savePageData(testPageData)
+    // this.loadData(testPageData.startDate, testPageData.timestamp, (data) => {
+    //   console.log(data)
+    // })
+    //   this.updatedata(
+    //     testpagedata,
+    //     () => {
+    //       console.log('updated')
+    //     },
+    //     (e) => {
+    //       console.log(e)
+    //     }
+    //   )
+    // this.removeData(
+    // testPageData.startDate,
+    // testPageData.timestamp,
+    // () => {
+    // console.log('removed..')
+    // },
+    // (e) => {
+    // console.log(e)
+    // }
+    // )
+    // })
   }
 
   isSignedIn() {
@@ -65,7 +90,7 @@ export class MainPageModel {
   }
 
   /**
-   *
+   * save image to firebase storage
    * @param {file} imageFile a file get from file input
    * @param {function} progress_fn progress callback, parameter: percentage
    * @param {function} error_fn error callback, parameter: error message
@@ -104,6 +129,8 @@ export class MainPageModel {
   /**
    * @param {object} pageData a data that recorded all the information in the main page
    * {
+   *    timestamp: 12389128371,
+   *    startDate: '06032011',
    *    texts: [
    *      {
    *        text: 'test in you ass hole',
@@ -127,9 +154,87 @@ export class MainPageModel {
    *    ]
    * }
    */
-  saveData(pageData) {}
+  savePageData(pageData) {
+    //console.log(this.getDataRef(pageData.startTime))
+    firebase
+      .database()
+      .ref(this.getDataRef(pageData.startDate, pageData.timestamp))
+      .set(pageData)
+  }
 
-  laodData() {}
+  loadPageData(startDate, startTime) {
+    firebase.database()
+  }
+
+  getDataRef(startDate, timestamp) {
+    return this.getRefPrefix(startDate) + '/' + timestamp
+  }
+
+  getRefPrefix(startDate) {
+    const uid = firebase.auth().currentUser.uid
+    return uid + '/' + startDate
+  }
+
+  loadDataArrayByDate(startDate, callback, errorCallback) {
+    this.loadData(startDate, callback, errorCallback)
+  }
+
+  loadData(startDate, timestamp, callback, errorCallback) {
+    const uid = firebase.auth().currentUser.uid
+    let dbObj = firebase.database().ref().child(uid).child(startDate)
+
+    if (timestamp) {
+      dbObj = dbObj.child(timestamp)
+    }
+
+    dbObj
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          callback(snapshot.val())
+        } else {
+          if (errorCallback) errorCallback('No data available')
+        }
+      })
+      .catch((error) => {
+        if (errorCallback) errorCallback(error.message)
+      })
+  }
+
+  updateData(pageData, callback, errorCallback) {
+    const uid = firebase.auth().currentUser.uid
+    const updates = {}
+    updates[pageData.timestamp + ''] = pageData
+    firebase
+      .database()
+      .ref()
+      .child(uid)
+      .child(pageData.startDate)
+      .update(updates)
+      .then(() => {
+        callback()
+      })
+      .catch((e) => {
+        if (errorCallback) errorCallback(e)
+      })
+  }
+
+  removeData(startDate, timestamp, callback, errorCallback) {
+    const uid = firebase.auth().currentUser.uid
+    firebase
+      .database()
+      .ref()
+      .child(uid)
+      .child(startDate)
+      .child(timestamp)
+      .remove()
+      .then(() => {
+        callback()
+      })
+      .catch((e) => {
+        if (errorCallback) errorCallback(e)
+      })
+  }
 
   signOut(callback) {
     firebase

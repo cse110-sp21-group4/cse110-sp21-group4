@@ -335,6 +335,10 @@ ul li:hover {
   background: #ddd;
 }
 
+.selected-entry {
+  background: #ccc;
+}
+
 /* Style the close button */
 .close {
   position: absolute;
@@ -422,37 +426,21 @@ ul li:hover {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(link)
     this.shadowRoot.appendChild(template.content.cloneNode(true))
-    this.initializeUI()
 
     this.leftPane = this.shadowRoot.querySelector('#left-pane')
     this.plusButton = this.shadowRoot.querySelector('#plus')
+    this.focusedChild = undefined
+    this.observers = {
+      select: [],
+      remove: []
+    }
+
     this.setupListeners()
-  }
-
-  initializeUI() {
-    // This block of code selects all the list elements and appends an 'X' button to the end
-    let myNodelist = this.shadowRoot.querySelectorAll('LI')
-    for (let i = 0; i < myNodelist.length; i++) {
-      const span = document.createElement('SPAN')
-      const txt = document.createTextNode('\u00D7') // x symbol
-      span.className = 'close'
-      span.appendChild(txt)
-      myNodelist[i].appendChild(span)
-    }
-
-    //Click on a close button to hide the current list item
-    let close = this.shadowRoot.querySelectorAll('li > span')
-    for (let i = 0; i < close.length; i++) {
-      close[i].onclick = function () {
-        let div = this.parentElement
-        div.style.display = 'none'
-      }
-    }
   }
 
   setupListeners() {
     this.plusButton.addEventListener('click', () => {
-      console.log('plus')
+      //console.log('plus')
       var li = document.createElement('li')
 
       var today = new Date()
@@ -461,7 +449,21 @@ ul li:hover {
       var yyyy = today.getFullYear()
       var hr = today.getHours()
       var min = today.getMinutes()
-      today = mm + '/' + dd + '/' + yyyy + ' @ ' + hr + ':' + min
+
+      let date = '' + mm + dd + yyyy
+      li.setAttribute('startDate', date)
+      li.setAttribute('timestamp', today.getTime())
+
+      today =
+        mm +
+        '/' +
+        dd +
+        '/' +
+        yyyy +
+        ' @ ' +
+        (hr < 10 ? '0' + hr : hr) +
+        ':' +
+        (min < 10 ? '0' + min : min)
       var inputValue = today
       var t = document.createTextNode(inputValue)
       li.appendChild(t)
@@ -476,18 +478,43 @@ ul li:hover {
       span.className = 'close'
       span.appendChild(txt)
       li.appendChild(span)
+      span.addEventListener('click', (e) => {
+        e.stopPropagation()
+        li.style.display = 'none'
+        this.observers.remove.forEach((cb, i) => {
+          cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
+        })
+      })
+      li.addEventListener('click', (e) => {
+        this.focusedChild = li
+        li.classList.add('selected-entry')
+        this.shadowRoot.querySelectorAll('ul li').forEach((el, index) => {
+          if (el != li) {
+            el.classList.remove('selected-entry')
+          }
+        })
+        this.observers.select.forEach((cb, i) => {
+          cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
+        })
+      })
+    })
+  }
 
-      // Click on a close button for the new ENTRIES we created to hide the current list item
-      var close = document
-        .querySelector('left-pane')
-        .shadowRoot.querySelectorAll('li > span')
-      for (let i = 0; i < close.length; i++) {
-        close[i].onclick = function () {
-          var div = this.parentElement
-          div.style.display = 'none'
-        }
+  addEventListener(eventType, callback) {
+    this.observers[eventType].push(callback)
+  }
+
+  removeEventListener(eventType, callback) {
+    this.observers[eventType].forEach((c, i) => {
+      if (callback == c) {
+        this.observers[eventType].splice(i, 0)
+        return false
       }
     })
+  }
+
+  removeAllListeners() {
+    this.observers = { remove: [], select: [] }
   }
 }
 
