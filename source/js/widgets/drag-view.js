@@ -33,6 +33,10 @@ export class DragView extends HTMLElement {
             width: 200px;
             border: none;
           }
+          .lastselected{
+            border: 2px solid blue;
+            border-radius: 5px;
+          }
 
           .bullet-square {
             display:block;
