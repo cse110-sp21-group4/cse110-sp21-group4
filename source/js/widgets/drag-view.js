@@ -126,15 +126,6 @@ export class DragView extends HTMLElement {
           left: e.clientX - framePosition.x - 10 + 'px',
           top: e.clientY - framePosition.y - 20 + 'px'
         }
-        if (this.shadowRoot.querySelector('.lastselected')) {
-          console.log(
-            'last focussed',
-            this.shadowRoot.querySelector('.lastselected')
-          )
-          this.shadowRoot
-            .querySelector('.lastselected')
-            .classList.remove('lastselected')
-        }
         this.addDraggableTextBox(textPosition).focus()
       }
     })
@@ -177,17 +168,16 @@ export class DragView extends HTMLElement {
     this.focusedChild = undefined
     this.fontSz = 20
     this.txtColor = 'black'
+    this.bold = false
+    this.italic = false
+    this.underline = false
   }
 
   toggleBulletFromFocusedText() {
-    if (this.lastFocusedText) {
-      if (this.lastFocusedText.bullet) {
-        this.removeBulletFromeFocusedText()
-      } else {
-        this.addBulletToFocusedText()
-      }
+    if (this.lastFocusedText.bullet) {
+      this.removeBulletFromeFocusedText()
     } else {
-      console.error('No textbox to add bullets to')
+      this.addBulletToFocusedText()
     }
   }
 
@@ -254,7 +244,7 @@ export class DragView extends HTMLElement {
    */
   addDraggableTextBox(coordinates) {
     const textBox = new TextBox(this.draggableFrame)
-    console.trace()
+
     this.addDraggableElement(textBox, coordinates)
     textBox.addEventListener('remove', () => {
       this.removeArrayElement(textBox, this.textBoxes)
@@ -262,7 +252,6 @@ export class DragView extends HTMLElement {
     })
     textBox.addEventListener('focus', () => {
       this.lastFocusedText = textBox
-      this.lastFocusedText.addClass('lastselected')
     })
 
     textBox.addEventListener('tabpressed', () => {
@@ -331,6 +320,9 @@ export class DragView extends HTMLElement {
     //console.log('new text:' + this.fontSize)
     textBox.text.style.fontSize = this.fontSize + 'px'
     textBox.text.style.color = this.textColor
+    textBox.underline = this.underline
+    textBox.bold = this.bold
+    textBox.italic = this.italic
     this.textBoxes.push(textBox)
     this.draggableChildren.push(textBox)
     this.focusedChild = textBox
@@ -628,33 +620,31 @@ export class DragView extends HTMLElement {
     )
   }
 
-  toggleBoldFromFocusedText() {
+  toggleUnderline() {
+    this.underline = this.underline ? false : true
     if (this.lastFocusedText) {
-      this.lastFocusedText.text.style.fontWeight =
-        this.lastFocusedText.text.style.fontWeight == 'bold' ? 'normal' : 'bold'
+      this.lastFocusedText.underline = this.underline
     }
   }
 
-  toggleItalicsFromFocusedText() {
+  toggleBold() {
+    this.bold = this.bold ? false : true
     if (this.lastFocusedText) {
-      this.lastFocusedText.text.style.fontStyle =
-        this.lastFocusedText.text.style.fontStyle == 'italic'
-          ? 'normal'
-          : 'italic'
+      this.lastFocusedText.bold = this.bold
     }
   }
-  toggleUnderlineFromFocusedText() {
+
+  toggleItalic() {
+    this.italic = this.italic ? false : true
     if (this.lastFocusedText) {
-      this.lastFocusedText.text.style.textDecoration =
-        this.lastFocusedText.text.style.textDecoration == 'underline'
-          ? 'none'
-          : 'underline'
+      this.lastFocusedText.italic = this.italic
     }
   }
 
   /**
    * Setter and getter
    */
+
   set textOnClick(isTextOnClick) {
     this.createTextOnClick = isTextOnClick
   }
@@ -664,11 +654,11 @@ export class DragView extends HTMLElement {
   }
 
   set fontSize(fontSize) {
-    // this.fontSz = fontSize
+    this.fontSz = fontSize
 
     if (this.lastFocusedText) {
-      // console.log('change font size to ' + fontSize)
-      this.lastFocusedText.text.style.fontSize = fontSize + 'px'
+      //console.log('change font size to ' + this.fontSize)
+      this.lastFocusedText.text.style.fontSize = this.fontSize + 'px'
       this.lastFocusedText.resizeToFitText()
     }
   }
@@ -677,13 +667,14 @@ export class DragView extends HTMLElement {
     return this.fontSz
   }
 
-  set textColor(textClr) {
-    // this.txtColor = textColor
+  set textColor(textColor) {
+    this.txtColor = textColor
 
     if (this.lastFocusedText) {
-      console.log('change text color to ' + textClr)
-      this.lastFocusedText.text.style.color = textClr
+      //console.log('change text color to ' + this.textColor)
+      this.lastFocusedText.text.style.color = this.textColor
     }
+    //TODO change current text font size
   }
 
   get textColor() {

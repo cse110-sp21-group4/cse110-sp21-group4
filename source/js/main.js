@@ -6,9 +6,6 @@
  * @returns {number} returns a number
  */
 
-function addTest(a, b) {
+export function addTest(a, b) {
   return a + b
 }
-
-export default addTest
-console.log('success!!!')
