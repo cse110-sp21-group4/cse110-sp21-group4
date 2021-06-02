@@ -93,6 +93,7 @@ export class DragView extends HTMLElement {
     //this.shadowRoot.appendChild(link)
     this.initializeFields()
     this.initializeEventListeners()
+    this._entry = {}
   }
 
   initializeEventListeners() {
@@ -210,17 +211,19 @@ export class DragView extends HTMLElement {
       bullet.classList.add('bullet-dot')
     }
 
+    textBox.json.bullet = stylestr
     textBox.bullet = bullet
   }
 
   /**
    * Add a draggable image
-   * @param {Image} Image object that contains a image
+   * @param {img} imageView object that contains a image
    * @param {object} coordinates {left: "123px", top: "222px"}
    * @returns {object} returns the draggable item
    */
-  addDraggableImage(coordinates, image) {
-    const img = new ImageView(this.draggableFrame, image)
+  addDraggableImage(coordinates, img) {
+    img.initializeImage(this.draggableFrame)
+
     this.addDraggableElement(img, coordinates)
     this.draggableChildren.push(img)
 
@@ -314,8 +317,8 @@ export class DragView extends HTMLElement {
     })
 
     //console.log('new text:' + this.fontSize)
-    textBox.text.style.fontSize = this.fontSize + 'px'
-    textBox.text.style.color = this.textColor
+    textBox.fontSize = this.fontSize + 'px'
+    textBox.color = this.textColor
     textBox.underline = this.underline
     textBox.bold = this.bold
     textBox.italic = this.italic
@@ -654,7 +657,7 @@ export class DragView extends HTMLElement {
 
     if (this.lastFocusedText) {
       //console.log('change font size to ' + this.fontSize)
-      this.lastFocusedText.text.style.fontSize = this.fontSize + 'px'
+      this.lastFocusedText.fontSize = this.fontSize + 'px'
       this.lastFocusedText.resizeToFitText()
     }
   }
@@ -668,13 +671,22 @@ export class DragView extends HTMLElement {
 
     if (this.lastFocusedText) {
       //console.log('change text color to ' + this.textColor)
-      this.lastFocusedText.text.style.color = this.textColor
+      this.lastFocusedText.color = this.textColor
     }
     //TODO change current text font size
   }
 
   get textColor() {
     return this.txtColor
+  }
+
+  get entry() {
+    this._entry
+  }
+
+  set entry(entry) {
+    this._entry = entry
+    //TODO: load
   }
 }
 

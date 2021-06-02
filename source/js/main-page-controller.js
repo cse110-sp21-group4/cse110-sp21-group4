@@ -1,4 +1,5 @@
 import { DragView } from './widgets/drag-view.js'
+import { ImageView } from './widgets/image-view.js'
 import { MainPageModel } from './main-page-model.js'
 export class MainPageController {
   constructor(view) {
@@ -37,11 +38,16 @@ export class MainPageController {
         this.toggleLeftPane()
       })
 
+    this.left.addEventListener('select', (startDate, timestamp) => {})
+
+    this.left.addEventListener('remove', (startDate, timestamp) => {})
+
     //Tool Bar
     this.toolbar.addEventListener('textclicked', (e) => {
       this.dragview.textOnClick = this.dragview.textOnClick ? false : true
     })
 
+    //TODO: fix test
     this.toolbar.addEventListener('imageclicked', (imageFile, e) => {
       this.model.saveImage(
         imageFile,
@@ -55,7 +61,10 @@ export class MainPageController {
           const img = new Image()
           img.setAttribute('refStr', refStr)
           img.src = url
-          this.dragview.addDraggableImage(this.imageInsertPosition, img)
+          const imageView = new ImageView(img)
+          imageView.json.url = url
+          imageView.json.ref = refStr
+          this.dragview.addDraggableImage(this.imageInsertPosition, imageView)
         }
       )
     })

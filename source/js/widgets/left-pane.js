@@ -481,6 +481,9 @@ ul li:hover {
       span.addEventListener('click', (e) => {
         e.stopPropagation()
         li.style.display = 'none'
+        if (this.focusedChild == li) {
+          this.focusedChild = undefined
+        }
         this.observers.remove.forEach((cb, i) => {
           cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
         })
@@ -497,6 +500,7 @@ ul li:hover {
           cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
         })
       })
+      li.click()
     })
   }
 
