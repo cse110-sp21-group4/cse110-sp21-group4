@@ -1,7 +1,9 @@
 import { DragView } from './widgets/drag-view.js'
+import { MainPageModel } from './main-page-model.js'
 export class MainPageController {
   constructor(view) {
     this.view = view
+    this.model = new MainPageModel()
 
     this.initializePage()
   }
@@ -40,8 +42,22 @@ export class MainPageController {
       this.dragview.textOnClick = this.dragview.textOnClick ? false : true
     })
 
-    this.toolbar.addEventListener('imageclicked', (img, e) => {
-      this.dragview.addDraggableImage(this.imageInsertPosition, img)
+    this.toolbar.addEventListener('imageclicked', (imageFile, e) => {
+      this.model.saveImage(
+        imageFile,
+        (percentage) => {},
+        (errorMsg) => {
+          console.error(errorMsg)
+        },
+        (refStr, url) => {
+          //console.log('complete..')
+          //console.log('loading...')
+          const img = new Image()
+          img.setAttribute('refStr', refStr)
+          img.src = url
+          this.dragview.addDraggableImage(this.imageInsertPosition, img)
+        }
+      )
     })
 
     this.toolbar.addEventListener('bulletclicked', (e) => {

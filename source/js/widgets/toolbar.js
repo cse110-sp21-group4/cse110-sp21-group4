@@ -1,7 +1,7 @@
 export class ToolBar extends HTMLElement {
   constructor() {
     super()
-    console.log('toolbar constr called')
+    //console.log('toolbar constr called')
     const template = document.createElement('template')
     template.innerHTML = `
 
@@ -119,10 +119,10 @@ export class ToolBar extends HTMLElement {
 
     //Image Tool
     this.imageInput.addEventListener('change', (e) => {
-      const img = new Image()
-      img.src = URL.createObjectURL(e.target.files[0])
+      //const img = new Image()
+      //img.src = URL.createObjectURL(e.target.files[0])
       this.observers.imageclicked.forEach((cb, i) => {
-        cb(img, e)
+        cb(e.target.files[0], e)
       })
     })
     this.imageTool.addEventListener('click', (event) => {
@@ -195,7 +195,7 @@ export class ToolBar extends HTMLElement {
         let textTool = document
           .querySelector('tool-bar')
           .shadowRoot.querySelector('#text-tool')
-        console.log(prevSelectedTool, textTool)
+        //console.log(prevSelectedTool, textTool)
         if (prevSelectedTool == textTool) {
           let dragView = document.querySelector('drag-view')
           dragView.textOnClick = dragView.textOnClick ? false : true
