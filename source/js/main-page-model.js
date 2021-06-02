@@ -33,31 +33,31 @@ export class MainPageModel {
     this.user = {}
     this.initFirebase()
 
-    // this.signIn(TEST_USER, TEST_PASSWORD, () => {
-    // this.savePageData(testPageData)
-    // this.loadData(testPageData.startDate, testPageData.timestamp, (data) => {
-    //   console.log(data)
-    // })
-    //   this.updatedata(
-    //     testpagedata,
-    //     () => {
-    //       console.log('updated')
-    //     },
-    //     (e) => {
-    //       console.log(e)
-    //     }
-    //   )
-    // this.removeData(
-    // testPageData.startDate,
-    // testPageData.timestamp,
-    // () => {
-    // console.log('removed..')
-    // },
-    // (e) => {
-    // console.log(e)
-    // }
-    // )
-    // })
+    this.signIn(TEST_USER, TEST_PASSWORD, () => {
+      // this.savePageData(testPageData)
+      // this.loadData(testPageData.startDate, testPageData.timestamp, (data) => {
+      //   console.log(data)
+      // })
+      //   this.updatedata(
+      //     testpagedata,
+      //     () => {
+      //       console.log('updated')
+      //     },
+      //     (e) => {
+      //       console.log(e)
+      //     }
+      //   )
+      // this.removeData(
+      // testPageData.startDate,
+      // testPageData.timestamp,
+      // () => {
+      // console.log('removed..')
+      // },
+      // (e) => {
+      // console.log(e)
+      // }
+      // )
+    })
   }
 
   isSignedIn() {
@@ -160,10 +160,6 @@ export class MainPageModel {
       .database()
       .ref(this.getDataRef(pageData.startDate, pageData.timestamp))
       .set(pageData)
-  }
-
-  loadPageData(startDate, startTime) {
-    firebase.database()
   }
 
   getDataRef(startDate, timestamp) {

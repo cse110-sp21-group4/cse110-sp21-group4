@@ -652,9 +652,13 @@ export class DragView extends HTMLElement {
   }
 
   clearAll() {
-    this.draggableChildren.forEach((ch, i) => {
-      ch.removeSelf()
-    })
+    console.log('clear:' + this.draggableChildren.length)
+
+    const len = this.draggableChildren.length
+    for (let i = 0; i < len; i++) {
+      console.log(i + 'drawview remove..')
+      this.draggableChildren[0].removeSelf()
+    }
   }
 
   /**
@@ -703,7 +707,26 @@ export class DragView extends HTMLElement {
 
   set entry(entry) {
     this._entry = entry
-    //TODO: load
+  }
+
+  load() {
+    this.entry.texts.forEach((json, i) => {
+      const tb = this.addDraggableTextBox(json.position)
+      tb.json = json
+      tb.load()
+      if (json.bullet !== 'none') {
+        this.addBulletToText(tb, json.bullet)
+      }
+    })
+    this.entry.images.forEach((json, i) => {
+      const img = new Image()
+      img.setAttribute('refStr', json.ref)
+      img.src = json.url
+      const imageView = new ImageView(img)
+      this.addDraggableImage(json.position, imageView)
+      imageView.json = json
+      imageView.load()
+    })
   }
 }
 

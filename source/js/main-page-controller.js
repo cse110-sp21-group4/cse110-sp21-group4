@@ -38,9 +38,42 @@ export class MainPageController {
         this.toggleLeftPane()
       })
 
-    this.left.addEventListener('select', (startDate, timestamp) => {})
+    this.left.addEventListener('create', (startD, ts) => {
+      this.model.savePageData({
+        startDate: startD,
+        timestamp: ts,
+        texts: [],
+        images: []
+      })
+    })
 
-    this.left.addEventListener('remove', (startDate, timestamp) => {})
+    this.left.addEventListener('select', (startD, ts) => {
+      console.log('select:', this.dragview.entry)
+      this.model.savePageData(this.dragview.entry)
+      this.dragview.clearAll()
+
+      this.model.loadData(
+        startD,
+        ts,
+        (data) => {
+          if (!data.texts) {
+            data['texts'] = []
+          }
+          if (!data.images) {
+            data['images'] = []
+          }
+          this.dragview.entry = data
+          this.dragview.load()
+        },
+        (e) => {
+          console.log(e)
+        }
+      )
+    })
+
+    this.left.addEventListener('remove', (startDate, timestamp) => {
+      this.model.removeData(startDate, timestamp)
+    })
 
     //Tool Bar
     this.toolbar.addEventListener('textclicked', (e) => {

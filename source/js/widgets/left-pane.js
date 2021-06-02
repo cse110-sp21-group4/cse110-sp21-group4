@@ -432,7 +432,8 @@ ul li:hover {
     this.focusedChild = undefined
     this.observers = {
       select: [],
-      remove: []
+      remove: [],
+      create: []
     }
 
     this.setupListeners()
@@ -489,17 +490,25 @@ ul li:hover {
         })
       })
       li.addEventListener('click', (e) => {
-        this.focusedChild = li
         li.classList.add('selected-entry')
         this.shadowRoot.querySelectorAll('ul li').forEach((el, index) => {
           if (el != li) {
             el.classList.remove('selected-entry')
           }
         })
-        this.observers.select.forEach((cb, i) => {
-          cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
-        })
+
+        if (li != this.focusedChild) {
+          this.observers.select.forEach((cb, i) => {
+            cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
+          })
+        }
+        this.focusedChild = li
       })
+
+      this.observers.create.forEach((cb, i) => {
+        cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
+      })
+
       li.click()
     })
   }
@@ -518,7 +527,7 @@ ul li:hover {
   }
 
   removeAllListeners() {
-    this.observers = { remove: [], select: [] }
+    this.observers = { remove: [], select: [], create: [] }
   }
 }
 

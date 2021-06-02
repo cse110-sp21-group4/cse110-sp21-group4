@@ -33,7 +33,7 @@ export class TextBox {
       color: 'black',
       underline: false,
       italic: false,
-      bullet: undefined
+      bullet: 'none'
     }
 
     this.initializeText()
@@ -61,7 +61,7 @@ export class TextBox {
   removeBullet() {
     this.draggableFrame.removeChild(this.blt)
     this.blt = undefined
-    this.json.bullet = undefined
+    this.json.bullet = 'none'
   }
 
   set bullet(bullet) {
@@ -238,7 +238,7 @@ export class TextBox {
 
   removeSelf() {
     this.removed = true
-    //console.log('remove')
+    console.log('remove')
     this.draggableFrame.removeChild(this.text)
     if (this.bullet) {
       this.draggableFrame.removeChild(this.bullet)
