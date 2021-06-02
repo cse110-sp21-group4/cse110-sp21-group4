@@ -148,6 +148,11 @@ export class RightPane extends HTMLElement {
                     text-color: white;
                 }
 
+                .date p{
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+
                 
 
         </style>
@@ -242,8 +247,20 @@ export class RightPane extends HTMLElement {
         this.shadowRoot.querySelector('.date h1').innerHTML
         = months[date.getMonth()];
 
-        this.shadowRoot.querySelector('.date p').innerHTML
-        = new Date().toDateString();
+        /*this.shadowRoot.querySelector('.date p').innerHTML
+        = new Date().toDateString();*/
+
+        if(date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear())
+        {
+            this.shadowRoot.querySelector('.date p').innerHTML
+            = new Date().toDateString();
+        }
+    
+        else
+        {
+            this.shadowRoot.querySelector('.date p').innerHTML
+            = date.getFullYear()
+        }
 
         let days = "";
 
@@ -252,12 +269,17 @@ export class RightPane extends HTMLElement {
         }
 
         for(let i = 1; i <= lastDay; i++){
-            if( i === new Date().getDate() && date.getMonth() === new Date().getMonth() ){
+            if( i === new Date().getDate() && date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()){
                 days += `<div class='today'>${i}</div>`;
             } else{
                 days += `<div>${i}</div>`;
             }
         
+        }
+
+        if( (firstDayIndex+lastDay+nextDays) > 42)
+        {
+        nextDays = 42;
         }
 
         for(let j = 1; j <= nextDays; j++)
@@ -278,6 +300,12 @@ export class RightPane extends HTMLElement {
         date.setMonth(date.getMonth() + 1);
         renderCalendar();
     })
+
+    this.shadowRoot.querySelector('.date p').addEventListener('click', ()=>{
+        date.setMonth(new Date().getMonth());
+        date.setFullYear(new Date().getFullYear());
+        renderCalendar();
+})
 
     renderCalendar();
 
