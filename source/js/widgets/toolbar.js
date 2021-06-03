@@ -125,11 +125,8 @@ export class ToolBar extends HTMLElement {
           h = img.naturalHeight
         if (w && h) {
           clearInterval(wait)
-          console.log('width:', w)
           img.width = 800 < w ? 800 : img.width
-          console.log('width:', img.width)
-
-          // callback.apply(this, [w, h])
+          img.height = 850 < h ? 850 : img.width
         }
       }, 10)
 
