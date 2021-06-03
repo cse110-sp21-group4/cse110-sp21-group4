@@ -194,14 +194,14 @@ export class RightPane extends HTMLElement {
          <div class="container">
             <div class="calendar">
                 <div class="month">
-                    <i class="fas fa-angle-left 
-                    prev"></i>     <!--Prev Month-->
+                    <i class=" 
+                    prev"><span>&#60;</span></i>     <!--Prev Month-->
                     <div class="date">
                         <h1></h1>  <!--Month-->
                         <p></p>    <!--Sun MM DD YY-->
                     </div>
-                    <i class="fas fa-angle-right 
-                    next"></i>    <!--Next Month-->
+                    <i class=" 
+                    next"><span>&#62;</span></i>    <!--Next Month-->
                 </div>
                 <div class="weekdays">
                     <div>Sun</div>
@@ -235,17 +235,12 @@ export class RightPane extends HTMLElement {
 
       `
       
-      /*<script>
-        var script = document.createElement('script');
-        script.src = "widgets/script.js";
-        document.getElementsByTagName('head')[0].appendChild(script);
-    </script> */
+      
 
 
     
       const link = document.createElement('link')
       link.setAttribute('rel', 'stylesheet')
-     /* link.setAttribute('href', 'styles/calendar.css')*/
       link.setAttribute('href', 'style.css')
 
       
@@ -326,7 +321,7 @@ export class RightPane extends HTMLElement {
 
         if( (firstDayIndex+lastDay+nextDays) > 42)
         {
-        nextDays = 42;
+            nextDays = 42;
         }
 
         for(let j = 1; j <= nextDays; j++)
