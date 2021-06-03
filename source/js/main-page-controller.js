@@ -9,6 +9,14 @@ export class MainPageController {
     this.initializePage()
   }
 
+  loginIn() {
+    const TEST_USER = 'test@ucsd.edu'
+    const TEST_PASSWORD = '12345678'
+    this.model.signIn(TEST_USER, TEST_PASSWORD, () => {
+      this.recoverLastPage()
+    })
+  }
+
   initializeAttributes() {
     this.leftPaneWidth = this.leftPaneFrame.getBoundingClientRect().width
     this.leftPaneButtonWidth = this.leftPaneButton.getBoundingClientRect().width
@@ -48,11 +56,7 @@ export class MainPageController {
     })
 
     this.left.addEventListener('select', (startD, ts) => {
-      this.dragview.updateEntry()
-      // console.log('select:', this.dragview.entry)
-      if (this.dragview.entry.startDate && this.dragview.entry.timestamp) {
-        this.model.updateData(this.dragview.entry)
-      }
+      this.saveCurrentData()
       this.dragview.clearAll()
 
       this.model.loadData(
@@ -68,6 +72,7 @@ export class MainPageController {
           }
           this.dragview.entry = data
           this.dragview.load()
+          this.saveLastPage()
         },
         (e) => {
           console.log(e)
@@ -135,6 +140,59 @@ export class MainPageController {
     this.toolbar.addEventListener('colorclicked', (color, e) => {
       this.dragview.textColor = color
     })
+  }
+
+  recoverLastPage() {
+    this.model.loadLastPageInfo().then((data) => {
+      const lastPageInfo = data.val()
+      lastPageInfo.list.forEach((entry, i) => {
+        const li = this.left.addNewEntry(new Date(parseInt(entry.timestamp)))
+        if (
+          lastPageInfo.startDate == li.getAttribute('startDate') &&
+          lastPageInfo.timestamp == li.getAttribute('timestamp')
+        ) {
+          li.click()
+        }
+      })
+      this.model.loadData(
+        lastPageInfo.startDate,
+        lastPageInfo.timestamp,
+        (data) => {
+          console.log('json data:', data)
+          if (!data.texts) {
+            data['texts'] = []
+          }
+          if (!data.images) {
+            data['images'] = []
+          }
+          this.dragview.entry = data
+          this.dragview.load()
+        },
+        (e) => {
+          console.log(e)
+        }
+      )
+    })
+  }
+
+  saveLastPage() {
+    this.dragview.updateEntry()
+    if (this.dragview.entry.startDate && this.dragview.entry.timestamp) {
+      let lastPage = this.left.getPageList()
+      lastPage['startDate'] = this.dragview.entry.startDate
+      lastPage['timestamp'] = this.dragview.entry.timestamp
+      console.log(lastPage)
+      return this.model.updateLast(lastPage)
+    }
+  }
+
+  saveCurrentData() {
+    this.dragview.updateEntry()
+    // console.log('select:', this.dragview.entry)
+    if (this.dragview.entry.startDate && this.dragview.entry.timestamp) {
+      console.log('save current:', this.dragview.entry)
+      return this.model.updateData(this.dragview.entry)
+    }
   }
 
   toggleLeftPane() {

@@ -172,7 +172,7 @@ export class MainPageModel {
   }
 
   loadDataArrayByDate(startDate, callback, errorCallback) {
-    this.loadData(startDate, callback, errorCallback)
+    this.loadData(startDate, null, callback, errorCallback)
   }
 
   loadData(startDate, timestamp, callback, errorCallback) {
@@ -197,22 +197,27 @@ export class MainPageModel {
       })
   }
 
-  updateData(pageData, callback, errorCallback) {
+  loadLastPageInfo() {
+    const uid = firebase.auth().currentUser.uid
+    return firebase.database().ref().child(uid).child('lastPage').get()
+  }
+
+  updateLast(lastPageObj) {
+    const uid = firebase.auth().currentUser.uid
+    const obj = { lastPage: lastPageObj }
+    return firebase.database().ref().child(uid).update(obj)
+  }
+
+  updateData(pageData) {
     const uid = firebase.auth().currentUser.uid
     const updates = {}
     updates[pageData.timestamp + ''] = pageData
-    firebase
+    return firebase
       .database()
       .ref()
       .child(uid)
       .child(pageData.startDate)
       .update(updates)
-      .then(() => {
-        callback()
-      })
-      .catch((e) => {
-        if (errorCallback) errorCallback(e)
-      })
   }
 
   removeData(startDate, timestamp, callback, errorCallback) {

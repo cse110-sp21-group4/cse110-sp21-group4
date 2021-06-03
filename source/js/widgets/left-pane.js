@@ -439,78 +439,92 @@ ul li:hover {
     this.setupListeners()
   }
 
+  getPageList() {
+    let pageList = { list: [] }
+    this.shadowRoot.querySelectorAll('ul li').forEach((li, i) => {
+      pageList.list.push({
+        startDate: li.getAttribute('startDate'),
+        timestamp: li.getAttribute('timestamp')
+      })
+    })
+    return pageList
+  }
+
   setupListeners() {
     this.plusButton.addEventListener('click', () => {
       //console.log('plus')
-      var li = document.createElement('li')
+      this.addNewEntry(new Date()).click()
+    })
+  }
 
-      var today = new Date()
-      var dd = String(today.getDate()).padStart(2, '0')
-      var mm = String(today.getMonth() + 1).padStart(2, '0')
-      var yyyy = today.getFullYear()
-      var hr = today.getHours()
-      var min = today.getMinutes()
+  addNewEntry(today) {
+    var dd = String(today.getDate()).padStart(2, '0')
+    var mm = String(today.getMonth() + 1).padStart(2, '0')
+    var yyyy = today.getFullYear()
+    var hr = today.getHours()
+    var min = today.getMinutes()
 
-      let date = '' + mm + dd + yyyy
-      li.setAttribute('startDate', date)
-      li.setAttribute('timestamp', today.getTime())
+    var li = document.createElement('li')
 
-      today =
-        mm +
-        '/' +
-        dd +
-        '/' +
-        yyyy +
-        ' @ ' +
-        (hr < 10 ? '0' + hr : hr) +
-        ':' +
-        (min < 10 ? '0' + min : min)
-      var inputValue = today
-      var t = document.createTextNode(inputValue)
-      li.appendChild(t)
-      document
-        .querySelector('left-pane')
-        .shadowRoot.querySelector('#myUL')
-        .appendChild(li)
+    let date = '' + mm + dd + yyyy
+    li.setAttribute('startDate', date)
+    li.setAttribute('timestamp', today.getTime())
 
-      // This creates the X button for the new entries we made
-      var span = document.createElement('SPAN')
-      var txt = document.createTextNode('\u00D7')
-      span.className = 'close'
-      span.appendChild(txt)
-      li.appendChild(span)
-      span.addEventListener('click', (e) => {
-        e.stopPropagation()
-        li.style.display = 'none'
-        if (this.focusedChild == li) {
-          this.focusedChild = undefined
-        }
-        this.observers.remove.forEach((cb, i) => {
-          cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
-        })
-      })
-      li.addEventListener('click', (e) => {
-        li.classList.add('selected-entry')
-        this.shadowRoot.querySelectorAll('ul li').forEach((el, index) => {
-          if (el != li) {
-            el.classList.remove('selected-entry')
-          }
-        })
+    today =
+      mm +
+      '/' +
+      dd +
+      '/' +
+      yyyy +
+      ' @ ' +
+      (hr < 10 ? '0' + hr : hr) +
+      ':' +
+      (min < 10 ? '0' + min : min)
+    var inputValue = today
+    var t = document.createTextNode(inputValue)
+    li.appendChild(t)
+    document
+      .querySelector('left-pane')
+      .shadowRoot.querySelector('#myUL')
+      .appendChild(li)
 
-        if (li != this.focusedChild) {
-          this.observers.select.forEach((cb, i) => {
-            cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
-          })
-        }
-        this.focusedChild = li
-      })
-
-      this.observers.create.forEach((cb, i) => {
+    // This creates the X button for the new entries we made
+    var span = document.createElement('SPAN')
+    var txt = document.createTextNode('\u00D7')
+    span.className = 'close'
+    span.appendChild(txt)
+    li.appendChild(span)
+    span.addEventListener('click', (e) => {
+      e.stopPropagation()
+      li.style.display = 'none'
+      if (this.focusedChild == li) {
+        this.focusedChild = undefined
+      }
+      this.observers.remove.forEach((cb, i) => {
         cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
       })
-
-      li.click()
     })
+    li.addEventListener('click', (e) => {
+      li.classList.add('selected-entry')
+      this.shadowRoot.querySelectorAll('ul li').forEach((el, index) => {
+        if (el != li) {
+          el.classList.remove('selected-entry')
+        }
+      })
+
+      if (li != this.focusedChild) {
+        this.observers.select.forEach((cb, i) => {
+          cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
+        })
+      }
+      this.focusedChild = li
+    })
+
+    this.observers.create.forEach((cb, i) => {
+      cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
+    })
+
+    return li
   }
 
   addEventListener(eventType, callback) {

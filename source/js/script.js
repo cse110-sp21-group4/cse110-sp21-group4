@@ -1,7 +1,7 @@
 import { DragView } from './widgets/drag-view.js'
 import { MainPageController } from './main-page-controller.js'
 import { ToolBar } from './widgets/toolbar.js'
-import {RightPane } from './widgets/right-pane.js'
+import { RightPane } from './widgets/right-pane.js'
 
 // let page = document.createElement('drag-view')
 // let toolbar = document.createElement('tool-bar')
@@ -22,4 +22,13 @@ window.addEventListener('load', () => {
   mainPageController.initializeAttributes()
   //console.log('atts initialized')
   mainPageController.registerListeners()
+  setTimeout(() => {
+    mainPageController.loginIn()
+  }, 2000)
+})
+window.addEventListener('beforeunload', (e) => {
+  e.preventDefault()
+  mainPageController.saveCurrentData().then((data) => {
+    window.close()
+  })
 })
