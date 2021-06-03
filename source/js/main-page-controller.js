@@ -59,6 +59,7 @@ export class MainPageController {
     })
 
     this.left.addEventListener('select', (startD, ts) => {
+      this.saveLastPage(startD, ts)
       let pm = this.saveCurrentData()
       if (pm) {
         pm.then(() => {
@@ -79,7 +80,6 @@ export class MainPageController {
                 }
                 this.dragview.entry = data
                 this.dragview.load()
-                //this.saveLastPage()
               } else {
                 console.log('no data')
               }
@@ -204,15 +204,13 @@ export class MainPageController {
     })
   }
 
-  saveLastPage() {
-    this.dragview.updateEntry()
-    if (this.dragview.entry.startDate && this.dragview.entry.timestamp) {
-      let lastPage = this.left.getPageList()
-      lastPage['startDate'] = this.dragview.entry.startDate
-      lastPage['timestamp'] = this.dragview.entry.timestamp
-      console.log(lastPage)
-      return this.model.updateLast(lastPage)
-    }
+  saveLastPage(startDate, timestamp) {
+    console.log('save last:', timestamp)
+    let lastPage = this.left.getPageList()
+    lastPage['startDate'] = startDate
+    lastPage['timestamp'] = timestamp
+    console.log(lastPage)
+    return this.model.updateLast(lastPage)
   }
 
   saveCurrentData() {
