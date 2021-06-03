@@ -44,7 +44,7 @@ export class RightPane extends HTMLElement {
                 .calendar{
                     width: 350px;
 	                height: 400px;
-                    position: relative; top: -17.5%;
+                    position: absolute; top: 5%;
                     background-color: #ccc;
                     box-shadow: 0 0.5rem 3rem rgba(0,0,0,.4);
                     border-radius: 10px;
@@ -148,6 +148,45 @@ export class RightPane extends HTMLElement {
                     text-color: white;
                 }
 
+                .date p{
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+
+                #inner_rectangle {
+                    fill: rgba(230,230,230,1);
+                    stroke: rgba(112,112,112,1);
+                    stroke-width: 1px;
+                    stroke-linejoin: miter;
+                    stroke-linecap: butt;
+                    stroke-miterlimit: 4;
+                    shape-rendering: auto;
+                }
+
+                .inner_rectangle {
+                    position: relative; top: 150px;
+                    overflow: visible;
+                    width: 100px;
+                    height: 100px;
+                    left: -125px;
+                   
+                }
+
+                #Todo {
+                    left: 49px;
+                    top: 520px;
+                    position: absolute;
+                    overflow: visible;
+                    width: 93px;
+                    white-space: nowrap;
+                    text-align: center;
+                    font-family: Segoe UI;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 25px;
+                    color: rgba(0,0,0,1);
+                }
+
                 
 
         </style>
@@ -155,14 +194,14 @@ export class RightPane extends HTMLElement {
          <div class="container">
             <div class="calendar">
                 <div class="month">
-                    <i class="fas fa-angle-left 
-                    prev"></i>     <!--Prev Month-->
+                    <i class=" 
+                    prev"><span>&#60;</span></i>     <!--Prev Month-->
                     <div class="date">
                         <h1></h1>  <!--Month-->
                         <p></p>    <!--Sun MM DD YY-->
                     </div>
-                    <i class="fas fa-angle-right 
-                    next"></i>    <!--Next Month-->
+                    <i class=" 
+                    next"><span>&#62;</span></i>    <!--Next Month-->
                 </div>
                 <div class="weekdays">
                     <div>Sun</div>
@@ -173,27 +212,35 @@ export class RightPane extends HTMLElement {
                     <div>Fri</div>
                     <div>Sat</div>
                 </div>
-                <div class="days">
-                
+            <div class="days">
+
             </div>
+               
+                
+
         </div>
+                <svg class="inner_rectangle">
+                    <rect id="inner_rectangle" rx="20" ry="20" x="0" y="0" width="350" height="250">
+                    
+                 </rect>
+                </svg>
+                
+                <div id="Todo">
+                <span>To-Do List</span>
+                </div>
+                
     </div>
     </div>
 
 
       `
       
-      /*<script>
-        var script = document.createElement('script');
-        script.src = "widgets/script.js";
-        document.getElementsByTagName('head')[0].appendChild(script);
-    </script> */
+      
 
 
     
       const link = document.createElement('link')
       link.setAttribute('rel', 'stylesheet')
-     /* link.setAttribute('href', 'styles/calendar.css')*/
       link.setAttribute('href', 'style.css')
 
       
@@ -222,7 +269,7 @@ export class RightPane extends HTMLElement {
 
         const lastDayIndex = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay();
 
-        const nextDays = 7 -lastDayIndex - 1;
+        const nextDays = 7 -lastDayIndex + 6;
 
         const months = [
             "January",
@@ -242,8 +289,20 @@ export class RightPane extends HTMLElement {
         this.shadowRoot.querySelector('.date h1').innerHTML
         = months[date.getMonth()];
 
-        this.shadowRoot.querySelector('.date p').innerHTML
-        = new Date().toDateString();
+        /*this.shadowRoot.querySelector('.date p').innerHTML
+        = new Date().toDateString();*/
+
+        if(date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear())
+        {
+            this.shadowRoot.querySelector('.date p').innerHTML
+            = new Date().toDateString();
+        }
+    
+        else
+        {
+            this.shadowRoot.querySelector('.date p').innerHTML
+            = date.getFullYear()
+        }
 
         let days = "";
 
@@ -252,12 +311,17 @@ export class RightPane extends HTMLElement {
         }
 
         for(let i = 1; i <= lastDay; i++){
-            if( i === new Date().getDate() && date.getMonth() === new Date().getMonth() ){
+            if( i === new Date().getDate() && date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()){
                 days += `<div class='today'>${i}</div>`;
             } else{
                 days += `<div>${i}</div>`;
             }
         
+        }
+
+        if( (firstDayIndex+lastDay+nextDays) > 42)
+        {
+            nextDays = 42;
         }
 
         for(let j = 1; j <= nextDays; j++)
@@ -278,6 +342,12 @@ export class RightPane extends HTMLElement {
         date.setMonth(date.getMonth() + 1);
         renderCalendar();
     })
+
+    this.shadowRoot.querySelector('.date p').addEventListener('click', ()=>{
+        date.setMonth(new Date().getMonth());
+        date.setFullYear(new Date().getFullYear());
+        renderCalendar();
+})
 
     renderCalendar();
 
