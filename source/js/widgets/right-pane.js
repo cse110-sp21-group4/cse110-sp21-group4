@@ -44,7 +44,7 @@ export class RightPane extends HTMLElement {
                 .calendar{
                     width: 350px;
 	                height: 400px;
-                    position: relative; top: -17.5%;
+                    position: absolute; top: 5%;
                     background-color: #ccc;
                     box-shadow: 0 0.5rem 3rem rgba(0,0,0,.4);
                     border-radius: 10px;
@@ -153,6 +153,40 @@ export class RightPane extends HTMLElement {
                     text-decoration: underline;
                 }
 
+                #inner_rectangle {
+                    fill: rgba(230,230,230,1);
+                    stroke: rgba(112,112,112,1);
+                    stroke-width: 1px;
+                    stroke-linejoin: miter;
+                    stroke-linecap: butt;
+                    stroke-miterlimit: 4;
+                    shape-rendering: auto;
+                }
+
+                .inner_rectangle {
+                    position: relative; top: 150px;
+                    overflow: visible;
+                    width: 100px;
+                    height: 100px;
+                    left: -125px;
+                   
+                }
+
+                #Todo {
+                    left: 49px;
+                    top: 520px;
+                    position: absolute;
+                    overflow: visible;
+                    width: 93px;
+                    white-space: nowrap;
+                    text-align: center;
+                    font-family: Segoe UI;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 25px;
+                    color: rgba(0,0,0,1);
+                }
+
                 
 
         </style>
@@ -178,10 +212,23 @@ export class RightPane extends HTMLElement {
                     <div>Fri</div>
                     <div>Sat</div>
                 </div>
-                <div class="days">
-                
+            <div class="days">
+
             </div>
+               
+                
+
         </div>
+                <svg class="inner_rectangle">
+                    <rect id="inner_rectangle" rx="20" ry="20" x="0" y="0" width="350" height="250">
+                    
+                 </rect>
+                </svg>
+                
+                <div id="Todo">
+                <span>To-Do List</span>
+                </div>
+                
     </div>
     </div>
 
