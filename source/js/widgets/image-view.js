@@ -174,13 +174,16 @@ export class ImageView {
 
   //TODO:
   get json() {
-    this._json.size.width = window.getComputedStyle(this.img).width
-    this._json.size.height = window.getComputedStyle(this.img).height
     return this._json
   }
 
   set json(json) {
     this._json = json
+  }
+
+  updateJson() {
+    this._json.size.width = window.getComputedStyle(this.img).width
+    this._json.size.height = window.getComputedStyle(this.img).height
   }
 
   load() {

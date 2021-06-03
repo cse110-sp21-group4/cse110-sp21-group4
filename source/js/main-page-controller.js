@@ -48,14 +48,18 @@ export class MainPageController {
     })
 
     this.left.addEventListener('select', (startD, ts) => {
-      console.log('select:', this.dragview.entry)
-      this.model.savePageData(this.dragview.entry)
+      this.dragview.updateEntry()
+      // console.log('select:', this.dragview.entry)
+      if (this.dragview.entry.startDate && this.dragview.entry.timestamp) {
+        this.model.updateData(this.dragview.entry)
+      }
       this.dragview.clearAll()
 
       this.model.loadData(
         startD,
         ts,
         (data) => {
+          //console.log('json data:', data)
           if (!data.texts) {
             data['texts'] = []
           }

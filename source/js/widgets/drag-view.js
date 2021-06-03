@@ -124,9 +124,9 @@ export class DragView extends HTMLElement {
           top: e.clientY - framePosition.y - 20 + 'px'
         }
         this.addDraggableTextBox(textPosition).focus()
-        console.log(
-          this.draggableChildren[this.draggableChildren.length - 1].json
-        )
+        // console.log(
+        //   this.draggableChildren[this.draggableChildren.length - 1].json
+        // )
       }
     })
     window.addEventListener('click', (e) => {
@@ -183,12 +183,12 @@ export class DragView extends HTMLElement {
 
   removeBulletFromeFocusedText() {
     this.lastFocusedText.removeBullet()
-    console.log(this.lastFocusedText.json)
+    //console.log(this.lastFocusedText.json)
   }
 
   addBulletToFocusedText() {
     this.addBulletToText(this.lastFocusedText, this.bltType)
-    console.log(this.lastFocusedText.json)
+    //console.log(this.lastFocusedText.json)
   }
 
   /**
@@ -235,14 +235,13 @@ export class DragView extends HTMLElement {
 
     img.addEventListener('remove', () => {
       this.removeArrayElement(img, this.draggableChildren)
-      this.removeArrayElement(img.json, this.entry.images)
     })
     img.addEventListener('click', () => {
       this.focusedChild = img
     })
     this.focusedChild = img
 
-    this.entry.images.push(img.json)
+    //this.entry.images.push(img.json)
   }
 
   /**
@@ -257,7 +256,6 @@ export class DragView extends HTMLElement {
     textBox.addEventListener('remove', () => {
       this.removeArrayElement(textBox, this.textBoxes)
       this.removeArrayElement(textBox, this.draggableChildren)
-      this.removeArrayElement(textBox.json, this.entry.texts)
     })
     textBox.addEventListener('focus', () => {
       this.lastFocusedText = textBox
@@ -333,9 +331,9 @@ export class DragView extends HTMLElement {
     this.textBoxes.push(textBox)
     this.draggableChildren.push(textBox)
     this.focusedChild = textBox
-    this.entry.texts.push(textBox.json)
+    //this.entry.texts.push(textBox.json)
 
-    console.log(this.entry)
+    //console.log(this.entry)
 
     /*console.log(
       'boxes vs children:' +
@@ -652,13 +650,12 @@ export class DragView extends HTMLElement {
   }
 
   clearAll() {
-    console.log('clear:' + this.draggableChildren.length)
-
-    const len = this.draggableChildren.length
-    for (let i = 0; i < len; i++) {
-      console.log(i + 'drawview remove..')
+    //console.log('clear:' + this.draggableChildren.length)
+    //console.log('start clear')
+    while (this.draggableChildren.length > 0) {
       this.draggableChildren[0].removeSelf()
     }
+    //console.log('end clear')
   }
 
   /**
@@ -677,7 +674,7 @@ export class DragView extends HTMLElement {
     this.fontSz = fontSize
 
     if (this.lastFocusedText) {
-      console.log('change font size to ' + this.fontSize)
+      //console.log('change font size to ' + this.fontSize)
       this.lastFocusedText.fontSize = this.fontSize + 'px'
       this.lastFocusedText.resizeToFitText()
     }
@@ -709,8 +706,24 @@ export class DragView extends HTMLElement {
     this._entry = entry
   }
 
+  updateEntry() {
+    //console.log('update entry')
+    this._entry.images = []
+    this._entry.texts = []
+    this.draggableChildren.forEach((child, i) => {
+      child.updateJson()
+      if (child instanceof TextBox) {
+        this._entry.texts.push(child.json)
+      } else if (child instanceof ImageView) {
+        this._entry.images.push(child.json)
+      }
+    })
+  }
+
   load() {
-    this.entry.texts.forEach((json, i) => {
+    //console.log('load start')
+    this._entry.texts.forEach((json, i) => {
+      console.log('load text:', json)
       const tb = this.addDraggableTextBox(json.position)
       tb.json = json
       tb.load()
@@ -718,7 +731,7 @@ export class DragView extends HTMLElement {
         this.addBulletToText(tb, json.bullet)
       }
     })
-    this.entry.images.forEach((json, i) => {
+    this._entry.images.forEach((json, i) => {
       const img = new Image()
       img.setAttribute('refStr', json.ref)
       img.src = json.url
@@ -727,6 +740,7 @@ export class DragView extends HTMLElement {
       imageView.json = json
       imageView.load()
     })
+    //console.log('load end')
   }
 }
 
