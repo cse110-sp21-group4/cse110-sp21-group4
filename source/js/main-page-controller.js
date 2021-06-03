@@ -97,6 +97,11 @@ export class MainPageController {
 
     this.left.addEventListener('remove', (startDate, timestamp) => {
       this.model.removeData(startDate, timestamp)
+      if (this.left.focusedChild)
+        this.saveLastPage(
+          this.left.focusedChild.getAttribute('startDate'),
+          this.left.focusedChild.getAttribute('timestamp')
+        )
     })
 
     //Tool Bar
@@ -207,8 +212,8 @@ export class MainPageController {
   saveLastPage(startDate, timestamp) {
     console.log('save last:', timestamp)
     let lastPage = this.left.getPageList()
-    lastPage['startDate'] = startDate
-    lastPage['timestamp'] = timestamp
+    if (startDate) lastPage['startDate'] = startDate
+    if (timestamp) lastPage['timestamp'] = timestamp
     console.log(lastPage)
     return this.model.updateLast(lastPage)
   }

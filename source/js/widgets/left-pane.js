@@ -442,10 +442,12 @@ ul li:hover {
   getPageList() {
     let pageList = { list: [] }
     this.shadowRoot.querySelectorAll('ul li').forEach((li, i) => {
-      pageList.list.push({
-        startDate: li.getAttribute('startDate'),
-        timestamp: li.getAttribute('timestamp')
-      })
+      const disp = window.getComputedStyle(li).display
+      if (disp && disp !== 'none')
+        pageList.list.push({
+          startDate: li.getAttribute('startDate'),
+          timestamp: li.getAttribute('timestamp')
+        })
     })
     return pageList
   }
