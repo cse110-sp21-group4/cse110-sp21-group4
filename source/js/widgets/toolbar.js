@@ -73,8 +73,6 @@ export class ToolBar extends HTMLElement {
     </div>
     `
 
-    // template.addEventListener('click',editPage());
-
     const link = document.createElement('link')
     link.setAttribute('rel', 'stylesheet')
     link.setAttribute('href', 'styles/toolbar.css')
@@ -121,6 +119,20 @@ export class ToolBar extends HTMLElement {
     this.imageInput.addEventListener('change', (e) => {
       const img = new Image()
       img.src = URL.createObjectURL(e.target.files[0])
+
+      var wait = setInterval(function () {
+        var w = img.naturalWidth,
+          h = img.naturalHeight
+        if (w && h) {
+          clearInterval(wait)
+          console.log('width:', w)
+          img.width = 800 < w ? 800 : img.width
+          console.log('width:', img.width)
+
+          // callback.apply(this, [w, h])
+        }
+      }, 10)
+
       this.observers.imageclicked.forEach((cb, i) => {
         cb(img, e)
       })
