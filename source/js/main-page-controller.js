@@ -13,7 +13,7 @@ export class MainPageController {
     const TEST_USER = 'test@ucsd.edu'
     const TEST_PASSWORD = '12345678'
     this.model.signIn(TEST_USER, TEST_PASSWORD, () => {
-      this.recoverLastPage()
+      //this.recoverLastPage()
     })
   }
 
@@ -22,6 +22,7 @@ export class MainPageController {
     this.leftPaneButtonWidth = this.leftPaneButton.getBoundingClientRect().width
     this.leftMargin = this.leftPaneFrame.getBoundingClientRect().left
     this.imageInsertPosition = { left: '20px', top: '50px' }
+    this.reloading = false
   }
 
   initializePage() {
@@ -47,37 +48,51 @@ export class MainPageController {
       })
 
     this.left.addEventListener('create', (startD, ts) => {
-      this.model.savePageData({
-        startDate: startD,
-        timestamp: ts,
-        texts: [],
-        images: []
-      })
+      if (!this.reloading) {
+        this.model.savePageData({
+          startDate: startD,
+          timestamp: ts,
+          texts: [],
+          images: []
+        })
+      }
     })
 
     this.left.addEventListener('select', (startD, ts) => {
-      this.saveCurrentData()
-      this.dragview.clearAll()
+      let pm = this.saveCurrentData()
+      if (pm) {
+        pm.then(() => {
+          this.dragview.clearAll()
 
-      this.model.loadData(
-        startD,
-        ts,
-        (data) => {
-          //console.log('json data:', data)
-          if (!data.texts) {
-            data['texts'] = []
-          }
-          if (!data.images) {
-            data['images'] = []
-          }
-          this.dragview.entry = data
-          this.dragview.load()
-          this.saveLastPage()
-        },
-        (e) => {
-          console.log(e)
-        }
-      )
+          console.log('load: ', ts)
+          this.model
+            .loadData(startD, ts)
+            .then((obj) => {
+              if (obj.exists()) {
+                let data = obj.val()
+                //console.log('json data:', data)
+                if (!data.texts) {
+                  data['texts'] = []
+                }
+                if (!data.images) {
+                  data['images'] = []
+                }
+                this.dragview.entry = data
+                this.dragview.load()
+                //this.saveLastPage()
+              } else {
+                console.log('no data')
+              }
+            })
+            .catch((e) => {
+              console.log(e)
+            })
+        })
+      } else {
+        this.dragview.clearAll()
+        this.dragview.entry.timestamp = ts
+        this.dragview.entry.startDate = startD
+      }
     })
 
     this.left.addEventListener('remove', (startDate, timestamp) => {
@@ -143,35 +158,49 @@ export class MainPageController {
   }
 
   recoverLastPage() {
+    this.reloading = true
     this.model.loadLastPageInfo().then((data) => {
       const lastPageInfo = data.val()
-      lastPageInfo.list.forEach((entry, i) => {
-        const li = this.left.addNewEntry(new Date(parseInt(entry.timestamp)))
-        if (
-          lastPageInfo.startDate == li.getAttribute('startDate') &&
-          lastPageInfo.timestamp == li.getAttribute('timestamp')
-        ) {
-          li.click()
-        }
-      })
-      this.model.loadData(
-        lastPageInfo.startDate,
-        lastPageInfo.timestamp,
-        (data) => {
-          console.log('json data:', data)
-          if (!data.texts) {
-            data['texts'] = []
+      if (lastPageInfo.list) {
+        lastPageInfo.list.forEach((entry, i) => {
+          const li = this.left.addNewEntry(new Date(parseInt(entry.timestamp)))
+          if (
+            lastPageInfo.startDate == li.getAttribute('startDate') &&
+            lastPageInfo.timestamp == li.getAttribute('timestamp')
+          ) {
+            li.click()
           }
-          if (!data.images) {
-            data['images'] = []
+        })
+      }
+      this.model
+        .loadData(lastPageInfo.startDate, lastPageInfo.timestamp)
+        .then((obj) => {
+          if (obj.exists()) {
+            let data = obj.val()
+            //console.log('json data:', data)
+            if (!data.texts) {
+              //console.log('no data')
+              data['texts'] = []
+            }
+            if (!data.images) {
+              data['images'] = []
+            }
+            this.dragview.entry = data
+            this.dragview.load()
+            this.reloading = false
+          } else {
+            console.log('not data')
+            this.dragview.entry.timestamp = lastPageInfo.timestamp
+            this.dragview.entry.startDate = lastPageInfo.startDate
+            this.reloading = false
           }
-          this.dragview.entry = data
-          this.dragview.load()
-        },
-        (e) => {
+        })
+        .catch((e) => {
           console.log(e)
-        }
-      )
+          this.dragview.entry.timestamp = lastPageInfo.timestamp
+          this.dragview.entry.startDate = lastPageInfo.startDate
+          this.reloading = false
+        })
     })
   }
 
@@ -189,7 +218,13 @@ export class MainPageController {
   saveCurrentData() {
     this.dragview.updateEntry()
     // console.log('select:', this.dragview.entry)
-    if (this.dragview.entry.startDate && this.dragview.entry.timestamp) {
+    //console.log(this.left.focusedChild)
+    console.log('save current ts', this.dragview.entry.timestamp)
+    if (
+      this.left.focusedChild &&
+      this.dragview.entry.startDate &&
+      this.dragview.entry.timestamp
+    ) {
       console.log('save current:', this.dragview.entry)
       return this.model.updateData(this.dragview.entry)
     }

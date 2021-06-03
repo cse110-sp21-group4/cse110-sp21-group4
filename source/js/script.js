@@ -22,9 +22,7 @@ window.addEventListener('load', () => {
   mainPageController.initializeAttributes()
   //console.log('atts initialized')
   mainPageController.registerListeners()
-  setTimeout(() => {
-    mainPageController.loginIn()
-  }, 2000)
+  mainPageController.loginIn()
 })
 window.addEventListener('beforeunload', (e) => {
   e.preventDefault()

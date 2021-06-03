@@ -498,6 +498,7 @@ ul li:hover {
       e.stopPropagation()
       li.style.display = 'none'
       if (this.focusedChild == li) {
+        console.log('remove')
         this.focusedChild = undefined
       }
       this.observers.remove.forEach((cb, i) => {
@@ -518,6 +519,7 @@ ul li:hover {
         })
       }
       this.focusedChild = li
+      //console.log(this.focusedChild)
     })
 
     this.observers.create.forEach((cb, i) => {

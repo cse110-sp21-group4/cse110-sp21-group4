@@ -33,31 +33,31 @@ export class MainPageModel {
     this.user = {}
     this.initFirebase()
 
-    this.signIn(TEST_USER, TEST_PASSWORD, () => {
-      // this.savePageData(testPageData)
-      // this.loadData(testPageData.startDate, testPageData.timestamp, (data) => {
-      //   console.log(data)
-      // })
-      //   this.updatedata(
-      //     testpagedata,
-      //     () => {
-      //       console.log('updated')
-      //     },
-      //     (e) => {
-      //       console.log(e)
-      //     }
-      //   )
-      // this.removeData(
-      // testPageData.startDate,
-      // testPageData.timestamp,
-      // () => {
-      // console.log('removed..')
-      // },
-      // (e) => {
-      // console.log(e)
-      // }
-      // )
-    })
+    // this.signIn(TEST_USER, TEST_PASSWORD, () => {
+    // this.savePageData(testPageData)
+    // this.loadData(testPageData.startDate, testPageData.timestamp, (data) => {
+    //   console.log(data)
+    // })
+    //   this.updatedata(
+    //     testpagedata,
+    //     () => {
+    //       console.log('updated')
+    //     },
+    //     (e) => {
+    //       console.log(e)
+    //     }
+    //   )
+    // this.removeData(
+    // testPageData.startDate,
+    // testPageData.timestamp,
+    // () => {
+    // console.log('removed..')
+    // },
+    // (e) => {
+    // console.log(e)
+    // }
+    // )
+    // })
   }
 
   isSignedIn() {
@@ -171,11 +171,8 @@ export class MainPageModel {
     return uid + '/' + startDate
   }
 
-  loadDataArrayByDate(startDate, callback, errorCallback) {
-    this.loadData(startDate, null, callback, errorCallback)
-  }
-
-  loadData(startDate, timestamp, callback, errorCallback) {
+  loadData(startDate, timestamp) {
+    console.log(startDate, timestamp)
     const uid = firebase.auth().currentUser.uid
     let dbObj = firebase.database().ref().child(uid).child(startDate)
 
@@ -183,18 +180,7 @@ export class MainPageModel {
       dbObj = dbObj.child(timestamp)
     }
 
-    dbObj
-      .get()
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          callback(snapshot.val())
-        } else {
-          if (errorCallback) errorCallback('No data available')
-        }
-      })
-      .catch((error) => {
-        if (errorCallback) errorCallback(error.message)
-      })
+    return dbObj.get()
   }
 
   loadLastPageInfo() {
