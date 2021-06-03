@@ -13,7 +13,7 @@ export class MainPageController {
     const TEST_USER = 'test@ucsd.edu'
     const TEST_PASSWORD = '12345678'
     this.model.signIn(TEST_USER, TEST_PASSWORD, () => {
-      //this.recoverLastPage()
+      this.recoverLastPage()
     })
   }
 
@@ -164,49 +164,58 @@ export class MainPageController {
 
   recoverLastPage() {
     this.reloading = true
-    this.model.loadLastPageInfo().then((data) => {
-      const lastPageInfo = data.val()
-      if (lastPageInfo.list) {
-        lastPageInfo.list.forEach((entry, i) => {
-          const li = this.left.addNewEntry(new Date(parseInt(entry.timestamp)))
-          if (
-            lastPageInfo.startDate == li.getAttribute('startDate') &&
-            lastPageInfo.timestamp == li.getAttribute('timestamp')
-          ) {
-            li.click()
+    this.model
+      .loadLastPageInfo()
+      .then((data) => {
+        const lastPageInfo = data.val()
+        if (lastPageInfo) {
+          if (lastPageInfo.list) {
+            lastPageInfo.list.forEach((entry, i) => {
+              const li = this.left.addNewEntry(
+                new Date(parseInt(entry.timestamp))
+              )
+              if (
+                lastPageInfo.startDate == li.getAttribute('startDate') &&
+                lastPageInfo.timestamp == li.getAttribute('timestamp')
+              ) {
+                li.click()
+              }
+            })
           }
-        })
-      }
-      this.model
-        .loadData(lastPageInfo.startDate, lastPageInfo.timestamp)
-        .then((obj) => {
-          if (obj.exists()) {
-            let data = obj.val()
-            //console.log('json data:', data)
-            if (!data.texts) {
-              //console.log('no data')
-              data['texts'] = []
-            }
-            if (!data.images) {
-              data['images'] = []
-            }
-            this.dragview.entry = data
-            this.dragview.load()
-            this.reloading = false
-          } else {
-            console.log('not data')
-            this.dragview.entry.timestamp = lastPageInfo.timestamp
-            this.dragview.entry.startDate = lastPageInfo.startDate
-            this.reloading = false
-          }
-        })
-        .catch((e) => {
-          console.log(e)
-          this.dragview.entry.timestamp = lastPageInfo.timestamp
-          this.dragview.entry.startDate = lastPageInfo.startDate
+          this.model
+            .loadData(lastPageInfo.startDate, lastPageInfo.timestamp)
+            .then((obj) => {
+              if (obj.exists()) {
+                let data = obj.val()
+                //console.log('json data:', data)
+                if (!data.texts) {
+                  //console.log('no data')
+                  data['texts'] = []
+                }
+                if (!data.images) {
+                  data['images'] = []
+                }
+                this.dragview.entry = data
+                this.dragview.load()
+              } else {
+                console.log('not exist')
+              }
+            })
+            .catch((e) => {
+              console.log(e)
+            })
+            .finally(() => {
+              this.reloading = false
+              this.dragview.entry.timestamp = lastPageInfo.timestamp
+              this.dragview.entry.startDate = lastPageInfo.startDate
+            })
+        } else {
           this.reloading = false
-        })
-    })
+        }
+      })
+      .finally(() => {
+        this.reloading = false
+      })
   }
 
   saveLastPage(startDate, timestamp) {
