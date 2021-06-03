@@ -250,6 +250,11 @@ export class LeftPane extends HTMLElement {
         font-size: 40px;
         color: rgba(0,0,0,1);
         cursor: pointer;
+        -webkit-user-select: none; /* Safari */        
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+/Edge */
+        user-select: none; /* Standard */
+
     }
     #Untitled_Entry {
         left: 66px;
@@ -419,11 +424,6 @@ ul li:hover {
     this.shadowRoot.appendChild(template.content.cloneNode(true))
     this.initializeUI()
 
-    this.observers = {
-      open: [],
-      close: []
-    }
-
     this.leftPane = this.shadowRoot.querySelector('#left-pane')
     this.plusButton = this.shadowRoot.querySelector('#plus')
     this.setupListeners()
@@ -488,23 +488,6 @@ ul li:hover {
         }
       }
     })
-  }
-
-  addEventListener(eventType, callback) {
-    this.observers[eventType].push(callback)
-  }
-
-  removeEventListener(eventType, callback) {
-    this.observers[eventType].forEach((c, i) => {
-      if (callback == c) {
-        this.observers[eventType].splice(i, 0)
-        return false
-      }
-    })
-  }
-
-  removeAllListeners() {
-    this.observers = { open: [], close: [] }
   }
 }
 
