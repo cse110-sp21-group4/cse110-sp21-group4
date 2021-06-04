@@ -73,11 +73,25 @@ export class MainPageController {
     if (this.left.style.display === 'none') {
       this.left.style.display = 'block'
       this.page.style.left = this.leftPaneWidth + this.leftMargin + 'px'
+      console.log(this.toolbar.style.left)
+      this.toolbar.style.left =
+        parseFloat(this.toolbar.style.left) +
+        this.leftPaneWidth -
+        this.leftPaneButtonWidth +
+        'px'
+      console.log(this.toolbar.style.left)
       //console.log('open')
     } else {
       // Page hides - Move MAIN page left
       this.left.style.display = 'none'
       this.page.style.left = this.leftPaneButtonWidth + this.leftMargin + 'px'
+      console.log(this.toolbar.style.left)
+      this.toolbar.style.left =
+        parseFloat(this.toolbar.style.left) -
+        this.leftPaneWidth +
+        this.leftPaneButtonWidth +
+        'px'
+      console.log(this.toolbar.style.left)
       //console.log('close')
     }
   }

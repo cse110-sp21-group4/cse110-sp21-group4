@@ -18,16 +18,16 @@ export class LeftPane extends HTMLElement {
         overflow: visible;
         width: 406px;
         height: 803px;
-        left: 23px;
-        top: 111px;
+        left: 5px;
+        top: 5px;
     }
     .outer-rectangle {
         position: absolute;
         overflow: visible;
         width: 406px;
         height: 803px;
-        left: 23px;
-        top: 111px;
+        left: 5px;
+        top: 5px;
     }
    #Path_1 {
         fill: rgba(171,187,175,1);
@@ -68,7 +68,7 @@ export class LeftPane extends HTMLElement {
         width: 80px;
         height: 80px;
         left: 29px;
-        top: 599.617px;
+        top: 499.617px;
     }
     #Line_1 {
         fill: transparent;
@@ -84,8 +84,8 @@ export class LeftPane extends HTMLElement {
         position: absolute;
         width: 406.015px;
         height: 5px;
-        left: 23.5px;
-        top: 201.5px;
+        left: 5px;
+        top: 101.5px;
         transform: matrix(1,0,0,1,0,0);
     }
     #Ellipse_5 {
@@ -103,7 +103,7 @@ export class LeftPane extends HTMLElement {
         width: 80px;
         height: 80px;
         left: 29px;
-        top: 799px;
+        top: 699px;
     }
     #Ellipse_6 {
         fill: rgba(129,150,134,1);
@@ -120,7 +120,7 @@ export class LeftPane extends HTMLElement {
         width: 80px;
         height: 80px;
         left: 29px;
-        top: 699.605px;
+        top: 599.605px;
     }
     #Icon_map-food {
         fill: rgba(255,255,255,1);
@@ -131,7 +131,7 @@ export class LeftPane extends HTMLElement {
         width: 34.56px;
         height: 30.296px;
         left: 49.058px;
-        top: 620.094px;
+        top: 520.094px;
         transform: matrix(1,0,0,1,0,0);
     }
     #Icon_ionic-md-school {
@@ -143,7 +143,7 @@ export class LeftPane extends HTMLElement {
         width: 31.5px;
         height: 27px;
         left: 51.118px;
-        top: 726.105px;
+        top: 626.105px;
         transform: matrix(1,0,0,1,0,0);
     }
     #inner_rectangle {
@@ -160,12 +160,12 @@ export class LeftPane extends HTMLElement {
         overflow: visible;
         width: 387px;
         height: 378.27px;
-        left: 33px;
-        top: 211.68px;
+        left: 15px;
+        top: 111.68px;
     }
     #Entries {
-        left: 49px;
-        top: 222.67px;
+        left: 31px;
+        top: 122.67px;
         position: absolute;
         overflow: visible;
         width: 93px;
@@ -179,7 +179,7 @@ export class LeftPane extends HTMLElement {
     }
     #Recipes {
         left: 121px;
-        top: 620.519px;
+        top: 520.519px;
         position: absolute;
         overflow: visible;
         width: 101px;
@@ -193,7 +193,7 @@ export class LeftPane extends HTMLElement {
     }
     #Assignments {
         left: 120px;
-        top: 725.031px;
+        top: 625.031px;
         position: absolute;
         overflow: visible;
         width: 147px;
@@ -207,7 +207,7 @@ export class LeftPane extends HTMLElement {
     }
     #New_Label {
         left: 120px;
-        top: 819px;
+        top: 719px;
         position: absolute;
         overflow: visible;
         width: 139px;
@@ -233,12 +233,12 @@ export class LeftPane extends HTMLElement {
         overflow: visible;
         width: 40px;
         height: 40px;
-        left: 361px;
-        top: 221.808px;
+        left: 343px;
+        top: 121.808px;
     }
     #plus {
-        left: 367px;
-        top: 210.224px;
+        left: 350px;
+        top: 116.224px;
         position: absolute;
         overflow: visible;
         width: 29px;
@@ -258,7 +258,7 @@ export class LeftPane extends HTMLElement {
     }
     #Untitled_Entry {
         left: 66px;
-        top: 267.813px;
+        top: 167.813px;
         position: absolute;
         overflow: visible;
         width: 146px;
@@ -279,7 +279,7 @@ export class LeftPane extends HTMLElement {
         width: 31.5px;
         height: 31.5px;
         left: 53.25px;
-        top: 823.25px;
+        top: 723.25px;
         transform: matrix(1,0,0,1,0,0);
     }
 

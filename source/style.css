@@ -5,14 +5,13 @@ body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
     'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
 .page {
-  background-image: url('images/single-paper.jpg'), url('images/paper-book.jpg');
+  background-image: url('images/single-paper.jpg');
   position: absolute;
-  top: 111px;
+  top: 5px;
   left: 439px;
   width: 1000px;
-  height: 1000px;
+  height: 1100px;
   border: 1px solid blue;
 }
 
@@ -21,12 +20,16 @@ drag-view {
   display: block;
   left: 74px;
   top: 15px;
-  height: 974px;
-  width: 920px;
+  height: 1100px;
+  width: 900px;
   background: transparent;
   border: 1px solid Grey;
 }
-
+tool-bar {
+  position: absolute;
+  top: 150px;
+  left: 0px;
+}
 main {
   display: block;
   width: 100%;
@@ -58,14 +61,14 @@ main {
   width: 80px;
   height: 80px;
   left: 28px;
-  top: 117px;
+  top: 17px;
 }
 #icon-ionic-ios-book {
   position: absolute;
   width: 29.236px;
   height: 26.997px;
   left: 53.382px;
-  top: 143.501px;
+  top: 43.501px;
   overflow: visible;
   cursor: pointer;
 }
