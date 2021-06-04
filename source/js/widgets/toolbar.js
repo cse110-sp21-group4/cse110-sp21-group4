@@ -82,7 +82,7 @@ export class ToolBar extends HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(link)
     this.shadowRoot.appendChild(template.content.cloneNode(true))
-
+    this.style.left = '0px'
     this.textTool = this.shadowRoot.querySelector('#text-tool')
     this.imageInput = this.shadowRoot.querySelector('#image-input')
     this.imageTool = this.shadowRoot.querySelector('#image-tool')
