@@ -65,7 +65,7 @@ export class MainPageController {
         pm.then(() => {
           this.dragview.clearAll()
 
-          console.log('load: ', ts)
+          //console.log('load: ', ts)
           this.model
             .loadData(startD, ts)
             .then((obj) => {
