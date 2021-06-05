@@ -1,7 +1,7 @@
 export class ToolBar extends HTMLElement {
   constructor() {
     super()
-    console.log('toolbar constr called')
+
     const template = document.createElement('template')
     template.innerHTML = `
 

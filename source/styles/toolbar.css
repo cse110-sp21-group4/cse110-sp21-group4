@@ -16,7 +16,8 @@
 }
 
 .tool {
-  margin-left: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   padding: 10px;
   display: inline block;
   margin: auto;
@@ -35,4 +36,14 @@
   width: 30px;
   height: 30px;
   transform: matrix(1, 0, 0, 1, 0, 0);
+}
+
+#text-size-sel {
+  width: 50px;
+  height: 30px;
+}
+
+#text-color-sel {
+  width: 80px;
+  height: 30px;
 }
