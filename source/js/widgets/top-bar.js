@@ -20,12 +20,12 @@ export class TopBar extends HTMLElement {
                 width: 90px;
                 height: 90px;
                 left: 13px;
-                top:13px;
+                top:5px;
                 overflow: visible;
             }
             #bullet-journal {
                 left: 134px;
-                top: 20px;
+                top: 12px;
                 position: absolute;
                 overflow: visible;
                 width: 224px;
@@ -39,7 +39,7 @@ export class TopBar extends HTMLElement {
             }
             #by-taiyakitty {
                 left: 134px;
-                top: 59px;
+                top: 51px;
                 position: absolute;
                 overflow: visible;
                 width: 100px;
@@ -52,8 +52,8 @@ export class TopBar extends HTMLElement {
                 color: rgba(255,255,255,1);
             }
             .entry-heading {
-                left: 849px;
-                top: 30px;
+                left: 750px;
+                top: 23px;
                 position: absolute;
                 overflow: visible;
                 width: 500px;

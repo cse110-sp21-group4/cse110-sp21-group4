@@ -20,6 +20,12 @@ export class MainPageController {
     this.dragview = document.querySelector('drag-view')
     this.leftPaneButton = this.view.querySelector('#index-button')
     this.leftPaneFrame = this.left.shadowRoot.querySelector('#outer-rectangle')
+    this.leftPaneButtonIcon1 = this.view.querySelector('#Path_3')
+    this.leftPaneButtonIcon2 = this.view.querySelector('#Path_4')
+    this.topBarCalendar = this.view.querySelector('#Icon_awesome-calendar')
+    this.topBarCalendarButton = this.view.querySelector('#Ellipse_2')
+    this.right = document.querySelector('right-pane')
+    this.topBarCalendarButton.style.display = 'none'
 
     // Toolbar
     this.toolbar = document.querySelector('tool-bar')
@@ -67,30 +73,30 @@ export class MainPageController {
     this.toolbar.addEventListener('colorclicked', (color, e) => {
       this.dragview.textColor = color
     })
+
+    this.topBarCalendar.addEventListener('click', () => {
+      if (this.right.style.display === 'none') {
+        this.right.style.display = 'block'
+        this.topBarCalendarButton.style.display = 'block'
+      } else {
+        // Page hides - Move MAIN page left
+        this.right.style.display = 'none'
+        this.topBarCalendarButton.style.display = 'none'
+      }
+    })
   }
 
   toggleLeftPane() {
     if (this.left.style.display === 'none') {
       this.left.style.display = 'block'
-      this.page.style.left = this.leftPaneWidth + this.leftMargin + 'px'
-      console.log(this.toolbar.style.left)
-      this.toolbar.style.left =
-        parseFloat(this.toolbar.style.left) +
-        this.leftPaneWidth -
-        this.leftPaneButtonWidth +
-        'px'
-      console.log(this.toolbar.style.left)
+      this.leftPaneButtonIcon1.style.display = 'none'
+      this.leftPaneButtonIcon2.style.display = 'none'
       //console.log('open')
     } else {
       // Page hides - Move MAIN page left
       this.left.style.display = 'none'
-      this.page.style.left = this.leftPaneButtonWidth + this.leftMargin + 'px'
-      console.log(this.toolbar.style.left)
-      this.toolbar.style.left =
-        parseFloat(this.toolbar.style.left) -
-        this.leftPaneWidth +
-        this.leftPaneButtonWidth +
-        'px'
+      this.leftPaneButtonIcon1.style.display = 'block'
+      this.leftPaneButtonIcon2.style.display = 'block'
       console.log(this.toolbar.style.left)
       //console.log('close')
     }

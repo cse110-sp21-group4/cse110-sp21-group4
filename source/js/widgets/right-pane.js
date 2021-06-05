@@ -23,7 +23,7 @@ export class RightPane extends HTMLElement {
                     height: 800px;
                     /*position:absolute;*/
                     top: 0px;
-                    left: 1506px;
+                    right: 5px;
                     background-color: rgba(171,187,175,1);
                     color: #333;
                     display: flex;
@@ -34,12 +34,12 @@ export class RightPane extends HTMLElement {
                 .pane{
                     background-color: rgb(171,187,175);
                     position: absolute;
-                    /*overflow: visible; */
+                    overflow: visible;
                     width: 414px;
                     height: 800px;
-                    left: 1475px;
-                    top: 110px;
-                    border-radius: 60px;
+                    right: 5px;
+                    top: 101px;
+                    border-radius: 40px;
 	            }
 
                 .calendar{

@@ -19,7 +19,7 @@ export class LeftPane extends HTMLElement {
         width: 406px;
         height: 803px;
         left: 5px;
-        top: 5px;
+        top: 101px;
     }
     .outer-rectangle {
         position: absolute;
@@ -27,7 +27,7 @@ export class LeftPane extends HTMLElement {
         width: 406px;
         height: 803px;
         left: 5px;
-        top: 5px;
+        top: 101px;
     }
    #Path_1 {
         fill: rgba(171,187,175,1);
@@ -53,23 +53,6 @@ export class LeftPane extends HTMLElement {
         top: 0px;
         transform: matrix(1,0,0,1,0,0);
     }
-    #Ellipse_3 {
-        fill: rgba(129,150,134,1);
-        stroke: rgba(112,112,112,1);
-        stroke-width: 1px;
-        stroke-linejoin: miter;
-        stroke-linecap: butt;
-        stroke-miterlimit: 4;
-        shape-rendering: auto;
-    }
-    .Ellipse_3 {
-        position: absolute;
-        overflow: visible;
-        width: 80px;
-        height: 80px;
-        left: 29px;
-        top: 499.617px;
-    }
     #Line_1 {
         fill: transparent;
         stroke: rgba(129,150,134,1);
@@ -85,65 +68,7 @@ export class LeftPane extends HTMLElement {
         width: 406.015px;
         height: 5px;
         left: 5px;
-        top: 101.5px;
-        transform: matrix(1,0,0,1,0,0);
-    }
-    #Ellipse_5 {
-        fill: rgba(129,150,134,1);
-        stroke: rgba(112,112,112,1);
-        stroke-width: 1px;
-        stroke-linejoin: miter;
-        stroke-linecap: butt;
-        stroke-miterlimit: 4;
-        shape-rendering: auto;
-    }
-    .Ellipse_5 {
-        position: absolute;
-        overflow: visible;
-        width: 80px;
-        height: 80px;
-        left: 29px;
-        top: 699px;
-    }
-    #Ellipse_6 {
-        fill: rgba(129,150,134,1);
-        stroke: rgba(112,112,112,1);
-        stroke-width: 1px;
-        stroke-linejoin: miter;
-        stroke-linecap: butt;
-        stroke-miterlimit: 4;
-        shape-rendering: auto;
-    }
-    .Ellipse_6 {
-        position: absolute;
-        overflow: visible;
-        width: 80px;
-        height: 80px;
-        left: 29px;
-        top: 599.605px;
-    }
-    #Icon_map-food {
-        fill: rgba(255,255,255,1);
-    }
-    .Icon_map-food {
-        overflow: visible;
-        position: absolute;
-        width: 34.56px;
-        height: 30.296px;
-        left: 49.058px;
-        top: 520.094px;
-        transform: matrix(1,0,0,1,0,0);
-    }
-    #Icon_ionic-md-school {
-        fill: rgba(255,255,255,1);
-    }
-    .Icon_ionic-md-school {
-        overflow: visible;
-        position: absolute;
-        width: 31.5px;
-        height: 27px;
-        left: 51.118px;
-        top: 626.105px;
+        top: 192.5px;
         transform: matrix(1,0,0,1,0,0);
     }
     #inner_rectangle {
@@ -158,14 +83,14 @@ export class LeftPane extends HTMLElement {
     .inner_rectangle {
         position: absolute;
         overflow: visible;
-        width: 387px;
-        height: 378.27px;
-        left: 15px;
-        top: 111.68px;
+        width: 350px;
+        height: 500px;
+        left: 31px;
+        top: 197.68px;
     }
     #Entries {
-        left: 31px;
-        top: 122.67px;
+        left: 45px;
+        top: 205.67px;
         position: absolute;
         overflow: visible;
         width: 93px;
@@ -176,48 +101,6 @@ export class LeftPane extends HTMLElement {
         font-weight: bold;
         font-size: 30px;
         color: rgba(0,0,0,1);
-    }
-    #Recipes {
-        left: 121px;
-        top: 520.519px;
-        position: absolute;
-        overflow: visible;
-        width: 101px;
-        white-space: nowrap;
-        text-align: left;
-        font-family: Segoe UI;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 30px;
-        color: rgba(255,255,255,1);
-    }
-    #Assignments {
-        left: 120px;
-        top: 625.031px;
-        position: absolute;
-        overflow: visible;
-        width: 147px;
-        white-space: nowrap;
-        text-align: left;
-        font-family: Segoe UI;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 26px;
-        color: rgba(255,255,255,1);
-    }
-    #New_Label {
-        left: 120px;
-        top: 719px;
-        position: absolute;
-        overflow: visible;
-        width: 139px;
-        white-space: nowrap;
-        text-align: left;
-        font-family: Segoe UI;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 30px;
-        color: rgba(255,255,255,1);
     }
     #add-entry-button {
         fill: rgba(230,230,230,1);
@@ -233,12 +116,12 @@ export class LeftPane extends HTMLElement {
         overflow: visible;
         width: 40px;
         height: 40px;
-        left: 343px;
-        top: 121.808px;
+        left: 330px;
+        top: 207.808px;
     }
     #plus {
-        left: 350px;
-        top: 116.224px;
+        left: 336px;
+        top: 197.224px;
         position: absolute;
         overflow: visible;
         width: 29px;
@@ -257,8 +140,8 @@ export class LeftPane extends HTMLElement {
 
     }
     #Untitled_Entry {
-        left: 66px;
-        top: 167.813px;
+        left: 40px;
+        top: 253.813px;
         position: absolute;
         overflow: visible;
         width: 146px;
@@ -270,23 +153,11 @@ export class LeftPane extends HTMLElement {
         font-size: 24px;
         color: rgba(0,0,0,1);
     }
-    #Icon_awesome-plus {
-        fill: rgba(255,255,255,1);
-    }
-    .Icon_awesome-plus {
-        overflow: visible;
-        position: absolute;
-        width: 31.5px;
-        height: 31.5px;
-        left: 53.25px;
-        top: 723.25px;
-        transform: matrix(1,0,0,1,0,0);
-    }
 
 ul {
     margin: 0;
     width: 325px;
-    height: 300px;
+    height: 600px;
     padding: 0;
     list-style-type: none;
     overflow: scroll;
@@ -354,45 +225,16 @@ ul li:hover {
         <rect id="outer-rectangle" rx="40" ry="40" x="0" y="0">
         </rect>
       </svg>
-      <svg class="Ellipse_3">
-        <ellipse id="Ellipse_3" rx="40" ry="40" cx="40" cy="40">
-        </ellipse>
-      </svg>
       <svg class="Line_1" viewBox="0 0 406 2">
-        <path id="Line_1" d="M 0 2 L 406 0">
-        </path>
-      </svg>
-      <svg class="Ellipse_5">
-        <ellipse id="Ellipse_5" rx="40" ry="40" cx="40" cy="40">
-        </ellipse>
-      </svg>
-      <svg class="Ellipse_6">
-        <ellipse id="Ellipse_6" rx="40" ry="40" cx="40" cy="40">
-        </ellipse>
-      </svg>
-      <svg class="Icon_map-food" viewBox="0.72 2.825 34.56 30.295">
-        <path id="Icon_map-food" d="M 35.20367813110352 10.91088008880615 L 32.37047958374023 33.11999893188477 L 22.80096054077148 33.11999893188477 L 19.97928047180176 10.79999923706055 L 31.66200065612793 10.79999923706055 L 33.97103881835938 2.824559211730957 L 35.27999877929688 3.219120025634766 L 33.06455993652344 10.89431953430176 L 35.20368194580078 10.91087913513184 Z M 18.62639999389648 23.76000022888184 C 18.62639999389648 23.76000022888184 18.98423957824707 20.88000106811523 14.02199935913086 20.88000106811523 L 6.119279861450195 20.88000106811523 C 1.164239883422852 20.88000106811523 1.514879703521729 23.76000213623047 1.514879703521729 23.76000213623047 L 18.62639999389648 23.76000213623047 Z M 1.514879941940308 30.23999977111816 C 1.514879941940308 30.23999977111816 1.164239883422852 33.11999893188477 6.119279861450195 33.11999893188477 L 14.02272033691406 33.11999893188477 C 18.98496055603027 33.11999893188477 18.62712097167969 30.23999786376953 18.62712097167969 30.23999786376953 L 1.514879941940308 30.23999786376953 Z M 17.88407897949219 28.79999923706055 C 18.69623947143555 28.79999923706055 19.35215950012207 27.9979190826416 19.35215950012207 27.00071907043457 C 19.35215950012207 25.99775886535645 18.69623947143555 25.19999885559082 17.88407897949219 25.19999885559082 L 2.188800096511841 25.19999885559082 C 1.380239963531494 25.20000076293945 0.7200000286102295 25.99776077270508 0.7200000286102295 27.00071907043457 C 0.7200000286102295 27.9979190826416 1.380239963531494 28.79999923706055 2.188800096511841 28.79999923706055 L 17.88408088684082 28.79999923706055 Z">
-        </path>
-      </svg>
-      <svg class="Icon_ionic-md-school" viewBox="2.25 4.5 31.5 27">
-        <path id="Icon_ionic-md-school" d="M 7.98046875 19.77187538146973 L 7.98046875 25.76953125 L 18 31.5 L 28.01953125 25.76953125 L 28.01953125 19.77187538146973 L 18 25.50234413146973 L 7.98046875 19.77187538146973 Z M 18 4.5 L 2.25 13.5 L 18 22.5 L 30.88828086853027 15.13828086853027 L 30.88828086853027 25.50234222412109 L 33.75 25.50234222412109 L 33.75 13.5 L 18 4.5 Z">
+        <path id="Line_1" d="M 0 0 L 406 0">
         </path>
       </svg>
       <svg class="inner_rectangle">
-        <rect id="inner_rectangle" rx="20" ry="20" x="0" y="0" width="387" height="378.27">
+        <rect id="inner_rectangle" rx="20" ry="20" x="0" y="0" width="350" height="665">
         </rect>
       </svg>
       <div id="Entries">
         <span>Entries</span>
-      </div>
-      <div id="Recipes">
-        <span>Recipes</span>
-      </div>
-      <div id="Assignments">
-        <span>Assignments</span>
-      </div>
-      <div id="New_Label">
-        <span>New Label</span>
       </div>
       <svg class="add-entry-button">
         <ellipse onclick="newElement()" id="add-entry-button" rx="20" ry="20" cx="20" cy="20">
@@ -405,10 +247,6 @@ ul li:hover {
         <ul id="myUL">
         </ul>
       </div>
-      <svg class="Icon_awesome-plus" viewBox="0 2.25 31.5 31.5">
-        <path id="Icon_awesome-plus" d="M 29.25 14.625 L 19.125 14.625 L 19.125 4.5 C 19.125 3.257578134536743 18.11742210388184 2.25 16.875 2.25 L 14.625 2.25 C 13.38257789611816 2.25 12.375 3.257578134536743 12.375 4.5 L 12.375 14.625 L 2.25 14.625 C 1.007578134536743 14.625 0 15.63257789611816 0 16.875 L 0 19.125 C 0 20.36742210388184 1.007578134536743 21.375 2.25 21.375 L 12.375 21.375 L 12.375 31.5 C 12.375 32.7424201965332 13.38257789611816 33.75 14.625 33.75 L 16.875 33.75 C 18.11742210388184 33.75 19.125 32.7424201965332 19.125 31.5 L 19.125 21.375 L 29.25 21.375 C 30.49242210388184 21.375 31.5 20.36742210388184 31.5 19.125 L 31.5 16.875 C 31.5 15.63257789611816 30.49242210388184 14.625 29.25 14.625 Z">
-        </path>
-      </svg>
     </div>
 
          `
