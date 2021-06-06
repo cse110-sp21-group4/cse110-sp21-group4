@@ -44,7 +44,23 @@ document.documentElement.innerHTML = html.toString()
 // `
 
 const mainPageBody = document.querySelector('body')
-const toolbar = new ToolBar(mainPageBody)
+const mainPageController = new MainPageController(mainPageBody)
+const toolbar = mainPageController.toolbar
+test('initializePage', () => {
+  // mainPageController.initializePage()
+
+  expect(mainPageController.main).toBe(document.querySelector('main'))
+  expect(mainPageController.left).toBe(document.querySelector('left-pane'))
+  expect(mainPageController.page).toBe(document.querySelector('main .page'))
+  expect(mainPageController.leftPaneButton).toBe(
+    document.body.querySelector('#index-button')
+  )
+  expect(mainPageController.leftPaneFrame).toBe(
+    mainPageController.left.shadowRoot.querySelector('#outer-rectangle')
+  )
+  expect(mainPageController.toolbar).toBe(document.querySelector('tool-bar'))
+})
+
 test('all tools present', () => {
   let tools = [
     toolbar.textTool,
@@ -188,15 +204,92 @@ test('all other tools selection working fine', () => {
 
     selected.click()
     setInterval(() => {
-    expect(selectedToolSpy).toBeCalledTimes(3 + i)
-    i++
-    console.log(i,selected)
-    
+      expect(selectedToolSpy).toBeCalledTimes(3 + i)
+      i++
+      console.log(i, selected)
+
       expect(selected.classList).toContain('selected-tool')
       clearInterval()
     }, 300)
   })
 })
+
+test('addEventListener', () => {
+  let tools = [
+    toolbar.textTool,
+    toolbar.imageTool,
+    toolbar.bulletsTool,
+    toolbar.boldTool,
+    toolbar.italicsTool,
+    toolbar.underlineTool,
+    toolbar.textSize.parentNode,
+    toolbar.textColor.parentNode
+  ]
+
+  mainPageController.registerListeners()
+
+//   console.log('Registered listeners')
+
+  for (const [eventType, listener] of Object.entries(toolbar.observers)) {
+    expect(listener.length).toEqual(1)
+  }
+  
+  //   let i = 1
+  //   tools.forEach((selected) => {
+  //     let selectedToolSpy = jest.spyOn(toolbar, 'selectTool')
+  //     selected.addEventListener('test_event', () => {})
+  //     setInterval(() => {
+  //       expect(selectedToolSpy).toBeCalledTimes(3 + i)
+  //       i++
+  //       console.log(i, selected)
+
+  //       expect(selected.classList).toContain('selected-tool')
+  //       clearInterval()
+  //     }, 300)
+  //   })
+})
+
+test('text clicked',()=>{
+    toolbar.textTool.click()
+    mainPageController.page.click()
+    toolbar.bulletsTool.click()
+})
+
+// test('changing image', () => {
+//   toolbar.imageTool.click()
+
+//   setInterval(() => {
+//     console.log('IMAGE: ', toolbar.imageInput.value)
+//     toolbar.imageInput.value = 'images/mascot.png'
+//     console.log('IMAGE: ', toolbar.imageInput.value)
+//     console.log(
+//       document
+//         .querySelector('drag-view')
+//         .shadowRoot.querySelector('.drag-frame')
+//         .querySelectorAll('img').length
+//     )
+//     clearInterval()
+//   }, 300)
+//   toolbar.imageInput.setAttribute = 'images/mascot.png'
+//   console.log('IMAGE: ', toolbar.imageInput.value)
+//   console.log(
+//     document
+//       .querySelector('drag-view')
+//       .shadowRoot.querySelector('.drag-frame')
+//       .querySelectorAll('img').length
+//   )
+//   console.log(
+//     document
+//       .querySelector('drag-view')
+//       .shadowRoot.querySelector('.drag-frame')
+//       .querySelectorAll('img').length
+//   )
+// })
+
+
+
+
+
 
 // test('initializePage', () => {
 //   mainPageController.initializePage()

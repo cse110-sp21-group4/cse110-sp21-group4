@@ -155,6 +155,7 @@ export class TextBox {
       callback: (e) => {
         this.keydowns.add(e.key)
         this.resizeToFitText()
+        
         //console.log(this.text.value.includes('\n'))
 
         switch (e.key) {
@@ -166,25 +167,29 @@ export class TextBox {
             e.preventDefault()
             //console.log('Tab')
             this.observers.tabpressed.forEach((callback, i) => {
+              console.log(callback)
               callback()
             })
             break
           case 'Backspace':
-            //console.log('Backspace')
+            console.log('Backspace')
             this.observers.backspace.forEach((callback, i) => {
+              console.log(callback)
               callback()
             })
             break
           case 'Enter':
             if (this.keydowns.has('Shift')) {
-              //console.log('Shift + Enter')
+              console.log('Shift + Enter')
               this.observers.shiftenter.forEach((callback, i) => {
+                console.log(callback)
                 callback()
               })
             } else {
-              //console.log('Enter')
+              console.log('Enter')
               e.preventDefault()
               this.observers.enter.forEach((callback, i) => {
+                console.log(callback)
                 callback()
               })
             }
@@ -340,6 +345,7 @@ export class TextBox {
 
   addEventListener(eventType, callback) {
     this.observers[eventType].push(callback)
+    console.log('event:', eventType, this.observers)
   }
 
   removeEventListener(eventType, callback) {

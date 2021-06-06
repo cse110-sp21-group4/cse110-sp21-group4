@@ -114,6 +114,7 @@ export class ToolBar extends HTMLElement {
       this.selectTool(this.textTool)
       this.observers.textclicked.forEach((cb, i) => {
         cb(event)
+        // console.log(cb)
       })
     })
 
@@ -132,9 +133,14 @@ export class ToolBar extends HTMLElement {
 
     //Bullets Tool
     this.bulletsTool.addEventListener('click', (event) => {
+      console.group('Bullets')
       this.selectTool(this.bulletsTool)
+      console.log('Bullets selected')
+      console.log(' listeners', this.observers.bulletclicked)
       this.observers.bulletclicked.forEach((cb) => {
         cb(event)
+        console.log('Bullets cb:', cb, event)
+        console.trace()
       })
     })
 
@@ -210,20 +216,22 @@ export class ToolBar extends HTMLElement {
 
   addEventListener(eventType, callback) {
     this.observers[eventType].push(callback)
+    console.log('TB Events:', eventType, callback, this.observers)
+    console.trace()
   }
 
-  removeEventListener(eventType, callback) {
-    this.observers[eventType].forEach((c, i) => {
-      if (callback == c) {
-        this.observers[eventType].splice(i, 0)
-        return false
-      }
-    })
-  }
+  //   removeEventListener(eventType, callback) {
+  //     this.observers[eventType].forEach((c, i) => {
+  //       if (callback == c) {
+  //         this.observers[eventType].splice(i, 0)
+  //         return false
+  //       }
+  //     })
+  //   }
 
-  removeAllListeners() {
-    this.observers = { open: [], close: [] }
-  }
+  //   removeAllListeners() {
+  //     this.observers = { open: [], close: [] }
+  //   }
 }
 
 customElements.define('tool-bar', ToolBar)
