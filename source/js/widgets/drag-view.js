@@ -723,7 +723,7 @@ export class DragView extends HTMLElement {
   load() {
     //console.log('load start')
     this._entry.texts.forEach((json, i) => {
-      console.log('load text:', json)
+      //console.log('load text:', json)
       const tb = this.addDraggableTextBox(json.position)
       tb.json = json
       tb.load()

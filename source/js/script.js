@@ -15,7 +15,7 @@ import { RightPane } from './widgets/right-pane.js'
 const mainPageBody = document.querySelector('body')
 //console.log('callling const')
 const mainPageController = new MainPageController(mainPageBody)
-console.log('const called')
+//console.log('const called')
 
 window.addEventListener('load', () => {
   //console.log('initializing atts')

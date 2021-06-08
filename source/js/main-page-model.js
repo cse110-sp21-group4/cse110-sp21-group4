@@ -171,8 +171,21 @@ export class MainPageModel {
     return uid + '/' + startDate
   }
 
+  getEntriesForDate(date) {
+    const year = date.getFullYear()
+    const month = date.getMonth()
+    const day = date.getDate()
+
+    let key = '' + (month < 10 ? '0' + month : month)
+    key += day < 10 ? '0' + day : day
+    key = '' + year
+
+    const uid = firebase.auth().currentUser.uid
+    return firebase.database().ref().child(uid).child(key).get()
+  }
+
   loadData(startDate, timestamp) {
-    console.log(startDate, timestamp)
+    //console.log(startDate, timestamp)
     const uid = firebase.auth().currentUser.uid
     let dbObj = firebase.database().ref().child(uid).child(startDate)
 

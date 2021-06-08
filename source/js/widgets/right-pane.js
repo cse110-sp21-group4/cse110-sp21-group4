@@ -266,8 +266,8 @@ export class RightPane extends HTMLElement {
 
     const renderCalendar = () => {
       date.setDate(1)
-      console.log('in  render cal')
-      console.log(this.shadowRoot.querySelector('.days'))
+      //console.log('in  render cal')
+      //console.log(this.shadowRoot.querySelector('.days'))
 
       const lastDay = new Date(
         date.getFullYear(),
@@ -338,7 +338,7 @@ export class RightPane extends HTMLElement {
       this.setupListener()
     }
 
-    console.log(this.shadowRoot.querySelector('.prev'))
+    //console.log(this.shadowRoot.querySelector('.prev'))
 
     this.shadowRoot.querySelector('.prev').addEventListener('click', () => {
       date.setMonth(date.getMonth() - 1)

@@ -32,6 +32,7 @@ export class MainPageController {
     this.dragview = document.querySelector('drag-view')
     this.leftPaneButton = this.view.querySelector('#index-button')
     this.leftPaneFrame = this.left.shadowRoot.querySelector('#outer-rectangle')
+    this.right = document.querySelector('right-pane')
 
     // Toolbar
     this.toolbar = document.querySelector('tool-bar')
@@ -137,6 +138,10 @@ export class MainPageController {
       )
     })
 
+    this.right.addEventListener('dayclick', (date) => {
+      //TODO: show data according to date
+    })
+
     this.toolbar.addEventListener('bulletclicked', (e) => {
       this.dragview.toggleBulletFromFocusedText()
     })
@@ -219,11 +224,11 @@ export class MainPageController {
   }
 
   saveLastPage(startDate, timestamp) {
-    console.log('save last:', timestamp)
+    //console.log('save last:', timestamp)
     let lastPage = this.left.getPageList()
     if (startDate) lastPage['startDate'] = startDate
     if (timestamp) lastPage['timestamp'] = timestamp
-    console.log(lastPage)
+    //console.log(lastPage)
     return this.model.updateLast(lastPage)
   }
 
@@ -231,7 +236,7 @@ export class MainPageController {
     this.dragview.updateEntry()
     // console.log('select:', this.dragview.entry)
     //console.log(this.left.focusedChild)
-    console.log('save current ts', this.dragview.entry.timestamp)
+    //console.log('save current ts', this.dragview.entry.timestamp)
     if (
       this.left.focusedChild &&
       this.dragview.entry.startDate &&
