@@ -173,12 +173,14 @@ export class MainPageModel {
 
   getEntriesForDate(date) {
     const year = date.getFullYear()
-    const month = date.getMonth()
+    const month = date.getMonth() + 1
     const day = date.getDate()
 
     let key = '' + (month < 10 ? '0' + month : month)
     key += day < 10 ? '0' + day : day
-    key = '' + year
+    key += year
+
+    console.log('looking for key:', key)
 
     const uid = firebase.auth().currentUser.uid
     return firebase.database().ref().child(uid).child(key).get()

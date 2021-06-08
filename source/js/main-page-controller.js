@@ -118,6 +118,33 @@ export class MainPageController {
 
     this.right.addEventListener('dayclick', (date) => {
       //TODO: show data according to date
+      console.log(date, 'clicked')
+      this.reloading = true
+      this.left.clearEntries()
+      this.dragview.clearAll()
+
+      this.model
+        .getEntriesForDate(date)
+        .then((obj) => {
+          if (obj.exists()) {
+            let data = obj.val()
+            const dataList = Object.values(data)
+            console.log('list of data:', dataList)
+            this.left.addEntries(dataList, dataList[0])
+            this.saveLastPage(dataList[0].startDate, dataList[0].timestamp)
+            this.loadPage(dataList[0].startDate, dataList[0].timestamp)
+
+            //this.loadPage()
+          } else {
+            console.log('No Data for', date)
+          }
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+        .finally(() => {
+          this.reloading = false
+        })
     })
 
     this.toolbar.addEventListener('bulletclicked', (e) => {

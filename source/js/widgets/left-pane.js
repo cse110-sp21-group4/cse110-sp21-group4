@@ -506,12 +506,7 @@ ul li:hover {
       })
     })
     li.addEventListener('click', (e) => {
-      li.classList.add('selected-entry')
-      this.shadowRoot.querySelectorAll('ul li').forEach((el, index) => {
-        if (el != li) {
-          el.classList.remove('selected-entry')
-        }
-      })
+      this.addSelected(li)
 
       if (li != this.focusedChild) {
         this.observers.select.forEach((cb, i) => {
@@ -527,6 +522,15 @@ ul li:hover {
     })
 
     return li
+  }
+
+  addSelected(li) {
+    li.classList.add('selected-entry')
+    this.shadowRoot.querySelectorAll('ul li').forEach((el, index) => {
+      if (el != li) {
+        el.classList.remove('selected-entry')
+      }
+    })
   }
 
   clearEntries() {
@@ -545,12 +549,14 @@ ul li:hover {
     console.log(entryList)
     entryList.forEach((entry, i) => {
       const li = this.addNewEntry(new Date(parseInt(entry.timestamp)))
+
       if (
         activeEntry &&
         activeEntry.startDate == li.getAttribute('startDate') &&
         activeEntry.timestamp == li.getAttribute('timestamp')
       ) {
-        li.click()
+        this.addSelected(li)
+        this.focusedChild = li
       }
     })
   }
