@@ -65,29 +65,7 @@ export class MainPageController {
       if (pm) {
         pm.then(() => {
           this.dragview.clearAll()
-
-          //console.log('load: ', ts)
-          this.model
-            .loadData(startD, ts)
-            .then((obj) => {
-              if (obj.exists()) {
-                let data = obj.val()
-                //console.log('json data:', data)
-                if (!data.texts) {
-                  data['texts'] = []
-                }
-                if (!data.images) {
-                  data['images'] = []
-                }
-                this.dragview.entry = data
-                this.dragview.load()
-              } else {
-                console.log('no data')
-              }
-            })
-            .catch((e) => {
-              console.log(e)
-            })
+          this.loadPage(startD, ts)
         })
       } else {
         this.dragview.clearAll()
@@ -173,53 +151,53 @@ export class MainPageController {
       .loadLastPageInfo()
       .then((data) => {
         const lastPageInfo = data.val()
+        //console.log(data.val())
         if (lastPageInfo) {
           if (lastPageInfo.list) {
-            lastPageInfo.list.forEach((entry, i) => {
-              const li = this.left.addNewEntry(
-                new Date(parseInt(entry.timestamp))
-              )
-              if (
-                lastPageInfo.startDate == li.getAttribute('startDate') &&
-                lastPageInfo.timestamp == li.getAttribute('timestamp')
-              ) {
-                li.click()
-              }
-            })
+            //console.log(lastPageInfo)
+            this.left.addEntries(lastPageInfo.list, lastPageInfo)
           }
-          this.model
-            .loadData(lastPageInfo.startDate, lastPageInfo.timestamp)
-            .then((obj) => {
-              if (obj.exists()) {
-                let data = obj.val()
-                //console.log('json data:', data)
-                if (!data.texts) {
-                  //console.log('no data')
-                  data['texts'] = []
-                }
-                if (!data.images) {
-                  data['images'] = []
-                }
-                this.dragview.entry = data
-                this.dragview.load()
-              } else {
-                console.log('not exist')
-              }
-            })
-            .catch((e) => {
-              console.log(e)
-            })
-            .finally(() => {
-              this.reloading = false
-              this.dragview.entry.timestamp = lastPageInfo.timestamp
-              this.dragview.entry.startDate = lastPageInfo.startDate
-            })
+          this.loadPage(lastPageInfo.startDate, lastPageInfo.timestamp, () => {
+            this.reloading = false
+          })
         } else {
           this.reloading = false
         }
       })
       .finally(() => {
         this.reloading = false
+      })
+  }
+
+  loadPage(startDate, timestamp, finallyFn) {
+    this.model
+      .loadData(startDate, timestamp)
+      .then((obj) => {
+        if (obj.exists()) {
+          let data = obj.val()
+          //console.log('json data:', data)
+          if (!data.texts) {
+            //console.log('no data')
+            data['texts'] = []
+          }
+          if (!data.images) {
+            data['images'] = []
+          }
+          this.dragview.entry = data
+          this.dragview.load()
+        } else {
+          console.log('not exist')
+        }
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+      .finally(() => {
+        this.dragview.entry.timestamp = timestamp
+        this.dragview.entry.startDate = startDate
+        if (finallyFn) {
+          finallyFn()
+        }
       })
   }
 
@@ -242,7 +220,7 @@ export class MainPageController {
       this.dragview.entry.startDate &&
       this.dragview.entry.timestamp
     ) {
-      console.log('save current:', this.dragview.entry)
+      //console.log('save current:', this.dragview.entry)
       return this.model.updateData(this.dragview.entry)
     }
   }

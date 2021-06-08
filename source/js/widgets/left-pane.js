@@ -429,6 +429,7 @@ ul li:hover {
 
     this.leftPane = this.shadowRoot.querySelector('#left-pane')
     this.plusButton = this.shadowRoot.querySelector('#plus')
+    this.ul = this.shadowRoot.querySelector('#myUL')
     this.focusedChild = undefined
     this.observers = {
       select: [],
@@ -485,10 +486,7 @@ ul li:hover {
     var inputValue = today
     var t = document.createTextNode(inputValue)
     li.appendChild(t)
-    document
-      .querySelector('left-pane')
-      .shadowRoot.querySelector('#myUL')
-      .appendChild(li)
+    this.ul.appendChild(li)
 
     // This creates the X button for the new entries we made
     var span = document.createElement('SPAN')
@@ -529,6 +527,32 @@ ul li:hover {
     })
 
     return li
+  }
+
+  clearEntries() {
+    this.focusedChild = undefined
+    while (this.ul.childNodes.length) {
+      this.ul.removeChild(this.ul.childNodes[0])
+    }
+  }
+
+  /**
+   * add entries to ul according to the input
+   * @param {Array} entryList [ { timestamp:23492348, ... }, ... ]
+   * @param {object} activeEntry { timestamp:23492348, startDate:'06022021' }
+   */
+  addEntries(entryList, activeEntry) {
+    console.log(entryList)
+    entryList.forEach((entry, i) => {
+      const li = this.addNewEntry(new Date(parseInt(entry.timestamp)))
+      if (
+        activeEntry &&
+        activeEntry.startDate == li.getAttribute('startDate') &&
+        activeEntry.timestamp == li.getAttribute('timestamp')
+      ) {
+        li.click()
+      }
+    })
   }
 
   addEventListener(eventType, callback) {
