@@ -242,6 +242,25 @@ export class RightPane extends HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(link)
     this.shadowRoot.appendChild(template.content.cloneNode(true))
+    this.months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ]
+
+    this.monthDays = this.shadowRoot.querySelector('.days')
+    this.observers = {
+      dayclick: []
+    }
 
     const date = new Date()
 
@@ -249,7 +268,6 @@ export class RightPane extends HTMLElement {
       date.setDate(1)
       console.log('in  render cal')
       console.log(this.shadowRoot.querySelector('.days'))
-      const monthDays = this.shadowRoot.querySelector('.days')
 
       const lastDay = new Date(
         date.getFullYear(),
@@ -271,25 +289,12 @@ export class RightPane extends HTMLElement {
         0
       ).getDay()
 
-      const nextDays = 7 - lastDayIndex + 6
+      let nextDays = 7 - lastDayIndex + 6
 
-      const months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ]
+      this.dateP = this.shadowRoot.querySelector('.date p')
 
-      this.shadowRoot.querySelector('.date h1').innerHTML =
-        months[date.getMonth()]
+      this.monthD = this.shadowRoot.querySelector('.date h1')
+      this.monthD.innerHTML = this.months[date.getMonth()]
 
       /*this.shadowRoot.querySelector('.date p').innerHTML
         = new Date().toDateString();*/
@@ -298,10 +303,9 @@ export class RightPane extends HTMLElement {
         date.getMonth() === new Date().getMonth() &&
         date.getFullYear() === new Date().getFullYear()
       ) {
-        this.shadowRoot.querySelector('.date p').innerHTML =
-          new Date().toDateString()
+        this.dateP.innerHTML = new Date().toDateString()
       } else {
-        this.shadowRoot.querySelector('.date p').innerHTML = date.getFullYear()
+        this.dateP.innerHTML = date.getFullYear()
       }
 
       let days = ''
@@ -328,8 +332,10 @@ export class RightPane extends HTMLElement {
 
       for (let j = 1; j <= nextDays; j++) {
         days += `<div class='next-date'>${j}</div>`
-        monthDays.innerHTML = days
+        this.monthDays.innerHTML = days
       }
+
+      this.setupListener()
     }
 
     console.log(this.shadowRoot.querySelector('.prev'))
@@ -351,6 +357,78 @@ export class RightPane extends HTMLElement {
     })
 
     renderCalendar()
+  }
+
+  /**
+   * Calculate selected date on UI
+   * @returns {Date} return the date selected currently
+   */
+  getSelectedDate() {
+    const day = parseInt(this.shadowRoot.querySelector('.today').innerHTML)
+    const month = this.months.indexOf(
+      this.shadowRoot.querySelector('.date h1').innerHTML
+    )
+    const dateString = this.shadowRoot.querySelector('.date p').innerHTML
+    let year = 0
+    const dateList = dateString.split(' ')
+    if (dateList.length > 1) {
+      year = parseInt(dateList[dateList.length - 1])
+    } else {
+      year = parseInt(dateString)
+    }
+
+    //console.log(year, month, day)
+    const result = new Date()
+    result.setMonth(month)
+    result.setDate(day)
+    result.setFullYear(year)
+    return result
+  }
+
+  setupListener() {
+    this.monthDays.childNodes.forEach((dayElement, i) => {
+      dayElement.addEventListener('click', (e) => {
+        if (
+          dayElement.classList.contains('prev-date') ||
+          dayElement.classList.contains('next-date')
+        ) {
+          return
+        }
+
+        this.clearFocus()
+        dayElement.classList.add('today')
+
+        //console.log(this.getSelectedDate())
+        this.dateP.innerHTML = this.getSelectedDate().toDateString()
+
+        this.observers.dayclick.forEach((cb, i) => {
+          cb(this.getSelectedDate())
+        })
+      })
+    })
+  }
+
+  clearFocus() {
+    this.monthDays.childNodes.forEach((dayElement, i) => {
+      dayElement.classList.remove('today')
+    })
+  }
+
+  addEventListener(eventType, callback) {
+    this.observers[eventType].push(callback)
+  }
+
+  removeEventListener(eventType, callback) {
+    this.observers[eventType].forEach((c, i) => {
+      if (callback == c) {
+        this.observers[eventType].splice(i, 0)
+        return false
+      }
+    })
+  }
+
+  removeAllListeners() {
+    this.observers = { open: [], close: [] }
   }
 }
 
