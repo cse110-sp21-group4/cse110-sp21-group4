@@ -7,15 +7,6 @@ export class MainPageController {
     this.model = new MainPageModel()
 
     this.initializePage()
-    this.showLogin()
-  }
-
-  loginIn() {
-    const TEST_USER = 'test@ucsd.edu'
-    const TEST_PASSWORD = '12345678'
-    this.model.signIn(TEST_USER, TEST_PASSWORD, () => {
-      this.recoverLastPage()
-    })
   }
 
   initializeAttributes() {
@@ -36,17 +27,87 @@ export class MainPageController {
     this.right = document.querySelector('right-pane')
     this.toolbar = document.querySelector('tool-bar')
     this.loginBg = document.querySelector('#login-bg')
+    this.loginFrame = document.querySelector('#login-frame')
+    this.emailInput = document.querySelector('#login-box .email-box input')
+    this.passwordInput = document.querySelector('#login-box .passwd-box input')
+    this.loginButton = document.querySelector('#btn-login')
+    this.registerButton = document.querySelector('#btn-create')
+    this.errorInfo = document.querySelector('#error-info')
+    this.errorInfoTimeout = null
   }
 
-  showLogin() {
+  showLoginIfNeeded() {
+    //console.log(this.model.getCurrentUser())
+    if (this.model.getCurrentUser()) return
+    this.loginFrame.style.display = 'block'
+    this.loginBg.style.display = 'block'
+
     this.loginBg.style.width = window.innerWidth + 'px'
     this.loginBg.style.height = window.innerHeight + 'px'
     window.addEventListener('resize', (e) => {
-      if ((this.loginBg.style.display = 'block')) {
+      if (this.loginBg.style.display == 'block') {
         this.loginBg.style.width = window.innerWidth + 'px'
         this.loginBg.style.height = window.innerHeight + 'px'
       }
     })
+
+    this.registerButton.addEventListener('click', (e) => {
+      const email = this.emailInput.value
+      const password = this.passwordInput.value
+      this.model
+        .signUp(email, password)
+        .then((userCredential) => {
+          this.showLoginError('User ' + email + ' created')
+        })
+        .catch((error) => {
+          console.log('Create user failed:' + error.message)
+          this.showLoginError('Register failed...')
+        })
+    })
+
+    this.loginButton.addEventListener('click', (e) => {
+      const email = this.emailInput.value
+      const password = this.passwordInput.value
+
+      //console.log(email, password)
+      this.model
+        .signIn(email, password)
+        .then((userCredential) => {
+          this.closeLoginWindow()
+          this.recoverLastPage()
+        })
+        .catch((e) => {
+          console.log('failed to login:' + e.message)
+          this.showLoginError('Login failed...')
+        })
+    })
+  }
+
+  autoSave() {
+    setInterval(() => {
+      console.log('auto save...')
+      this.saveCurrentData()
+    }, 180000)
+  }
+
+  signOut() {
+    return this.model.signOut()
+  }
+
+  showLoginError(errorMsg) {
+    if (this.errorInfoTimeout) {
+      clearTimeout(this.errorInfoTimeout)
+    }
+    this.errorInfo.innerHTML = errorMsg
+    this.errorInfo.style.display = 'block'
+    this.errorInfoTimeout = setTimeout(() => {
+      this.errorInfo.style.display = 'none'
+    }, 6000)
+  }
+
+  closeLoginWindow() {
+    this.loginBg.style.display = 'none'
+    this.loginFrame.style.display = 'none'
   }
 
   registerListeners() {
@@ -59,6 +120,10 @@ export class MainPageController {
       .addEventListener('click', () => {
         this.toggleLeftPane()
       })
+
+    this.left.addEventListener('clickplus', () => {
+      this.left.addNewEntry(this.right.getSelectedDate()).click()
+    })
 
     this.left.addEventListener('create', (startD, ts) => {
       if (!this.reloading) {
@@ -192,6 +257,8 @@ export class MainPageController {
         const lastPageInfo = data.val()
         //console.log(data.val())
         if (lastPageInfo) {
+          //console.log('render last')
+          this.right.renderCalendar(new Date(parseInt(lastPageInfo.timestamp)))
           if (lastPageInfo.list) {
             //console.log(lastPageInfo)
             this.left.addEntries(lastPageInfo.list, lastPageInfo)
@@ -200,11 +267,16 @@ export class MainPageController {
             this.reloading = false
           })
         } else {
+          this.right.renderCalendar()
           this.reloading = false
         }
       })
-      .finally(() => {
+      .catch((e) => {
         this.reloading = false
+        this.right.renderCalendar()
+      })
+      .finally(() => {
+        this.autoSave()
       })
   }
 

@@ -238,37 +238,20 @@ export class MainPageModel {
       })
   }
 
-  signOut(callback) {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        callback()
-      })
+  getCurrentUser() {
+    return firebase.auth().currentUser
   }
 
-  signUp(email, password, callback) {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        callback(userCredential)
-      })
-      .catch((error) => {
-        console.log('Create user failed:' + error.message)
-      })
+  signOut() {
+    return firebase.auth().signOut()
   }
 
-  signIn(email, password, callback) {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        callback(userCredential)
-      })
-      .catch((e) => {
-        console.log('failed to login:' + e.message)
-      })
+  signUp(email, password) {
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
+  }
+
+  signIn(email, password) {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
   }
 
   get currentEntry() {

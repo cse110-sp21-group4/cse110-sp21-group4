@@ -22,11 +22,14 @@ window.addEventListener('load', () => {
   mainPageController.initializeAttributes()
   //console.log('atts initialized')
   mainPageController.registerListeners()
-  mainPageController.loginIn()
+
+  mainPageController.showLoginIfNeeded()
 })
 window.addEventListener('beforeunload', (e) => {
   e.preventDefault()
   mainPageController.saveCurrentData().then((data) => {
+    // mainPageController.signOut().finally(() => {
     window.close()
+    // })
   })
 })

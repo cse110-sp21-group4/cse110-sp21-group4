@@ -262,82 +262,6 @@ export class RightPane extends HTMLElement {
       dayclick: []
     }
 
-    const date = new Date()
-
-    const renderCalendar = () => {
-      date.setDate(1)
-      //console.log('in  render cal')
-      //console.log(this.shadowRoot.querySelector('.days'))
-
-      const lastDay = new Date(
-        date.getFullYear(),
-        date.getMonth() + 1,
-        0
-      ).getDate()
-
-      const prevLastDay = new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        0
-      ).getDate()
-
-      const firstDayIndex = date.getDay()
-
-      const lastDayIndex = new Date(
-        date.getFullYear(),
-        date.getMonth() + 1,
-        0
-      ).getDay()
-
-      let nextDays = 7 - lastDayIndex + 6
-
-      this.dateP = this.shadowRoot.querySelector('.date p')
-
-      this.monthD = this.shadowRoot.querySelector('.date h1')
-      this.monthD.innerHTML = this.months[date.getMonth()]
-
-      /*this.shadowRoot.querySelector('.date p').innerHTML
-        = new Date().toDateString();*/
-
-      if (
-        date.getMonth() === new Date().getMonth() &&
-        date.getFullYear() === new Date().getFullYear()
-      ) {
-        this.dateP.innerHTML = new Date().toDateString()
-      } else {
-        this.dateP.innerHTML = date.getFullYear()
-      }
-
-      let days = ''
-
-      for (let x = firstDayIndex; x > 0; x--) {
-        days += `<div class='prev-date'>${prevLastDay - x + 1}</div>`
-      }
-
-      for (let i = 1; i <= lastDay; i++) {
-        if (
-          i === new Date().getDate() &&
-          date.getMonth() === new Date().getMonth() &&
-          date.getFullYear() === new Date().getFullYear()
-        ) {
-          days += `<div class='today'>${i}</div>`
-        } else {
-          days += `<div>${i}</div>`
-        }
-      }
-
-      if (firstDayIndex + lastDay + nextDays > 42) {
-        nextDays = 42
-      }
-
-      for (let j = 1; j <= nextDays; j++) {
-        days += `<div class='next-date'>${j}</div>`
-        this.monthDays.innerHTML = days
-      }
-
-      this.setupListener()
-    }
-
     //console.log(this.shadowRoot.querySelector('.prev'))
 
     this.shadowRoot.querySelector('.prev').addEventListener('click', () => {
@@ -355,8 +279,89 @@ export class RightPane extends HTMLElement {
       date.setFullYear(new Date().getFullYear())
       renderCalendar()
     })
+  }
 
-    renderCalendar()
+  renderCalendar(date) {
+    //console.log(date)
+    if (!date) {
+      console.log('new date')
+      date = new Date()
+    }
+    //console.log('in  render cal')
+    //console.log(this.shadowRoot.querySelector('.days'))
+
+    const lastDay = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0
+    ).getDate()
+
+    const prevLastDay = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      0
+    ).getDate()
+
+    const firstDayIndex = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      1
+    ).getDay()
+
+    const lastDayIndex = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0
+    ).getDay()
+
+    let nextDays = 7 - lastDayIndex + 6
+
+    this.dateP = this.shadowRoot.querySelector('.date p')
+
+    this.monthD = this.shadowRoot.querySelector('.date h1')
+    this.monthD.innerHTML = this.months[date.getMonth()]
+
+    /*this.shadowRoot.querySelector('.date p').innerHTML
+        = new Date().toDateString();*/
+
+    // if (
+    //   date.getMonth() === new Date().getMonth() &&
+    //   date.getFullYear() === new Date().getFullYear()
+    // ) {
+    this.dateP.innerHTML = date.toDateString()
+    // } else {
+    //   this.dateP.innerHTML = date.getFullYear()
+    // }
+
+    let days = ''
+
+    for (let x = firstDayIndex; x > 0; x--) {
+      days += `<div class='prev-date'>${prevLastDay - x + 1}</div>`
+    }
+
+    //console.log(date.getDate())
+    for (let i = 1; i <= lastDay; i++) {
+      if (
+        i === date.getDate() &&
+        date.getMonth() === date.getMonth() &&
+        date.getFullYear() === date.getFullYear()
+      ) {
+        days += `<div class='today'>${i}</div>`
+      } else {
+        days += `<div>${i}</div>`
+      }
+    }
+
+    if (firstDayIndex + lastDay + nextDays > 42) {
+      nextDays = 42
+    }
+
+    for (let j = 1; j <= nextDays; j++) {
+      days += `<div class='next-date'>${j}</div>`
+      this.monthDays.innerHTML = days
+    }
+
+    this.setupListener()
   }
 
   /**

@@ -434,7 +434,8 @@ ul li:hover {
     this.observers = {
       select: [],
       remove: [],
-      create: []
+      create: [],
+      clickplus: []
     }
 
     this.setupListeners()
@@ -456,7 +457,9 @@ ul li:hover {
   setupListeners() {
     this.plusButton.addEventListener('click', () => {
       //console.log('plus')
-      this.addNewEntry(new Date()).click()
+      this.observers.clickplus.forEach((cb, i) => {
+        cb()
+      })
     })
   }
 
