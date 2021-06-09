@@ -335,6 +335,10 @@ ul li:hover {
   background: #ddd;
 }
 
+.selected-entry {
+  background: #ccc;
+}
+
 /* Style the close button */
 .close {
   position: absolute;
@@ -422,72 +426,159 @@ ul li:hover {
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(link)
     this.shadowRoot.appendChild(template.content.cloneNode(true))
-    this.initializeUI()
 
     this.leftPane = this.shadowRoot.querySelector('#left-pane')
     this.plusButton = this.shadowRoot.querySelector('#plus')
+    this.ul = this.shadowRoot.querySelector('#myUL')
+    this.focusedChild = undefined
+    this.observers = {
+      select: [],
+      remove: [],
+      create: [],
+      clickplus: []
+    }
+
     this.setupListeners()
   }
 
-  initializeUI() {
-    // This block of code selects all the list elements and appends an 'X' button to the end
-    let myNodelist = this.shadowRoot.querySelectorAll('LI')
-    for (let i = 0; i < myNodelist.length; i++) {
-      const span = document.createElement('SPAN')
-      const txt = document.createTextNode('\u00D7') // x symbol
-      span.className = 'close'
-      span.appendChild(txt)
-      myNodelist[i].appendChild(span)
-    }
-
-    //Click on a close button to hide the current list item
-    let close = this.shadowRoot.querySelectorAll('li > span')
-    for (let i = 0; i < close.length; i++) {
-      close[i].onclick = function () {
-        let div = this.parentElement
-        div.style.display = 'none'
-      }
-    }
+  getPageList() {
+    let pageList = { list: [] }
+    this.shadowRoot.querySelectorAll('ul li').forEach((li, i) => {
+      const disp = window.getComputedStyle(li).display
+      if (disp && disp !== 'none')
+        pageList.list.push({
+          startDate: li.getAttribute('startDate'),
+          timestamp: li.getAttribute('timestamp')
+        })
+    })
+    return pageList
   }
 
   setupListeners() {
     this.plusButton.addEventListener('click', () => {
-      console.log('plus')
-      var li = document.createElement('li')
+      //console.log('plus')
+      this.observers.clickplus.forEach((cb, i) => {
+        cb()
+      })
+    })
+  }
 
-      var today = new Date()
-      var dd = String(today.getDate()).padStart(2, '0')
-      var mm = String(today.getMonth() + 1).padStart(2, '0')
-      var yyyy = today.getFullYear()
-      var hr = today.getHours()
-      var min = today.getMinutes()
-      today = mm + '/' + dd + '/' + yyyy + ' @ ' + hr + ':' + min
-      var inputValue = today
-      var t = document.createTextNode(inputValue)
-      li.appendChild(t)
-      document
-        .querySelector('left-pane')
-        .shadowRoot.querySelector('#myUL')
-        .appendChild(li)
+  addNewEntry(today) {
+    var dd = String(today.getDate()).padStart(2, '0')
+    var mm = String(today.getMonth() + 1).padStart(2, '0')
+    var yyyy = today.getFullYear()
+    var hr = today.getHours()
+    var min = today.getMinutes()
 
-      // This creates the X button for the new entries we made
-      var span = document.createElement('SPAN')
-      var txt = document.createTextNode('\u00D7')
-      span.className = 'close'
-      span.appendChild(txt)
-      li.appendChild(span)
+    var li = document.createElement('li')
 
-      // Click on a close button for the new ENTRIES we created to hide the current list item
-      var close = document
-        .querySelector('left-pane')
-        .shadowRoot.querySelectorAll('li > span')
-      for (let i = 0; i < close.length; i++) {
-        close[i].onclick = function () {
-          var div = this.parentElement
-          div.style.display = 'none'
-        }
+    let date = '' + mm + dd + yyyy
+    li.setAttribute('startDate', date)
+    li.setAttribute('timestamp', today.getTime())
+
+    today =
+      mm +
+      '/' +
+      dd +
+      '/' +
+      yyyy +
+      ' @ ' +
+      (hr < 10 ? '0' + hr : hr) +
+      ':' +
+      (min < 10 ? '0' + min : min)
+    var inputValue = today
+    var t = document.createTextNode(inputValue)
+    li.appendChild(t)
+    this.ul.appendChild(li)
+
+    // This creates the X button for the new entries we made
+    var span = document.createElement('SPAN')
+    var txt = document.createTextNode('\u00D7')
+    span.className = 'close'
+    span.appendChild(txt)
+    li.appendChild(span)
+    span.addEventListener('click', (e) => {
+      e.stopPropagation()
+      li.style.display = 'none'
+      if (this.focusedChild == li) {
+        console.log('remove')
+        this.focusedChild = undefined
+      }
+      this.observers.remove.forEach((cb, i) => {
+        cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
+      })
+    })
+    li.addEventListener('click', (e) => {
+      this.addSelected(li)
+
+      if (li != this.focusedChild) {
+        this.observers.select.forEach((cb, i) => {
+          cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
+        })
+      }
+      this.focusedChild = li
+      //console.log(this.focusedChild)
+    })
+
+    this.observers.create.forEach((cb, i) => {
+      cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
+    })
+
+    return li
+  }
+
+  addSelected(li) {
+    li.classList.add('selected-entry')
+    this.shadowRoot.querySelectorAll('ul li').forEach((el, index) => {
+      if (el != li) {
+        el.classList.remove('selected-entry')
       }
     })
+  }
+
+  clearEntries() {
+    this.focusedChild = undefined
+    while (this.ul.childNodes.length) {
+      this.ul.removeChild(this.ul.childNodes[0])
+    }
+  }
+
+  /**
+   * add entries to ul according to the input
+   * @param {Array} entryList [ { timestamp:23492348, ... }, ... ]
+   * @param {object} activeEntry { timestamp:23492348, startDate:'06022021' }
+   */
+  addEntries(entryList, activeEntry) {
+    //console.log(entryList)
+    entryList.forEach((entry, i) => {
+      const li = this.addNewEntry(new Date(parseInt(entry.timestamp)))
+
+      if (
+        activeEntry &&
+        activeEntry.startDate == li.getAttribute('startDate') &&
+        activeEntry.timestamp == li.getAttribute('timestamp')
+      ) {
+        this.addSelected(li)
+        this.focusedChild = li
+      }
+    })
+  }
+
+  addEventListener(eventType, callback) {
+    this.observers[eventType].push(callback)
+  }
+
+  removeEventListener(eventType, callback) {
+    this.observers[eventType].forEach((c, i) => {
+      if (callback == c) {
+        this.observers[eventType].splice(i, 0)
+        return false
+      }
+    })
+  }
+
+  removeAllListeners() {
+    this.observers = { remove: [], select: [], create: [] }
   }
 }
 

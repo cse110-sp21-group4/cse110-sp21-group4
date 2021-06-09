@@ -1,8 +1,8 @@
 export class RightPane extends HTMLElement {
-    constructor() {
-      super()
-      const template = document.createElement('template')
-      template.innerHTML = `
+  constructor() {
+    super()
+    const template = document.createElement('template')
+    template.innerHTML = `
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -234,125 +234,207 @@ export class RightPane extends HTMLElement {
 
 
       `
-      
-      
 
+    const link = document.createElement('link')
+    link.setAttribute('rel', 'stylesheet')
+    link.setAttribute('href', 'style.css')
 
-    
-      const link = document.createElement('link')
-      link.setAttribute('rel', 'stylesheet')
-      link.setAttribute('href', 'style.css')
+    this.attachShadow({ mode: 'open' })
+    this.shadowRoot.appendChild(link)
+    this.shadowRoot.appendChild(template.content.cloneNode(true))
+    this.months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ]
 
-      
-  
-      this.attachShadow({ mode: 'open' })
-      this.shadowRoot.appendChild(link)
-      this.shadowRoot.appendChild(template.content.cloneNode(true))
+    this.monthDays = this.shadowRoot.querySelector('.days')
+    this.observers = {
+      dayclick: []
+    }
 
-     
-    
-    
-    
-    const date = new Date();
+    //console.log(this.shadowRoot.querySelector('.prev'))
 
-    const renderCalendar = () => {
-    date.setDate(1);
-        console.log("in  render cal")
-        console.log(this.shadowRoot.querySelector('.days'));
-        const monthDays = this.shadowRoot.querySelector('.days');
+    this.shadowRoot.querySelector('.prev').addEventListener('click', () => {
+      date.setMonth(date.getMonth() - 1)
+      renderCalendar()
+    })
 
-        const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+    this.shadowRoot.querySelector('.next').addEventListener('click', () => {
+      date.setMonth(date.getMonth() + 1)
+      renderCalendar()
+    })
 
-        const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+    this.shadowRoot.querySelector('.date p').addEventListener('click', () => {
+      date.setMonth(new Date().getMonth())
+      date.setFullYear(new Date().getFullYear())
+      renderCalendar()
+    })
+  }
 
-        const firstDayIndex = date.getDay();
+  renderCalendar(date) {
+    //console.log(date)
+    if (!date) {
+      console.log('new date')
+      date = new Date()
+    }
+    //console.log('in  render cal')
+    //console.log(this.shadowRoot.querySelector('.days'))
 
-        const lastDayIndex = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay();
+    const lastDay = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0
+    ).getDate()
 
-        const nextDays = 7 -lastDayIndex + 6;
+    const prevLastDay = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      0
+    ).getDate()
 
-        const months = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
-        ];
+    const firstDayIndex = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      1
+    ).getDay()
 
-        this.shadowRoot.querySelector('.date h1').innerHTML
-        = months[date.getMonth()];
+    const lastDayIndex = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0
+    ).getDay()
 
-        /*this.shadowRoot.querySelector('.date p').innerHTML
+    let nextDays = 7 - lastDayIndex + 6
+
+    this.dateP = this.shadowRoot.querySelector('.date p')
+
+    this.monthD = this.shadowRoot.querySelector('.date h1')
+    this.monthD.innerHTML = this.months[date.getMonth()]
+
+    /*this.shadowRoot.querySelector('.date p').innerHTML
         = new Date().toDateString();*/
 
-        if(date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear())
-        {
-            this.shadowRoot.querySelector('.date p').innerHTML
-            = new Date().toDateString();
-        }
-    
-        else
-        {
-            this.shadowRoot.querySelector('.date p').innerHTML
-            = date.getFullYear()
+    // if (
+    //   date.getMonth() === new Date().getMonth() &&
+    //   date.getFullYear() === new Date().getFullYear()
+    // ) {
+    this.dateP.innerHTML = date.toDateString()
+    // } else {
+    //   this.dateP.innerHTML = date.getFullYear()
+    // }
+
+    let days = ''
+
+    for (let x = firstDayIndex; x > 0; x--) {
+      days += `<div class='prev-date'>${prevLastDay - x + 1}</div>`
+    }
+
+    //console.log(date.getDate())
+    for (let i = 1; i <= lastDay; i++) {
+      if (
+        i === date.getDate() &&
+        date.getMonth() === date.getMonth() &&
+        date.getFullYear() === date.getFullYear()
+      ) {
+        days += `<div class='today'>${i}</div>`
+      } else {
+        days += `<div>${i}</div>`
+      }
+    }
+
+    if (firstDayIndex + lastDay + nextDays > 42) {
+      nextDays = 42
+    }
+
+    for (let j = 1; j <= nextDays; j++) {
+      days += `<div class='next-date'>${j}</div>`
+      this.monthDays.innerHTML = days
+    }
+
+    this.setupListener()
+  }
+
+  /**
+   * Calculate selected date on UI
+   * @returns {Date} return the date selected currently
+   */
+  getSelectedDate() {
+    const day = parseInt(this.shadowRoot.querySelector('.today').innerHTML)
+    const month = this.months.indexOf(
+      this.shadowRoot.querySelector('.date h1').innerHTML
+    )
+    const dateString = this.shadowRoot.querySelector('.date p').innerHTML
+    let year = 0
+    const dateList = dateString.split(' ')
+    if (dateList.length > 1) {
+      year = parseInt(dateList[dateList.length - 1])
+    } else {
+      year = parseInt(dateString)
+    }
+
+    //console.log(year, month, day)
+    const result = new Date()
+    result.setMonth(month)
+    result.setDate(day)
+    result.setFullYear(year)
+    return result
+  }
+
+  setupListener() {
+    this.monthDays.childNodes.forEach((dayElement, i) => {
+      dayElement.addEventListener('click', (e) => {
+        if (
+          dayElement.classList.contains('prev-date') ||
+          dayElement.classList.contains('next-date')
+        ) {
+          return
         }
 
-        let days = "";
+        this.clearFocus()
+        dayElement.classList.add('today')
 
-        for(let x = firstDayIndex; x > 0; x--){
-            days += `<div class='prev-date'>${prevLastDay - x + 1}</div>`;
-        }
+        //console.log(this.getSelectedDate())
+        this.dateP.innerHTML = this.getSelectedDate().toDateString()
 
-        for(let i = 1; i <= lastDay; i++){
-            if( i === new Date().getDate() && date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()){
-                days += `<div class='today'>${i}</div>`;
-            } else{
-                days += `<div>${i}</div>`;
-            }
-        
-        }
-
-        if( (firstDayIndex+lastDay+nextDays) > 42)
-        {
-            nextDays = 42;
-        }
-
-        for(let j = 1; j <= nextDays; j++)
-        {
-            days += `<div class='next-date'>${j}</div>`;
-            monthDays.innerHTML = days;
-        }
-   }
-   
-   console.log(this.shadowRoot.querySelector('.prev'));
-    
-    this.shadowRoot.querySelector('.prev').addEventListener('click', ()=>{
-        date.setMonth(date.getMonth() - 1);
-        renderCalendar();
+        this.observers.dayclick.forEach((cb, i) => {
+          cb(this.getSelectedDate())
+        })
+      })
     })
+  }
 
-    this.shadowRoot.querySelector('.next').addEventListener('click', ()=>{
-        date.setMonth(date.getMonth() + 1);
-        renderCalendar();
+  clearFocus() {
+    this.monthDays.childNodes.forEach((dayElement, i) => {
+      dayElement.classList.remove('today')
     })
+  }
 
-    this.shadowRoot.querySelector('.date p').addEventListener('click', ()=>{
-        date.setMonth(new Date().getMonth());
-        date.setFullYear(new Date().getFullYear());
-        renderCalendar();
-})
+  addEventListener(eventType, callback) {
+    this.observers[eventType].push(callback)
+  }
 
-    renderCalendar();
+  removeEventListener(eventType, callback) {
+    this.observers[eventType].forEach((c, i) => {
+      if (callback == c) {
+        this.observers[eventType].splice(i, 0)
+        return false
+      }
+    })
+  }
 
-  }    
+  removeAllListeners() {
+    this.observers = { open: [], close: [] }
+  }
 }
 
-
-  customElements.define('right-pane', RightPane)
+customElements.define('right-pane', RightPane)

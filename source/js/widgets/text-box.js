@@ -25,6 +25,16 @@ export class TextBox {
     this.dragThreshold = 5
     this.resizingWidth = 8
     this.resized = false
+    this._json = {
+      text: '',
+      size: { width: 200, height: 20 },
+      position: { left: '0px', top: '0px' },
+      fontSize: 20,
+      color: 'black',
+      underline: false,
+      italic: false,
+      bullet: 'none'
+    }
 
     this.initializeText()
     this.initializeEventListeners()
@@ -51,6 +61,7 @@ export class TextBox {
   removeBullet() {
     this.draggableFrame.removeChild(this.blt)
     this.blt = undefined
+    this.json.bullet = 'none'
   }
 
   set bullet(bullet) {
@@ -198,6 +209,7 @@ export class TextBox {
       callback: (e) => {
         this.keydowns.delete(e.key)
         this.resizeToFitText()
+        // console.log(this.json)
       }
     })
   }
@@ -247,6 +259,7 @@ export class TextBox {
    * @param {object} coordinates {left: '123px', top: '1231px'}
    */
   set position(coordinates) {
+    this.json.position = coordinates
     const framePosition = this.draggableFrame.getBoundingClientRect()
     /*console.log(
       -1.0 * parseFloat(window.getComputedStyle(this.text).width),
@@ -407,11 +420,48 @@ export class TextBox {
 
   set bold(isBold) {
     this.text.style.fontWeight = isBold ? 'bold' : 'normal'
+    this.json.bold = isBold
   }
   set italic(isItalic) {
     this.text.style.fontStyle = isItalic ? 'italic' : 'normal'
+    this.json.italic = isItalic
   }
   set underline(isUnderline) {
     this.text.style.textDecoration = isUnderline ? 'underline' : 'none'
+    this.json.underline = isUnderline
+  }
+  set color(color) {
+    this.text.style.color = color
+    this.json.color = color
+  }
+  set fontSize(fontsize) {
+    this.text.style.fontSize = fontsize
+    this.json.fontsize = fontsize
+  }
+
+  get json() {
+    return this._json
+  }
+
+  set json(json) {
+    this._json = json
+  }
+
+  updateJson() {
+    this._json.size.width = window.getComputedStyle(this.text).width
+    this._json.size.height = window.getComputedStyle(this.text).height
+    this._json.text = this.text.value
+  }
+
+  load() {
+    this.text.value = this.json.text
+    this.fontsize = this.json.fontSize
+    this.color = this.json.color
+    this.underline = this.json.underline
+    this.bold = this.json.bold
+    this.italic = this.json.italic
+    this.text.style.width = this.json.size.width
+    this.text.style.height = this.json.size.height
+    this.position = this.json.position
   }
 }

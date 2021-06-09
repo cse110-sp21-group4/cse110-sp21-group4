@@ -102,3 +102,83 @@ main {
   border: 1px solid purple;
   display: block;
 }
+
+#login-bg {
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  background-color: #000000;
+  opacity: 0.86;
+}
+
+#login-frame {
+  position: absolute;
+  z-index: 2000;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+#login-box {
+  border-radius: 20px;
+  border: 1px solid white;
+  width: 600px;
+  height: 420px;
+  margin: 200px auto auto auto;
+  background-color: rgb(137, 148, 138, 1);
+  color: white;
+}
+
+.avatar {
+  display: block;
+  margin: 20px auto auto auto;
+  width: 140px;
+  height: 160px;
+  object-fit: contain;
+}
+
+#login-box input[type='text'],
+input[type='password'] {
+  width: 260px;
+  height: 40px;
+  padding: 2px 5px 2px 5px;
+  font-size: 20px;
+  margin-left: 8px;
+  margin-top: 8px;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+#login-box button {
+  margin-top: 15px;
+  padding: 12px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Add a hover effect for buttons */
+#login-box button:hover {
+  opacity: 0.8;
+}
+
+#btn-login {
+  margin-left: 220px;
+}
+#btn-create {
+  margin-left: 15px;
+}
+
+.passwd-box,
+.email-box {
+  width: 400px;
+  margin-left: 50px;
+  text-align: right;
+}
+
+#error-info {
+  display: none;
+  margin-top: 8px;
+  text-align: center;
+  color: red;
+}

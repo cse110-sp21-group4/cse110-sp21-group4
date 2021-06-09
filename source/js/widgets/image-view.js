@@ -1,6 +1,6 @@
 export class ImageView {
-  constructor(draggableFrame, img) {
-    this.draggableFrame = draggableFrame
+  constructor(img) {
+    this.draggableFrame = undefined
     this.imageListeners = []
     this.image = img
 
@@ -18,9 +18,12 @@ export class ImageView {
 
     this.hasFocus = false
     this.resizingWidth = 10
-    this.initializeImage()
-    this.initializeListeners()
-    this.setEventListeners()
+    this._json = {
+      url: '',
+      ref: '',
+      size: {},
+      position: { left: '0px', top: '0px' }
+    }
   }
 
   initializeListeners() {
@@ -57,7 +60,8 @@ export class ImageView {
     })
   }
 
-  initializeImage() {
+  initializeImage(draggableFrame) {
+    this.draggableFrame = draggableFrame
     this.img.classList.add('image')
     this.draggableFrame.appendChild(this.img)
 
@@ -69,6 +73,9 @@ export class ImageView {
         this.img.style.cursor = 'nwse-resize'
       }
     })
+
+    this.initializeListeners()
+    this.setEventListeners()
   }
 
   addEventListener(eventType, callback) {
@@ -135,6 +142,7 @@ export class ImageView {
    * @param {object} coordinates {left: '123px', top: '1231px'}
    */
   set position(coordinates) {
+    this.json.position = coordinates
     const framePosition = this.draggableFrame.getBoundingClientRect()
     if (
       parseFloat(coordinates.left) < 0 ||
@@ -162,5 +170,25 @@ export class ImageView {
 
   get image() {
     this.img
+  }
+
+  //TODO:
+  get json() {
+    return this._json
+  }
+
+  set json(json) {
+    this._json = json
+  }
+
+  updateJson() {
+    this._json.size.width = window.getComputedStyle(this.img).width
+    this._json.size.height = window.getComputedStyle(this.img).height
+  }
+
+  load() {
+    this.img.style.width = this.json.size.width
+    this.img.style.height = this.json.size.height
+    this.position = this.json.position
   }
 }

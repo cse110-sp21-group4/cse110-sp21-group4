@@ -93,6 +93,7 @@ export class DragView extends HTMLElement {
     //this.shadowRoot.appendChild(link)
     this.initializeFields()
     this.initializeEventListeners()
+    this._entry = { texts: [], images: [] }
   }
 
   initializeEventListeners() {
@@ -123,6 +124,9 @@ export class DragView extends HTMLElement {
           top: e.clientY - framePosition.y - 20 + 'px'
         }
         this.addDraggableTextBox(textPosition).focus()
+        // console.log(
+        //   this.draggableChildren[this.draggableChildren.length - 1].json
+        // )
       }
     })
     window.addEventListener('click', (e) => {
@@ -179,10 +183,12 @@ export class DragView extends HTMLElement {
 
   removeBulletFromeFocusedText() {
     this.lastFocusedText.removeBullet()
+    //console.log(this.lastFocusedText.json)
   }
 
   addBulletToFocusedText() {
     this.addBulletToText(this.lastFocusedText, this.bltType)
+    //console.log(this.lastFocusedText.json)
   }
 
   /**
@@ -201,6 +207,7 @@ export class DragView extends HTMLElement {
     this.bulletStyles.forEach((stylestr, index) => {
       if (bulletType == stylestr) {
         bullet.classList.add('bullet-' + stylestr)
+        textBox.json.bullet = stylestr
         hasStyle = true
         return true
       }
@@ -208,6 +215,7 @@ export class DragView extends HTMLElement {
 
     if (!hasStyle) {
       bullet.classList.add('bullet-dot')
+      textBox.json.bullet = 'dot'
     }
 
     textBox.bullet = bullet
@@ -215,12 +223,13 @@ export class DragView extends HTMLElement {
 
   /**
    * Add a draggable image
-   * @param {Image} Image object that contains a image
+   * @param {img} imageView object that contains a image
    * @param {object} coordinates {left: "123px", top: "222px"}
    * @returns {object} returns the draggable item
    */
-  addDraggableImage(coordinates, image) {
-    const img = new ImageView(this.draggableFrame, image)
+  addDraggableImage(coordinates, img) {
+    img.initializeImage(this.draggableFrame)
+
     this.addDraggableElement(img, coordinates)
     this.draggableChildren.push(img)
 
@@ -231,6 +240,8 @@ export class DragView extends HTMLElement {
       this.focusedChild = img
     })
     this.focusedChild = img
+
+    //this.entry.images.push(img.json)
   }
 
   /**
@@ -279,8 +290,6 @@ export class DragView extends HTMLElement {
           //console.log('first position, delete')
           if (!textBox.removed) {
             textBox.removeSelf()
-            this.removeArrayElement(textBox, this.textBoxes)
-            this.removeArrayElement(textBox, this.draggableChildren)
           }
         } else {
           //console.log('Not first position, move left')
@@ -314,14 +323,17 @@ export class DragView extends HTMLElement {
     })
 
     //console.log('new text:' + this.fontSize)
-    textBox.text.style.fontSize = this.fontSize + 'px'
-    textBox.text.style.color = this.textColor
+    textBox.fontSize = this.fontSize + 'px'
+    textBox.color = this.textColor
     textBox.underline = this.underline
     textBox.bold = this.bold
     textBox.italic = this.italic
     this.textBoxes.push(textBox)
     this.draggableChildren.push(textBox)
     this.focusedChild = textBox
+    //this.entry.texts.push(textBox.json)
+
+    //console.log(this.entry)
 
     /*console.log(
       'boxes vs children:' +
@@ -637,6 +649,15 @@ export class DragView extends HTMLElement {
     }
   }
 
+  clearAll() {
+    //console.log('clear:' + this.draggableChildren.length)
+    //console.log('start clear')
+    while (this.draggableChildren.length > 0) {
+      this.draggableChildren[0].removeSelf()
+    }
+    //console.log('end clear')
+  }
+
   /**
    * Setter and getter
    */
@@ -654,7 +675,7 @@ export class DragView extends HTMLElement {
 
     if (this.lastFocusedText) {
       //console.log('change font size to ' + this.fontSize)
-      this.lastFocusedText.text.style.fontSize = this.fontSize + 'px'
+      this.lastFocusedText.fontSize = this.fontSize + 'px'
       this.lastFocusedText.resizeToFitText()
     }
   }
@@ -668,13 +689,58 @@ export class DragView extends HTMLElement {
 
     if (this.lastFocusedText) {
       //console.log('change text color to ' + this.textColor)
-      this.lastFocusedText.text.style.color = this.textColor
+      this.lastFocusedText.color = this.textColor
     }
     //TODO change current text font size
   }
 
   get textColor() {
     return this.txtColor
+  }
+
+  get entry() {
+    return this._entry
+  }
+
+  set entry(entry) {
+    this._entry = entry
+  }
+
+  updateEntry() {
+    //console.log('update entry')
+    this._entry.images = []
+    this._entry.texts = []
+    this.draggableChildren.forEach((child, i) => {
+      child.updateJson()
+      if (child instanceof TextBox) {
+        this._entry.texts.push(child.json)
+      } else if (child instanceof ImageView) {
+        this._entry.images.push(child.json)
+      }
+    })
+  }
+
+  load() {
+    //console.log('load start')
+    this._entry.texts.forEach((json, i) => {
+      //console.log('load text:', json)
+      const tb = this.addDraggableTextBox(json.position)
+      tb.json = json
+      tb.load()
+      if (json.bullet !== 'none') {
+        this.addBulletToText(tb, json.bullet)
+      }
+    })
+    this._entry.images.forEach((json, i) => {
+      const img = new Image()
+      img.setAttribute('refStr', json.ref)
+      img.src = json.url
+      const imageView = new ImageView(img)
+      this.addDraggableImage(json.position, imageView)
+      imageView.json = json
+      imageView.load()
+    })
+    //console.log('load end')
   }
 }
 
