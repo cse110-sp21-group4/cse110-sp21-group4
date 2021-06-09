@@ -4,9 +4,12 @@ import { MainPageModel } from './main-page-model.js'
 export class MainPageController {
   constructor(view) {
     this.view = view
-    this.model = new MainPageModel()
-
     this.initializePage()
+  }
+
+  setModel(model) {
+    this.model = model
+    this.model.init()
   }
 
   initializeAttributes() {
@@ -195,7 +198,8 @@ export class MainPageController {
 
     this.right.addEventListener('dayclick', (date) => {
       //TODO: show data according to date
-      console.log(date, 'clicked')
+      // console.log(date, 'clicked')
+      this.saveCurrentData()
       this.reloading = true
       this.left.clearEntries()
       this.dragview.clearAll()

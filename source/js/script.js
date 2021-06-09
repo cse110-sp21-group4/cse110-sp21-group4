@@ -1,5 +1,6 @@
 import { DragView } from './widgets/drag-view.js'
 import { MainPageController } from './main-page-controller.js'
+import { MainPageModel } from './main-page-model.js'
 import { ToolBar } from './widgets/toolbar.js'
 import { RightPane } from './widgets/right-pane.js'
 
@@ -15,6 +16,8 @@ import { RightPane } from './widgets/right-pane.js'
 const mainPageBody = document.querySelector('body')
 //console.log('callling const')
 const mainPageController = new MainPageController(mainPageBody)
+const model = new MainPageModel()
+mainPageController.setModel(model)
 //console.log('const called')
 
 window.addEventListener('load', () => {
@@ -28,8 +31,6 @@ window.addEventListener('load', () => {
 window.addEventListener('beforeunload', (e) => {
   e.preventDefault()
   mainPageController.saveCurrentData().then((data) => {
-    // mainPageController.signOut().finally(() => {
     window.close()
-    // })
   })
 })

@@ -31,7 +31,6 @@ export class MainPageModel {
   constructor() {
     this._entry = {}
     this.user = {}
-    this.initFirebase()
 
     // this.signIn(TEST_USER, TEST_PASSWORD, () => {
     // this.savePageData(testPageData)
@@ -64,7 +63,7 @@ export class MainPageModel {
     return firebase.auth().currentUser != null
   }
 
-  initFirebase() {
+  init() {
     firebase.initializeApp(this.firebaseConfig)
     this.storage = firebase.storage()
     // firebase.auth().onAuthStateChanged((firebaseUser) => {
