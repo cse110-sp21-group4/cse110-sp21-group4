@@ -546,7 +546,7 @@ ul li:hover {
    * @param {object} activeEntry { timestamp:23492348, startDate:'06022021' }
    */
   addEntries(entryList, activeEntry) {
-    console.log(entryList)
+    //console.log(entryList)
     entryList.forEach((entry, i) => {
       const li = this.addNewEntry(new Date(parseInt(entry.timestamp)))
 

@@ -7,6 +7,7 @@ export class MainPageController {
     this.model = new MainPageModel()
 
     this.initializePage()
+    this.showLogin()
   }
 
   loginIn() {
@@ -33,10 +34,21 @@ export class MainPageController {
     this.leftPaneButton = this.view.querySelector('#index-button')
     this.leftPaneFrame = this.left.shadowRoot.querySelector('#outer-rectangle')
     this.right = document.querySelector('right-pane')
-
-    // Toolbar
     this.toolbar = document.querySelector('tool-bar')
+    this.loginBg = document.querySelector('#login-bg')
   }
+
+  showLogin() {
+    this.loginBg.style.width = window.innerWidth + 'px'
+    this.loginBg.style.height = window.innerHeight + 'px'
+    window.addEventListener('resize', (e) => {
+      if ((this.loginBg.style.display = 'block')) {
+        this.loginBg.style.width = window.innerWidth + 'px'
+        this.loginBg.style.height = window.innerHeight + 'px'
+      }
+    })
+  }
+
   registerListeners() {
     // Left Pane
     this.leftPaneButton.addEventListener('click', () => {

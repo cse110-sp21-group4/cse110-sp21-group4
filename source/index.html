@@ -5,6 +5,40 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <div id="login-frame">
+      <div id="login-box">
+        <img src="./images/logo.png" alt="Avatar" class="avatar" />
+
+        <div class="email-box">
+          <label for="uname"><b>Email:</b></label>
+          <input
+            type="text"
+            spellcheck="false"
+            placeholder="Enter Email"
+            name="email"
+            required
+          />
+        </div>
+
+        <div class="passwd-box">
+          <label for="passwd"><b>Password:</b></label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            name="passwd"
+            spellcheck="false"
+            required
+          />
+        </div>
+
+        <button id="btn-login">Login</button>
+        <button id="btn-create">Create</button>
+        <div id="create-info">You account was successfully created!</div>
+      </div>
+    </div>
+
+    <div id="login-bg"></div>
+
     <main>
       <div class="main-frame">
         <left-pane></left-pane>
