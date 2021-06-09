@@ -22,9 +22,8 @@ mainPageController.setModel(mockModel)
 test('initializePage', () => {
   mainPageController.initializePage()
 
-  expect(mainPageController.main).toBe(document.querySelector('main'))
   expect(mainPageController.left).toBe(document.querySelector('left-pane'))
-  expect(mainPageController.page).toBe(document.querySelector('main .page'))
+  expect(mainPageController.page).toBe(document.querySelector('.page'))
   expect(mainPageController.leftPaneButton).toBe(
     document.body.querySelector('#index-button')
   )
