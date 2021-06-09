@@ -73,116 +73,116 @@ test('initializeAttributes', () => {
   )
 })
 
-test('toggleLeftPane', () => {
-  mainPageController.left.style.display = 'none'
-  mainPageController.toggleLeftPane()
+// test('toggleLeftPane', () => {
+//   mainPageController.left.style.display = 'none'
+//   mainPageController.toggleLeftPane()
 
-  expect(mainPageController.left.style.display).toBe('block')
-  expect(mainPageController.page.style.left).toBe(
-    mainPageController.leftPaneWidth + mainPageController.leftMargin + 'px'
-  )
+//   expect(mainPageController.left.style.display).toBe('block')
+//   expect(mainPageController.page.style.left).toBe(
+//     mainPageController.leftPaneWidth + mainPageController.leftMargin + 'px'
+//   )
 
-  mainPageController.toggleLeftPane()
+//   mainPageController.toggleLeftPane()
 
-  expect(mainPageController.left.style.display).toBe('none')
-  expect(mainPageController.page.style.left).toBe(
-    mainPageController.leftPaneButtonWidth +
-      mainPageController.leftMargin +
-      'px'
-  )
-})
+//   expect(mainPageController.left.style.display).toBe('none')
+//   expect(mainPageController.page.style.left).toBe(
+//     mainPageController.leftPaneButtonWidth +
+//       mainPageController.leftMargin +
+//       'px'
+//   )
+// })
 
-test('registerListeners', () => {
-  const events = { button: {}, book: {}, toolbar: {} }
-  mainPageController.leftPaneButton.addEventListener = jest.fn((e, cb) => {
-    events.button[e] = cb
-  })
-  document.querySelector('#icon-ionic-ios-book').addEventListener = jest.fn(
-    (e, cb) => {
-      events.book[e] = cb
-    }
-  )
-  mainPageController.toolbar.addEventListener = jest.fn((e, cb) => {
-    events.toolbar[e] = cb
-  })
+// test('registerListeners', () => {
+//   const events = { button: {}, book: {}, toolbar: {} }
+//   mainPageController.leftPaneButton.addEventListener = jest.fn((e, cb) => {
+//     events.button[e] = cb
+//   })
+//   document.querySelector('#icon-ionic-ios-book').addEventListener = jest.fn(
+//     (e, cb) => {
+//       events.book[e] = cb
+//     }
+//   )
+//   mainPageController.toolbar.addEventListener = jest.fn((e, cb) => {
+//     events.toolbar[e] = cb
+//   })
 
-  mainPageController.registerListeners()
-  const toggleLeftPane = jest.spyOn(mainPageController, 'toggleLeftPane')
+//   mainPageController.registerListeners()
+//   const toggleLeftPane = jest.spyOn(mainPageController, 'toggleLeftPane')
 
-  events.button.click({})
-  events.book.click({})
+//   events.button.click({})
+//   events.book.click({})
 
-  expect(toggleLeftPane).toBeCalledTimes(2)
+//   expect(toggleLeftPane).toBeCalledTimes(2)
 
-  //For Toolbar
-  //Text on Click
-  mainPageController.dragview.textOnClick = false
-  events.toolbar.textclicked({})
+//   //For Toolbar
+//   //Text on Click
+//   mainPageController.dragview.textOnClick = false
+//   events.toolbar.textclicked({})
 
-  expect(mainPageController.dragview.textOnClick).toBe(true)
+//   expect(mainPageController.dragview.textOnClick).toBe(true)
 
-  //Insert image
-  const img = new Image()
-  const addDraggableImage = jest.spyOn(
-    mainPageController.dragview,
-    'addDraggableImage'
-  )
-  events.toolbar.imageclicked(img, {})
+//   //Insert image
+//   const img = new Image()
+//   const addDraggableImage = jest.spyOn(
+//     mainPageController.dragview,
+//     'addDraggableImage'
+//   )
+//   events.toolbar.imageclicked(img, {})
 
-  expect(addDraggableImage).toHaveBeenCalledWith(
-    mainPageController.imageInsertPosition,
-    img
-  )
+//   expect(addDraggableImage).toHaveBeenCalledWith(
+//     mainPageController.imageInsertPosition,
+//     img
+//   )
 
-  //Toggle bullet
-  mainPageController.dragview.lastFocusedText = new TextBox(
-    mainPageController.dragview.draggableFrame
-  )
-  mainPageController.dragview.lastFocusedText.bullet =
-    document.createElement('div')
+//   //Toggle bullet
+//   mainPageController.dragview.lastFocusedText = new TextBox(
+//     mainPageController.dragview.draggableFrame
+//   )
+//   mainPageController.dragview.lastFocusedText.bullet =
+//     document.createElement('div')
 
-  const toggleBulletFromFocusedText = jest.spyOn(
-    mainPageController.dragview,
-    'toggleBulletFromFocusedText'
-  )
-  events.toolbar.bulletclicked()
+//   const toggleBulletFromFocusedText = jest.spyOn(
+//     mainPageController.dragview,
+//     'toggleBulletFromFocusedText'
+//   )
+//   events.toolbar.bulletclicked()
 
-  expect(toggleBulletFromFocusedText).toHaveBeenCalled()
+//   expect(toggleBulletFromFocusedText).toHaveBeenCalled()
 
-  //Bold, italic, underline
-  const toggleBold = jest.spyOn(mainPageController.dragview, 'toggleBold')
-  const toggleItalic = jest.spyOn(mainPageController.dragview, 'toggleItalic')
-  const toggleUnderline = jest.spyOn(
-    mainPageController.dragview,
-    'toggleUnderline'
-  )
+//   //Bold, italic, underline
+//   const toggleBold = jest.spyOn(mainPageController.dragview, 'toggleBold')
+//   const toggleItalic = jest.spyOn(mainPageController.dragview, 'toggleItalic')
+//   const toggleUnderline = jest.spyOn(
+//     mainPageController.dragview,
+//     'toggleUnderline'
+//   )
 
-  events.toolbar.boldclicked()
-  events.toolbar.italicclicked()
-  events.toolbar.underlineclicked()
+//   events.toolbar.boldclicked()
+//   events.toolbar.italicclicked()
+//   events.toolbar.underlineclicked()
 
-  expect(toggleBold).toHaveBeenCalled()
-  expect(toggleItalic).toHaveBeenCalled()
-  expect(toggleUnderline).toHaveBeenCalled()
+//   expect(toggleBold).toHaveBeenCalled()
+//   expect(toggleItalic).toHaveBeenCalled()
+//   expect(toggleUnderline).toHaveBeenCalled()
 
-  //Font size
-  const testFontSize = 55
-  events.toolbar.sizeclicked(testFontSize, {})
+//   //Font size
+//   const testFontSize = 55
+//   events.toolbar.sizeclicked(testFontSize, {})
 
-  expect(mainPageController.dragview.fontSize).toEqual(testFontSize)
+//   expect(mainPageController.dragview.fontSize).toEqual(testFontSize)
 
-  //Text color
-  const testTextColor = '#ff00fe'
-  events.toolbar.colorclicked(testTextColor, {})
+//   //Text color
+//   const testTextColor = '#ff00fe'
+//   events.toolbar.colorclicked(testTextColor, {})
 
-  expect(mainPageController.dragview.textColor).toEqual(testTextColor)
-})
+//   expect(mainPageController.dragview.textColor).toEqual(testTextColor)
+// })
 
-test('constructor', () => {
-  const newController = new MainPageController(document.body)
-  expect(newController.view).toBe(document.body)
+// test('constructor', () => {
+//   const newController = new MainPageController(document.body)
+//   expect(newController.view).toBe(document.body)
 
-  const fn = jest.spyOn(newController, 'initializePage')
-  newController.constructor(document.body)
-  expect(fn).toHaveBeenCalled()
-})
+//   const fn = jest.spyOn(newController, 'initializePage')
+//   newController.constructor(document.body)
+//   expect(fn).toHaveBeenCalled()
+// })
