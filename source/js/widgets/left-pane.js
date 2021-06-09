@@ -339,7 +339,7 @@ ul li:hover {
       e.stopPropagation()
       li.style.display = 'none'
       if (this.focusedChild == li) {
-        console.log('remove')
+        //console.log('remove')
         this.focusedChild = undefined
       }
       this.observers.remove.forEach((cb, i) => {

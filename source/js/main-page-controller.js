@@ -231,7 +231,7 @@ export class MainPageController {
           if (obj.exists()) {
             let data = obj.val()
             const dataList = Object.values(data)
-            console.log('list of data:', dataList)
+            //console.log('list of data:', dataList)
             this.left.addEntries(dataList, dataList[0])
             this.saveLastPage(dataList[0].startDate, dataList[0].timestamp)
             this.loadPage(dataList[0].startDate, dataList[0].timestamp)
@@ -383,7 +383,7 @@ export class MainPageController {
       this.left.style.display = 'none'
       this.leftPaneButtonIcon1.style.display = 'block'
       this.leftPaneButtonIcon2.style.display = 'block'
-      console.log(this.toolbar.style.left)
+      //console.log(this.toolbar.style.left)
       //console.log('close')
     }
   }

@@ -308,7 +308,7 @@ export class RightPane extends HTMLElement {
   renderCalendar(date) {
     //console.log(date)
     if (!date) {
-      console.log('new date')
+      //console.log('new date')
       date = new Date()
     }
     //console.log('in  render cal')

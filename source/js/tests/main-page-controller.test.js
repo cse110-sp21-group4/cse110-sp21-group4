@@ -52,18 +52,10 @@ test('toggleLeftPane', () => {
   mainPageController.toggleLeftPane()
 
   expect(mainPageController.left.style.display).toBe('block')
-  expect(mainPageController.page.style.left).toBe(
-    mainPageController.leftPaneWidth + mainPageController.leftMargin + 'px'
-  )
 
   mainPageController.toggleLeftPane()
 
   expect(mainPageController.left.style.display).toBe('none')
-  expect(mainPageController.page.style.left).toBe(
-    mainPageController.leftPaneButtonWidth +
-      mainPageController.leftMargin +
-      'px'
-  )
 })
 
 test('registerListeners', () => {
