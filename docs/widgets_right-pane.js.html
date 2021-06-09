@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: widgets/right-pane.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: widgets/right-pane.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>export class RightPane extends HTMLElement {
+  constructor() {
+    super()
+    const template = document.createElement('template')
+    template.innerHTML = `
+    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    &lt;link rel="preconnect" href="https://fonts.gstatic.com">
+    &lt;link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+        &lt;style>
+                *{
+                    margin: 0;
+                    padding: 0;
+                    box-sizing: border-box;
+                    font-family: 'Quicksand', sans-serif;
+                } 
+
+                html{
+                    font-size: 62.5%;
+                }
+
+                .container{
+                    width: 414px;
+                    height: 800px;
+                    top: 111px;
+                    left: 1506px;
+                    background-color: rgba(171,187,175,1);#f44336;
+                    color: #333;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 60px;
+                }
+                .pane{
+                    background-color: rgb(171,187,175);
+                    position: absolute;
+                    /*overflow: visible; */
+                    width: 414px;
+                    height: 800px;
+                    left: 1475px;
+                    top: 120px;
+                    border-radius: 60px;
+	            }
+
+                .calendar{
+                    width: 350px;
+	                height: 400px;
+                    position: absolute; top: 5%;
+                    background-color: #ccc;
+                    box-shadow: 0 0.5rem 3rem rgba(0,0,0,.4);
+                    border-radius: 10px;
+                }
+
+                .month{
+                    width: 100%;
+                    height: 65px;
+                    background-color: #aaa;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0 2rem;
+                    text-align: center;
+                    text-shadow: 0 .2rem .9rem rgba(0,0,0,.5);
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
+                }
+
+                .month i{
+                    font-size: 2rem;
+                    cursor: pointer;     /* change ur cursor to a pointer*/
+                }
+
+                .month h1{
+                    font-size: 1.5rem;
+                    font-weight: 500;    /* boldness */
+                    text-transform: uppercase;
+                    letter-spacing: 0.2rem;
+                    margin-bottom: 0.2rem;
+                }
+
+                .month p{
+                    font-size: 1.2rem;
+                }
+
+                .weekdays{
+                    width: 100%;
+                    height: 3rem;
+                    margin-bottom: -0.3rem;
+                    padding: 0 0.4rem;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .weekdays div{
+                    font-size: 1.2rem;
+                    font-weight: 400;
+                    letter-spacing: 0.1rem;
+                    width: calc(25rem / 7);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-shadow: 0 .3rem .5rem rgba(0,0,0,0.5rem);
+                }
+
+                .days{
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    padding: 0.2rem;
+                }
+
+                .days div:not(.today){
+                    font-size: 1rem;
+                    margin: 0.2rem;
+                    width: calc(18.5rem / 7);
+                    height: 2.5rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-shadow: 0 .2rem .9rem rgba(0,0,0,.5);
+                    transition: background-color 0.2s;
+                    background-color: rgb(242, 242, 242);
+                    text-color: black;
+                }
+
+                /*if not today */
+                .days div:hover:not(.today){
+                    border: .2rem solid#777;
+                    cursor: pointer;
+                }
+
+                .prev-date,
+                .next-date{
+                    opacity: 0.5;
+
+                }
+
+                .today{
+                    background-color: #f39507;
+                    font-size: 1rem;
+                    margin: 0.2rem;
+                    width: calc(18.5rem / 7);
+                    height: 2.5rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-shadow: 0 .2rem .9rem rgba(0,0,0,.5);
+                    transition: background-color 0.2s;
+                    text-color: white;
+                }
+
+                .date p{
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+
+                #inner_rectangle {
+                    fill: rgba(230,230,230,1);
+                    stroke: rgba(112,112,112,1);
+                    stroke-width: 1px;
+                    stroke-linejoin: miter;
+                    stroke-linecap: butt;
+                    stroke-miterlimit: 4;
+                    shape-rendering: auto;
+                }
+
+                .inner_rectangle {
+                    position: relative; top: 150px;
+                    overflow: visible;
+                    width: 100px;
+                    height: 100px;
+                    left: -125px;
+                   
+                }
+
+                #Todo {
+                    left: 49px;
+                    top: 520px;
+                    position: absolute;
+                    overflow: visible;
+                    width: 93px;
+                    white-space: nowrap;
+                    text-align: center;
+                    font-family: Segoe UI;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 25px;
+                    color: rgba(0,0,0,1);
+                }
+
+                
+
+        &lt;/style>
+        &lt;div class="pane">
+         &lt;div class="container">
+            &lt;div class="calendar">
+                &lt;div class="month">
+                    &lt;i class=" 
+                    prev">&lt;span>&amp;#60;&lt;/span>&lt;/i>     &lt;!--Prev Month-->
+                    &lt;div class="date">
+                        &lt;h1>&lt;/h1>  &lt;!--Month-->
+                        &lt;p>&lt;/p>    &lt;!--Sun MM DD YY-->
+                    &lt;/div>
+                    &lt;i class=" 
+                    next">&lt;span>&amp;#62;&lt;/span>&lt;/i>    &lt;!--Next Month-->
+                &lt;/div>
+                &lt;div class="weekdays">
+                    &lt;div>Sun&lt;/div>
+                    &lt;div>Mon&lt;/div>
+                    &lt;div>Tue&lt;/div>
+                    &lt;div>Wed&lt;/div>
+                    &lt;div>Thu&lt;/div>
+                    &lt;div>Fri&lt;/div>
+                    &lt;div>Sat&lt;/div>
+                &lt;/div>
+            &lt;div class="days">
+
+            &lt;/div>
+               
+                
+
+        &lt;/div>
+                &lt;svg class="inner_rectangle">
+                    &lt;rect id="inner_rectangle" rx="20" ry="20" x="0" y="0" width="350" height="250">
+                    
+                 &lt;/rect>
+                &lt;/svg>
+                
+                &lt;div id="Todo">
+                &lt;span>To-Do List&lt;/span>
+                &lt;/div>
+                
+    &lt;/div>
+    &lt;/div>
+
+
+      `
+
+    const link = document.createElement('link')
+    link.setAttribute('rel', 'stylesheet')
+    link.setAttribute('href', 'style.css')
+
+    this.attachShadow({ mode: 'open' })
+    this.shadowRoot.appendChild(link)
+    this.shadowRoot.appendChild(template.content.cloneNode(true))
+    this.months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ]
+
+    this.monthDays = this.shadowRoot.querySelector('.days')
+    this.observers = {
+      dayclick: []
+    }
+
+    //console.log(this.shadowRoot.querySelector('.prev'))
+
+    this.shadowRoot.querySelector('.prev').addEventListener('click', () => {
+      date.setMonth(date.getMonth() - 1)
+      renderCalendar()
+    })
+
+    this.shadowRoot.querySelector('.next').addEventListener('click', () => {
+      date.setMonth(date.getMonth() + 1)
+      renderCalendar()
+    })
+
+    this.shadowRoot.querySelector('.date p').addEventListener('click', () => {
+      date.setMonth(new Date().getMonth())
+      date.setFullYear(new Date().getFullYear())
+      renderCalendar()
+    })
+  }
+
+  renderCalendar(date) {
+    //console.log(date)
+    if (!date) {
+      console.log('new date')
+      date = new Date()
+    }
+    //console.log('in  render cal')
+    //console.log(this.shadowRoot.querySelector('.days'))
+
+    const lastDay = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0
+    ).getDate()
+
+    const prevLastDay = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      0
+    ).getDate()
+
+    const firstDayIndex = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      1
+    ).getDay()
+
+    const lastDayIndex = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0
+    ).getDay()
+
+    let nextDays = 7 - lastDayIndex + 6
+
+    this.dateP = this.shadowRoot.querySelector('.date p')
+
+    this.monthD = this.shadowRoot.querySelector('.date h1')
+    this.monthD.innerHTML = this.months[date.getMonth()]
+
+    /*this.shadowRoot.querySelector('.date p').innerHTML
+        = new Date().toDateString();*/
+
+    // if (
+    //   date.getMonth() === new Date().getMonth() &amp;&amp;
+    //   date.getFullYear() === new Date().getFullYear()
+    // ) {
+    this.dateP.innerHTML = date.toDateString()
+    // } else {
+    //   this.dateP.innerHTML = date.getFullYear()
+    // }
+
+    let days = ''
+
+    for (let x = firstDayIndex; x > 0; x--) {
+      days += `&lt;div class='prev-date'>${prevLastDay - x + 1}&lt;/div>`
+    }
+
+    //console.log(date.getDate())
+    for (let i = 1; i &lt;= lastDay; i++) {
+      if (
+        i === date.getDate() &amp;&amp;
+        date.getMonth() === date.getMonth() &amp;&amp;
+        date.getFullYear() === date.getFullYear()
+      ) {
+        days += `&lt;div class='today'>${i}&lt;/div>`
+      } else {
+        days += `&lt;div>${i}&lt;/div>`
+      }
+    }
+
+    if (firstDayIndex + lastDay + nextDays > 42) {
+      nextDays = 42
+    }
+
+    for (let j = 1; j &lt;= nextDays; j++) {
+      days += `&lt;div class='next-date'>${j}&lt;/div>`
+      this.monthDays.innerHTML = days
+    }
+
+    this.setupListener()
+  }
+
+  /**
+   * Calculate selected date on UI
+   * @returns {Date} return the date selected currently
+   */
+  getSelectedDate() {
+    const day = parseInt(this.shadowRoot.querySelector('.today').innerHTML)
+    const month = this.months.indexOf(
+      this.shadowRoot.querySelector('.date h1').innerHTML
+    )
+    const dateString = this.shadowRoot.querySelector('.date p').innerHTML
+    let year = 0
+    const dateList = dateString.split(' ')
+    if (dateList.length > 1) {
+      year = parseInt(dateList[dateList.length - 1])
+    } else {
+      year = parseInt(dateString)
+    }
+
+    //console.log(year, month, day)
+    const result = new Date()
+    result.setMonth(month)
+    result.setDate(day)
+    result.setFullYear(year)
+    return result
+  }
+
+  setupListener() {
+    this.monthDays.childNodes.forEach((dayElement, i) => {
+      dayElement.addEventListener('click', (e) => {
+        if (
+          dayElement.classList.contains('prev-date') ||
+          dayElement.classList.contains('next-date')
+        ) {
+          return
+        }
+
+        this.clearFocus()
+        dayElement.classList.add('today')
+
+        //console.log(this.getSelectedDate())
+        this.dateP.innerHTML = this.getSelectedDate().toDateString()
+
+        this.observers.dayclick.forEach((cb, i) => {
+          cb(this.getSelectedDate())
+        })
+      })
+    })
+  }
+
+  clearFocus() {
+    this.monthDays.childNodes.forEach((dayElement, i) => {
+      dayElement.classList.remove('today')
+    })
+  }
+
+  addEventListener(eventType, callback) {
+    this.observers[eventType].push(callback)
+  }
+
+  removeEventListener(eventType, callback) {
+    this.observers[eventType].forEach((c, i) => {
+      if (callback == c) {
+        this.observers[eventType].splice(i, 0)
+        return false
+      }
+    })
+  }
+
+  removeAllListeners() {
+    this.observers = { open: [], close: [] }
+  }
+}
+
+customElements.define('right-pane', RightPane)
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addTest">addTest</a></li><li><a href="global.html#mainPageBody">mainPageBody</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jun 09 2021 20:42:41 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

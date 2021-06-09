@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: widgets/left-pane.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: widgets/left-pane.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>export class LeftPane extends HTMLElement {
+  constructor() {
+    super()
+    const template = document.createElement('template')
+    template.innerHTML = `
+      &lt;style>
+      #outer-rectangle {
+        fill: rgba(171,187,175,1);
+        stroke: rgba(112,112,112,1);
+        stroke-width: 1px;
+        stroke-linejoin: miter;
+        stroke-linecap: butt;
+        stroke-miterlimit: 4;
+        shape-rendering: auto;
+    
+        /* Redudant information from Class Selector*/
+        position: absolute;
+        overflow: visible;
+        width: 406px;
+        height: 803px;
+        left: 23px;
+        top: 111px;
+    }
+    .outer-rectangle {
+        position: absolute;
+        overflow: visible;
+        width: 406px;
+        height: 803px;
+        left: 23px;
+        top: 111px;
+    }
+   #Path_1 {
+        fill: rgba(171,187,175,1);
+    }
+    .Path_1 {
+        overflow: visible;
+        position: absolute;
+        width: 13.915px;
+        height: 26.99px;
+        left: 0px;
+        top: 0.007px;
+        transform: matrix(1,0,0,1,0,0);
+    }
+    #Path_2 {
+        fill: rgba(171,187,175,1);
+    }
+    .Path_2 {
+        overflow: visible;
+        position: absolute;
+        width: 13.915px;
+        height: 26.99px;
+        left: 15.321px;
+        top: 0px;
+        transform: matrix(1,0,0,1,0,0);
+    }
+    #Ellipse_3 {
+        fill: rgba(129,150,134,1);
+        stroke: rgba(112,112,112,1);
+        stroke-width: 1px;
+        stroke-linejoin: miter;
+        stroke-linecap: butt;
+        stroke-miterlimit: 4;
+        shape-rendering: auto;
+    }
+    .Ellipse_3 {
+        position: absolute;
+        overflow: visible;
+        width: 80px;
+        height: 80px;
+        left: 29px;
+        top: 599.617px;
+    }
+    #Line_1 {
+        fill: transparent;
+        stroke: rgba(129,150,134,1);
+        stroke-width: 3px;
+        stroke-linejoin: miter;
+        stroke-linecap: butt;
+        stroke-miterlimit: 4;
+        shape-rendering: auto;
+    }
+    .Line_1 {
+        overflow: visible;
+        position: absolute;
+        width: 406.015px;
+        height: 5px;
+        left: 23.5px;
+        top: 201.5px;
+        transform: matrix(1,0,0,1,0,0);
+    }
+    #Ellipse_5 {
+        fill: rgba(129,150,134,1);
+        stroke: rgba(112,112,112,1);
+        stroke-width: 1px;
+        stroke-linejoin: miter;
+        stroke-linecap: butt;
+        stroke-miterlimit: 4;
+        shape-rendering: auto;
+    }
+    .Ellipse_5 {
+        position: absolute;
+        overflow: visible;
+        width: 80px;
+        height: 80px;
+        left: 29px;
+        top: 799px;
+    }
+    #Ellipse_6 {
+        fill: rgba(129,150,134,1);
+        stroke: rgba(112,112,112,1);
+        stroke-width: 1px;
+        stroke-linejoin: miter;
+        stroke-linecap: butt;
+        stroke-miterlimit: 4;
+        shape-rendering: auto;
+    }
+    .Ellipse_6 {
+        position: absolute;
+        overflow: visible;
+        width: 80px;
+        height: 80px;
+        left: 29px;
+        top: 699.605px;
+    }
+    #Icon_map-food {
+        fill: rgba(255,255,255,1);
+    }
+    .Icon_map-food {
+        overflow: visible;
+        position: absolute;
+        width: 34.56px;
+        height: 30.296px;
+        left: 49.058px;
+        top: 620.094px;
+        transform: matrix(1,0,0,1,0,0);
+    }
+    #Icon_ionic-md-school {
+        fill: rgba(255,255,255,1);
+    }
+    .Icon_ionic-md-school {
+        overflow: visible;
+        position: absolute;
+        width: 31.5px;
+        height: 27px;
+        left: 51.118px;
+        top: 726.105px;
+        transform: matrix(1,0,0,1,0,0);
+    }
+    #inner_rectangle {
+        fill: rgba(230,230,230,1);
+        stroke: rgba(112,112,112,1);
+        stroke-width: 1px;
+        stroke-linejoin: miter;
+        stroke-linecap: butt;
+        stroke-miterlimit: 4;
+        shape-rendering: auto;
+    }
+    .inner_rectangle {
+        position: absolute;
+        overflow: visible;
+        width: 387px;
+        height: 378.27px;
+        left: 33px;
+        top: 211.68px;
+    }
+    #Entries {
+        left: 49px;
+        top: 222.67px;
+        position: absolute;
+        overflow: visible;
+        width: 93px;
+        white-space: nowrap;
+        text-align: center;
+        font-family: Segoe UI;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 30px;
+        color: rgba(0,0,0,1);
+    }
+    #Recipes {
+        left: 121px;
+        top: 620.519px;
+        position: absolute;
+        overflow: visible;
+        width: 101px;
+        white-space: nowrap;
+        text-align: left;
+        font-family: Segoe UI;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 30px;
+        color: rgba(255,255,255,1);
+    }
+    #Assignments {
+        left: 120px;
+        top: 725.031px;
+        position: absolute;
+        overflow: visible;
+        width: 147px;
+        white-space: nowrap;
+        text-align: left;
+        font-family: Segoe UI;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 26px;
+        color: rgba(255,255,255,1);
+    }
+    #New_Label {
+        left: 120px;
+        top: 819px;
+        position: absolute;
+        overflow: visible;
+        width: 139px;
+        white-space: nowrap;
+        text-align: left;
+        font-family: Segoe UI;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 30px;
+        color: rgba(255,255,255,1);
+    }
+    #add-entry-button {
+        fill: rgba(230,230,230,1);
+        stroke: rgba(112,112,112,1);
+        stroke-width: 2px;
+        stroke-linejoin: miter;
+        stroke-linecap: butt;
+        stroke-miterlimit: 4;
+        shape-rendering: auto;
+    }
+    .add-entry-button{
+        position: absolute;
+        overflow: visible;
+        width: 40px;
+        height: 40px;
+        left: 361px;
+        top: 221.808px;
+    }
+    #plus {
+        left: 367px;
+        top: 210.224px;
+        position: absolute;
+        overflow: visible;
+        width: 29px;
+        white-space: nowrap;
+        text-align: center;
+        font-family: Segoe UI;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 40px;
+        color: rgba(0,0,0,1);
+        cursor: pointer;
+        -webkit-user-select: none; /* Safari */        
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE10+/Edge */
+        user-select: none; /* Standard */
+
+    }
+    #Untitled_Entry {
+        left: 66px;
+        top: 267.813px;
+        position: absolute;
+        overflow: visible;
+        width: 146px;
+        white-space: nowrap;
+        text-align: left;
+        font-family: Segoe UI;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 24px;
+        color: rgba(0,0,0,1);
+    }
+    #Icon_awesome-plus {
+        fill: rgba(255,255,255,1);
+    }
+    .Icon_awesome-plus {
+        overflow: visible;
+        position: absolute;
+        width: 31.5px;
+        height: 31.5px;
+        left: 53.25px;
+        top: 823.25px;
+        transform: matrix(1,0,0,1,0,0);
+    }
+
+ul {
+    margin: 0;
+    width: 325px;
+    height: 300px;
+    padding: 0;
+    list-style-type: none;
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(129,150,134,1); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(171,187,175,1); 
+}
+
+/* Style the list items */
+ul li {
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  font-size: 18px;
+  transition: 0.2s;
+  border-radius: 60px;
+
+  /* make the list items unselectable */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+  background: #ddd;
+}
+
+.selected-entry {
+  background: #ccc;
+}
+
+/* Style the close button */
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 18px 12px 18px;
+  border-radius: 60px;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+}
+      &lt;/style>
+      &lt;div id="left-pane">
+      &lt;svg class="outer-rectangle">
+        &lt;rect id="outer-rectangle" rx="40" ry="40" x="0" y="0">
+        &lt;/rect>
+      &lt;/svg>
+      &lt;svg class="Ellipse_3">
+        &lt;ellipse id="Ellipse_3" rx="40" ry="40" cx="40" cy="40">
+        &lt;/ellipse>
+      &lt;/svg>
+      &lt;svg class="Line_1" viewBox="0 0 406 2">
+        &lt;path id="Line_1" d="M 0 2 L 406 0">
+        &lt;/path>
+      &lt;/svg>
+      &lt;svg class="Ellipse_5">
+        &lt;ellipse id="Ellipse_5" rx="40" ry="40" cx="40" cy="40">
+        &lt;/ellipse>
+      &lt;/svg>
+      &lt;svg class="Ellipse_6">
+        &lt;ellipse id="Ellipse_6" rx="40" ry="40" cx="40" cy="40">
+        &lt;/ellipse>
+      &lt;/svg>
+      &lt;svg class="Icon_map-food" viewBox="0.72 2.825 34.56 30.295">
+        &lt;path id="Icon_map-food" d="M 35.20367813110352 10.91088008880615 L 32.37047958374023 33.11999893188477 L 22.80096054077148 33.11999893188477 L 19.97928047180176 10.79999923706055 L 31.66200065612793 10.79999923706055 L 33.97103881835938 2.824559211730957 L 35.27999877929688 3.219120025634766 L 33.06455993652344 10.89431953430176 L 35.20368194580078 10.91087913513184 Z M 18.62639999389648 23.76000022888184 C 18.62639999389648 23.76000022888184 18.98423957824707 20.88000106811523 14.02199935913086 20.88000106811523 L 6.119279861450195 20.88000106811523 C 1.164239883422852 20.88000106811523 1.514879703521729 23.76000213623047 1.514879703521729 23.76000213623047 L 18.62639999389648 23.76000213623047 Z M 1.514879941940308 30.23999977111816 C 1.514879941940308 30.23999977111816 1.164239883422852 33.11999893188477 6.119279861450195 33.11999893188477 L 14.02272033691406 33.11999893188477 C 18.98496055603027 33.11999893188477 18.62712097167969 30.23999786376953 18.62712097167969 30.23999786376953 L 1.514879941940308 30.23999786376953 Z M 17.88407897949219 28.79999923706055 C 18.69623947143555 28.79999923706055 19.35215950012207 27.9979190826416 19.35215950012207 27.00071907043457 C 19.35215950012207 25.99775886535645 18.69623947143555 25.19999885559082 17.88407897949219 25.19999885559082 L 2.188800096511841 25.19999885559082 C 1.380239963531494 25.20000076293945 0.7200000286102295 25.99776077270508 0.7200000286102295 27.00071907043457 C 0.7200000286102295 27.9979190826416 1.380239963531494 28.79999923706055 2.188800096511841 28.79999923706055 L 17.88408088684082 28.79999923706055 Z">
+        &lt;/path>
+      &lt;/svg>
+      &lt;svg class="Icon_ionic-md-school" viewBox="2.25 4.5 31.5 27">
+        &lt;path id="Icon_ionic-md-school" d="M 7.98046875 19.77187538146973 L 7.98046875 25.76953125 L 18 31.5 L 28.01953125 25.76953125 L 28.01953125 19.77187538146973 L 18 25.50234413146973 L 7.98046875 19.77187538146973 Z M 18 4.5 L 2.25 13.5 L 18 22.5 L 30.88828086853027 15.13828086853027 L 30.88828086853027 25.50234222412109 L 33.75 25.50234222412109 L 33.75 13.5 L 18 4.5 Z">
+        &lt;/path>
+      &lt;/svg>
+      &lt;svg class="inner_rectangle">
+        &lt;rect id="inner_rectangle" rx="20" ry="20" x="0" y="0" width="387" height="378.27">
+        &lt;/rect>
+      &lt;/svg>
+      &lt;div id="Entries">
+        &lt;span>Entries&lt;/span>
+      &lt;/div>
+      &lt;div id="Recipes">
+        &lt;span>Recipes&lt;/span>
+      &lt;/div>
+      &lt;div id="Assignments">
+        &lt;span>Assignments&lt;/span>
+      &lt;/div>
+      &lt;div id="New_Label">
+        &lt;span>New Label&lt;/span>
+      &lt;/div>
+      &lt;svg class="add-entry-button">
+        &lt;ellipse onclick="newElement()" id="add-entry-button" rx="20" ry="20" cx="20" cy="20">
+        &lt;/ellipse>
+      &lt;/svg>
+      &lt;div id="plus">
+        &lt;span>+&lt;/span>
+      &lt;/div>
+      &lt;div id="Untitled_Entry">
+        &lt;ul id="myUL">
+        &lt;/ul>
+      &lt;/div>
+      &lt;svg class="Icon_awesome-plus" viewBox="0 2.25 31.5 31.5">
+        &lt;path id="Icon_awesome-plus" d="M 29.25 14.625 L 19.125 14.625 L 19.125 4.5 C 19.125 3.257578134536743 18.11742210388184 2.25 16.875 2.25 L 14.625 2.25 C 13.38257789611816 2.25 12.375 3.257578134536743 12.375 4.5 L 12.375 14.625 L 2.25 14.625 C 1.007578134536743 14.625 0 15.63257789611816 0 16.875 L 0 19.125 C 0 20.36742210388184 1.007578134536743 21.375 2.25 21.375 L 12.375 21.375 L 12.375 31.5 C 12.375 32.7424201965332 13.38257789611816 33.75 14.625 33.75 L 16.875 33.75 C 18.11742210388184 33.75 19.125 32.7424201965332 19.125 31.5 L 19.125 21.375 L 29.25 21.375 C 30.49242210388184 21.375 31.5 20.36742210388184 31.5 19.125 L 31.5 16.875 C 31.5 15.63257789611816 30.49242210388184 14.625 29.25 14.625 Z">
+        &lt;/path>
+      &lt;/svg>
+    &lt;/div>
+
+         `
+
+    // template.addEventListener('click',editPage());
+
+    const link = document.createElement('link')
+    link.setAttribute('rel', 'stylesheet')
+    link.setAttribute('href', 'style.css')
+
+    this.attachShadow({ mode: 'open' })
+    this.shadowRoot.appendChild(link)
+    this.shadowRoot.appendChild(template.content.cloneNode(true))
+
+    this.leftPane = this.shadowRoot.querySelector('#left-pane')
+    this.plusButton = this.shadowRoot.querySelector('#plus')
+    this.ul = this.shadowRoot.querySelector('#myUL')
+    this.focusedChild = undefined
+    this.observers = {
+      select: [],
+      remove: [],
+      create: [],
+      clickplus: []
+    }
+
+    this.setupListeners()
+  }
+
+  getPageList() {
+    let pageList = { list: [] }
+    this.shadowRoot.querySelectorAll('ul li').forEach((li, i) => {
+      const disp = window.getComputedStyle(li).display
+      if (disp &amp;&amp; disp !== 'none')
+        pageList.list.push({
+          startDate: li.getAttribute('startDate'),
+          timestamp: li.getAttribute('timestamp')
+        })
+    })
+    return pageList
+  }
+
+  setupListeners() {
+    this.plusButton.addEventListener('click', () => {
+      //console.log('plus')
+      this.observers.clickplus.forEach((cb, i) => {
+        cb()
+      })
+    })
+  }
+
+  addNewEntry(today) {
+    var dd = String(today.getDate()).padStart(2, '0')
+    var mm = String(today.getMonth() + 1).padStart(2, '0')
+    var yyyy = today.getFullYear()
+    var hr = today.getHours()
+    var min = today.getMinutes()
+
+    var li = document.createElement('li')
+
+    let date = '' + mm + dd + yyyy
+    li.setAttribute('startDate', date)
+    li.setAttribute('timestamp', today.getTime())
+
+    today =
+      mm +
+      '/' +
+      dd +
+      '/' +
+      yyyy +
+      ' @ ' +
+      (hr &lt; 10 ? '0' + hr : hr) +
+      ':' +
+      (min &lt; 10 ? '0' + min : min)
+    var inputValue = today
+    var t = document.createTextNode(inputValue)
+    li.appendChild(t)
+    this.ul.appendChild(li)
+
+    // This creates the X button for the new entries we made
+    var span = document.createElement('SPAN')
+    var txt = document.createTextNode('\u00D7')
+    span.className = 'close'
+    span.appendChild(txt)
+    li.appendChild(span)
+    span.addEventListener('click', (e) => {
+      e.stopPropagation()
+      li.style.display = 'none'
+      if (this.focusedChild == li) {
+        console.log('remove')
+        this.focusedChild = undefined
+      }
+      this.observers.remove.forEach((cb, i) => {
+        cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
+      })
+    })
+    li.addEventListener('click', (e) => {
+      this.addSelected(li)
+
+      if (li != this.focusedChild) {
+        this.observers.select.forEach((cb, i) => {
+          cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
+        })
+      }
+      this.focusedChild = li
+      //console.log(this.focusedChild)
+    })
+
+    this.observers.create.forEach((cb, i) => {
+      cb(li.getAttribute('startDate'), li.getAttribute('timestamp'))
+    })
+
+    return li
+  }
+
+  addSelected(li) {
+    li.classList.add('selected-entry')
+    this.shadowRoot.querySelectorAll('ul li').forEach((el, index) => {
+      if (el != li) {
+        el.classList.remove('selected-entry')
+      }
+    })
+  }
+
+  clearEntries() {
+    this.focusedChild = undefined
+    while (this.ul.childNodes.length) {
+      this.ul.removeChild(this.ul.childNodes[0])
+    }
+  }
+
+  /**
+   * add entries to ul according to the input
+   * @param {Array} entryList [ { timestamp:23492348, ... }, ... ]
+   * @param {object} activeEntry { timestamp:23492348, startDate:'06022021' }
+   */
+  addEntries(entryList, activeEntry) {
+    //console.log(entryList)
+    entryList.forEach((entry, i) => {
+      const li = this.addNewEntry(new Date(parseInt(entry.timestamp)))
+
+      if (
+        activeEntry &amp;&amp;
+        activeEntry.startDate == li.getAttribute('startDate') &amp;&amp;
+        activeEntry.timestamp == li.getAttribute('timestamp')
+      ) {
+        this.addSelected(li)
+        this.focusedChild = li
+      }
+    })
+  }
+
+  addEventListener(eventType, callback) {
+    this.observers[eventType].push(callback)
+  }
+
+  removeEventListener(eventType, callback) {
+    this.observers[eventType].forEach((c, i) => {
+      if (callback == c) {
+        this.observers[eventType].splice(i, 0)
+        return false
+      }
+    })
+  }
+
+  removeAllListeners() {
+    this.observers = { remove: [], select: [], create: [] }
+  }
+}
+
+customElements.define('left-pane', LeftPane)
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addTest">addTest</a></li><li><a href="global.html#mainPageBody">mainPageBody</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jun 09 2021 20:42:41 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

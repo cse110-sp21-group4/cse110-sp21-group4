@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: main-page-model.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: main-page-model.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const TEST_USER = 'test@ucsd.edu'
+const TEST_PASSWORD = '12345678'
+
+const testPageData = {
+  timestamp: 22389128371,
+  startDate: '06032011',
+  texts: [
+    {
+      text: 'test in you ass hole',
+      size: { width: 100, height: 100 },
+      position: { left: '100px', top: '50px' },
+      fontsize: 100,
+      color: '#ff00ff',
+      underline: true,
+      bold: true,
+      italic: true,
+      bullet: 'dot'
+    }
+  ],
+
+  images: [
+    {
+      ref: 'test/test.jpg',
+      size: { width: 100, height: 100 },
+      position: { left: '100px', top: '50px' }
+    }
+  ]
+}
+
+export class MainPageModel {
+  constructor() {
+    this._entry = {}
+    this.user = {}
+
+    // this.signIn(TEST_USER, TEST_PASSWORD, () => {
+    // this.savePageData(testPageData)
+    // this.loadData(testPageData.startDate, testPageData.timestamp, (data) => {
+    //   console.log(data)
+    // })
+    //   this.updatedata(
+    //     testpagedata,
+    //     () => {
+    //       console.log('updated')
+    //     },
+    //     (e) => {
+    //       console.log(e)
+    //     }
+    //   )
+    // this.removeData(
+    // testPageData.startDate,
+    // testPageData.timestamp,
+    // () => {
+    // console.log('removed..')
+    // },
+    // (e) => {
+    // console.log(e)
+    // }
+    // )
+    // })
+  }
+
+  isSignedIn() {
+    return firebase.auth().currentUser != null
+  }
+
+  init() {
+    firebase.initializeApp(this.firebaseConfig)
+    this.storage = firebase.storage()
+    // firebase.auth().onAuthStateChanged((firebaseUser) => {
+    //   if (firebaseUser) {
+    //     //console.log('user signed in:' + firebaseUser)
+    //   } else {
+    //     //console.log('log out')
+    //   }
+    // })
+  }
+
+  getUrl(refStr, callback, errorCallback) {
+    this.storage
+      .ref()
+      .child(refStr)
+      .getDownloadURL()
+      .then((url) => {
+        callback(url)
+      })
+      .catch((e) => {
+        errorCallback(e)
+      })
+  }
+
+  /**
+   * save image to firebase storage
+   * @param {file} imageFile a file get from file input
+   * @param {function} progress_fn progress callback, parameter: percentage
+   * @param {function} error_fn error callback, parameter: error message
+   * @param {function} complete_fn complete callback, parameter: reference string
+   */
+  saveImage(imageFile, progress_fn, error_fn, complete_fn) {
+    const timestamp = Date.now()
+    const uid = firebase.auth().currentUser.uid
+    const refStr = uid + '/' + timestamp
+    let storageRef = this.storage.ref(refStr)
+    let task = storageRef.put(imageFile)
+    task.on(
+      'state_changed',
+      (snapshot) => {
+        const percentage =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        progress_fn(percentage)
+      },
+      (err) => {
+        error_fn(err.message)
+      },
+      () => {
+        this.getUrl(
+          refStr,
+          (url) => {
+            complete_fn(url, refStr)
+          },
+          (e) => {
+            error_fn(e.message)
+          }
+        )
+      }
+    )
+  }
+
+  /**
+   * @param {object} pageData a data that recorded all the information in the main page
+   * {
+   *    timestamp: 12389128371,
+   *    startDate: '06032011',
+   *    texts: [
+   *      {
+   *        text: 'test in you ass hole',
+   *        size: {width: 100, height: 100},
+   *        position: {left: '100px', top: '50px'},
+   *        fontsize: 15,
+   *        color: '#ff00ff',
+   *        underline: true,
+   *        bold: true,
+   *        italic: true,
+   *        bullet: 'dot'
+   *      },
+   *      ...
+   *    ],
+   *    images: [
+   *      {
+   *        ref: 'test/test.jpg',
+   *        size: {width: 100, height: 100},
+   *        position: {left: '100px', top: '50px'},
+   *       }
+   *    ]
+   * }
+   */
+  savePageData(pageData) {
+    //console.log(this.getDataRef(pageData.startTime))
+    firebase
+      .database()
+      .ref(this.getDataRef(pageData.startDate, pageData.timestamp))
+      .set(pageData)
+  }
+
+  getDataRef(startDate, timestamp) {
+    return this.getRefPrefix(startDate) + '/' + timestamp
+  }
+
+  getRefPrefix(startDate) {
+    const uid = firebase.auth().currentUser.uid
+    return uid + '/' + startDate
+  }
+
+  getEntriesForDate(date) {
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+
+    let key = '' + (month &lt; 10 ? '0' + month : month)
+    key += day &lt; 10 ? '0' + day : day
+    key += year
+
+    console.log('looking for key:', key)
+
+    const uid = firebase.auth().currentUser.uid
+    return firebase.database().ref().child(uid).child(key).get()
+  }
+
+  loadData(startDate, timestamp) {
+    //console.log(startDate, timestamp)
+    const uid = firebase.auth().currentUser.uid
+    let dbObj = firebase.database().ref().child(uid).child(startDate)
+
+    if (timestamp) {
+      dbObj = dbObj.child(timestamp)
+    }
+
+    return dbObj.get()
+  }
+
+  loadLastPageInfo() {
+    const uid = firebase.auth().currentUser.uid
+    return firebase.database().ref().child(uid).child('lastPage').get()
+  }
+
+  updateLast(lastPageObj) {
+    const uid = firebase.auth().currentUser.uid
+    const obj = { lastPage: lastPageObj }
+    return firebase.database().ref().child(uid).update(obj)
+  }
+
+  updateData(pageData) {
+    const uid = firebase.auth().currentUser.uid
+    const updates = {}
+    updates[pageData.timestamp + ''] = pageData
+    return firebase
+      .database()
+      .ref()
+      .child(uid)
+      .child(pageData.startDate)
+      .update(updates)
+  }
+
+  removeData(startDate, timestamp, callback, errorCallback) {
+    const uid = firebase.auth().currentUser.uid
+    firebase
+      .database()
+      .ref()
+      .child(uid)
+      .child(startDate)
+      .child(timestamp)
+      .remove()
+      .then(() => {
+        callback()
+      })
+      .catch((e) => {
+        if (errorCallback) errorCallback(e)
+      })
+  }
+
+  getCurrentUser() {
+    return firebase.auth().currentUser
+  }
+
+  signOut() {
+    return firebase.auth().signOut()
+  }
+
+  signUp(email, password) {
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
+  }
+
+  signIn(email, password) {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+  }
+
+  get currentEntry() {
+    return this._entry
+  }
+
+  set currentEntry(entry) {
+    this._entry = entry
+  }
+
+  get firebaseConfig() {
+    return {
+      apiKey: 'AIzaSyC5GNoKloWkvhux25LTkvAG5SgNCAa66F0',
+      authDomain: 'bulletjounal-1b118.firebaseapp.com',
+      projectId: 'bulletjounal-1b118',
+      storageBucket: 'bulletjounal-1b118.appspot.com',
+      messagingSenderId: '166595497341',
+      appId: '1:166595497341:web:37b1aed018affecfb9d014'
+    }
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addTest">addTest</a></li><li><a href="global.html#mainPageBody">mainPageBody</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jun 09 2021 20:42:41 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
