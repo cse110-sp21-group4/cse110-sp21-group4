@@ -21,13 +21,19 @@ export class MainPageController {
   }
 
   initializePage() {
-    this.main = document.querySelector('main')
-    this.page = document.querySelector('main .page')
+    this.page = document.querySelector('.page')
     this.left = document.querySelector('left-pane')
     this.dragview = document.querySelector('drag-view')
     this.leftPaneButton = this.view.querySelector('#index-button')
     this.leftPaneFrame = this.left.shadowRoot.querySelector('#outer-rectangle')
+    this.leftPaneButtonIcon1 = this.view.querySelector('#Path_3')
+    this.leftPaneButtonIcon2 = this.view.querySelector('#Path_4')
+    this.topBarCalendar = this.view.querySelector('#Icon_awesome-calendar')
+    this.topBarCalendarButton = this.view.querySelector('#Ellipse_2')
     this.right = document.querySelector('right-pane')
+    this.topBarCalendarButton.style.display = 'none'
+
+    // Toolbar
     this.toolbar = document.querySelector('tool-bar')
     this.loginBg = document.querySelector('#login-bg')
     this.loginFrame = document.querySelector('#login-frame')
@@ -47,11 +53,26 @@ export class MainPageController {
 
     this.loginBg.style.width = window.innerWidth + 'px'
     this.loginBg.style.height = window.innerHeight + 'px'
+
+    this.dragview.style.marginTop =
+      ((parseInt(window.getComputedStyle(this.page).height) -
+        parseInt(window.getComputedStyle(this.dragview).height)) /
+        2.0) *
+        0.8 +
+      'px'
+
     window.addEventListener('resize', (e) => {
       if (this.loginBg.style.display == 'block') {
         this.loginBg.style.width = window.innerWidth + 'px'
         this.loginBg.style.height = window.innerHeight + 'px'
       }
+
+      this.dragview.style.marginTop =
+        ((parseInt(window.getComputedStyle(this.page).height) -
+          parseInt(window.getComputedStyle(this.dragview).height)) /
+          2.0) *
+          0.8 +
+        'px'
     })
 
     this.registerButton.addEventListener('click', (e) => {
@@ -251,6 +272,17 @@ export class MainPageController {
     this.toolbar.addEventListener('colorclicked', (color, e) => {
       this.dragview.textColor = color
     })
+
+    this.topBarCalendar.addEventListener('click', () => {
+      if (this.right.style.display === 'none') {
+        this.right.style.display = 'block'
+        this.topBarCalendarButton.style.display = 'block'
+      } else {
+        // Page hides - Move MAIN page left
+        this.right.style.display = 'none'
+        this.topBarCalendarButton.style.display = 'none'
+      }
+    })
   }
 
   recoverLastPage() {
@@ -343,33 +375,16 @@ export class MainPageController {
   toggleLeftPane() {
     if (this.left.style.display === 'none') {
       this.left.style.display = 'block'
-      this.page.style.left = this.leftPaneWidth + this.leftMargin + 'px'
+      this.leftPaneButtonIcon1.style.display = 'none'
+      this.leftPaneButtonIcon2.style.display = 'none'
       //console.log('open')
     } else {
       // Page hides - Move MAIN page left
       this.left.style.display = 'none'
-      this.page.style.left = this.leftPaneButtonWidth + this.leftMargin + 'px'
+      this.leftPaneButtonIcon1.style.display = 'block'
+      this.leftPaneButtonIcon2.style.display = 'block'
+      console.log(this.toolbar.style.left)
       //console.log('close')
     }
   }
-
-  // //Example code
-  // onTextOnClickChanged(isTextOnClick) {
-  //   console.log('TextOnClick change to: ' + isTextOnClick)
-  // }
-
-  // /**
-  //  * @param {String} textColor rgb text color or name (e.g. "back", "red", "#fffeee")
-  //  */
-  // OnTextColorChanged(textColor) {
-  //   console.log('Text color change to: ' + textColor)
-  // }
-
-  // /**
-  //  * @param {object} position { left: '20px', top: '50px' }
-  //  * @param {Image} img
-  //  */
-  // insertImage(position, img) {
-  //   console.log('Insert image at position: ' + position)
-  // }
 }

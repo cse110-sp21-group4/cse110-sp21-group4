@@ -21,9 +21,10 @@ export class RightPane extends HTMLElement {
                 .container{
                     width: 414px;
                     height: 800px;
-                    top: 111px;
-                    left: 1506px;
-                    background-color: rgba(171,187,175,1);#f44336;
+                    /*position:absolute;*/
+                    top: 0px;
+                    right: 5px;
+                    background-color: rgba(171,187,175,1);
                     color: #333;
                     display: flex;
                     justify-content: center;
@@ -33,20 +34,21 @@ export class RightPane extends HTMLElement {
                 .pane{
                     background-color: rgb(171,187,175);
                     position: absolute;
-                    /*overflow: visible; */
+                    overflow: visible;
                     width: 414px;
                     height: 800px;
-                    left: 1475px;
-                    top: 120px;
-                    border-radius: 60px;
+                    right: 5px;
+                    top: 101px;
+                    border-radius: 40px;
 	            }
 
                 .calendar{
                     width: 350px;
 	                height: 400px;
-                    position: absolute; top: 5%;
+                    position: absolute; 
+                    top: 100px;
                     background-color: #ccc;
-                    box-shadow: 0 0.5rem 3rem rgba(0,0,0,.4);
+                    /*box-shadow: 0 0.5rem 3rem rgba(0,0,0,.4);*/
                     border-radius: 10px;
                 }
 
@@ -164,7 +166,7 @@ export class RightPane extends HTMLElement {
                 }
 
                 .inner_rectangle {
-                    position: relative; top: 150px;
+                    position: relative; top: 170px;
                     overflow: visible;
                     width: 100px;
                     height: 100px;
@@ -173,8 +175,8 @@ export class RightPane extends HTMLElement {
                 }
 
                 #Todo {
-                    left: 49px;
-                    top: 520px;
+                    left: 51px;
+                    top: 530px;
                     position: absolute;
                     overflow: visible;
                     width: 93px;
@@ -186,12 +188,33 @@ export class RightPane extends HTMLElement {
                     font-size: 25px;
                     color: rgba(0,0,0,1);
                 }
-
+                #Line_1 {
+                    fill: transparent;
+                    stroke: rgba(129,150,134,1);
+                    stroke-width: 3px;
+                    stroke-linejoin: miter;
+                    stroke-linecap: butt;
+                    stroke-miterlimit: 4;
+                    shape-rendering: auto;
+                }
+                .Line_1 {
+                    overflow: visible;
+                    position: absolute;
+                    width: 406.015px;
+                    height: 5px;
+                    left: 5px;
+                    top: 90px;
+                    transform: matrix(1,0,0,1,0,0);
+                }
                 
 
         </style>
         <div class="pane">
          <div class="container">
+            <svg class="Line_1" viewBox="0 0 406 2">
+                <path id="Line_1" d="M 0 2 L 406 0">
+                </path>
+            </svg>
             <div class="calendar">
                 <div class="month">
                     <i class=" 
@@ -219,6 +242,7 @@ export class RightPane extends HTMLElement {
                 
 
         </div>
+        
                 <svg class="inner_rectangle">
                     <rect id="inner_rectangle" rx="20" ry="20" x="0" y="0" width="350" height="250">
                     
