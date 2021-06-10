@@ -203,10 +203,19 @@ export class MainPageController {
           const img = new Image()
           img.setAttribute('refStr', refStr)
           img.src = url
+
           const imageView = new ImageView(img)
           imageView.json.url = url
           imageView.json.ref = refStr
+
+          img.style.maxWidth = 840 + 'px'
+          img.style.maxHeight = 560 + 'px'
+
           this.dragview.addDraggableImage(this.imageInsertPosition, imageView)
+
+          // img.style.maxWidth = 840 + 'px'
+          // img.style.maxHeight = 560 + 'px'
+
           //console.log('see json')
           //console.log(
           // this.dragview.draggableChildren[
