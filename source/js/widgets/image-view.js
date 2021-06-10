@@ -145,12 +145,13 @@ export class ImageView {
     this.json.position = coordinates
     const framePosition = this.draggableFrame.getBoundingClientRect()
     if (
-      parseFloat(coordinates.left) < 0 ||
-      parseFloat(coordinates.left) + this.img.getBoundingClientRect().width >
-        framePosition.width ||
-      parseFloat(coordinates.top) < 0 ||
-      parseFloat(coordinates.top) + this.img.getBoundingClientRect().height >
-        framePosition.height
+      // parseFloat(coordinates.left) < 0 ||
+      // parseFloat(coordinates.left) + this.img.getBoundingClientRect().width >
+      //   framePosition.width ||
+      // parseFloat(coordinates.top) < 0 ||
+      // parseFloat(coordinates.top) + this.img.getBoundingClientRect().height >
+      //   framePosition.height
+      false
     ) {
       return
     }

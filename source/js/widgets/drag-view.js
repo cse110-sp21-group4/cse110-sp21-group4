@@ -377,7 +377,7 @@ export class DragView extends HTMLElement {
       this.movingElement.add(child)
     })
 
-    this.draggableFrame.addEventListener('mousemove', (e) => {
+    window.addEventListener('mousemove', (e) => {
       if (!this.movingElement.has(child)) return
       if (this.mouseEvents.has('mousedown')) {
         if (!this.mouseEvents.has('dragging')) {

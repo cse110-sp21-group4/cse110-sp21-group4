@@ -267,12 +267,13 @@ export class TextBox {
     )*/
 
     if (
-      parseFloat(coordinates.left) <
-        -1.0 * parseFloat(window.getComputedStyle(this.text).width) ||
-      parseFloat(coordinates.left) > framePosition.width ||
-      parseFloat(coordinates.top) <
-        -1.0 * parseFloat(window.getComputedStyle(this.text).height) ||
-      parseFloat(coordinates.top) > framePosition.height
+      // parseFloat(coordinates.left) <
+      //   -1.0 * parseFloat(window.getComputedStyle(this.text).width) ||
+      // parseFloat(coordinates.left) > framePosition.width ||
+      // parseFloat(coordinates.top) <
+      //   -1.0 * parseFloat(window.getComputedStyle(this.text).height) ||
+      // parseFloat(coordinates.top) > framePosition.height
+      false
     ) {
       return
     }
