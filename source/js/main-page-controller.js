@@ -32,6 +32,7 @@ export class MainPageController {
     this.topBarCalendarButton = this.view.querySelector('#Ellipse_2')
     this.right = document.querySelector('right-pane')
     this.topBarCalendarButton.style.display = 'none'
+    //this.title = document.querySelector('top-bar').shadowRoot.querySelector('.top-bar').querySelector('.entry-heading')
 
     // Toolbar
     this.toolbar = document.querySelector('tool-bar')
@@ -111,7 +112,7 @@ export class MainPageController {
     setInterval(() => {
       console.log('auto save...')
       this.saveCurrentData()
-    }, 180000)
+    }, 5000)
   }
 
   signOut() {
