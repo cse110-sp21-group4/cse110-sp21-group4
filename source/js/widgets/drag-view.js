@@ -323,7 +323,7 @@ export class DragView extends HTMLElement {
     })
 
     //console.log('new text:' + this.fontSize)
-    textBox.fontSize = this.fontSize + 'px'
+    textBox.fontSize = this.fontSize
     textBox.color = this.textColor
     textBox.underline = this.underline
     textBox.bold = this.bold
@@ -675,7 +675,7 @@ export class DragView extends HTMLElement {
 
     if (this.lastFocusedText) {
       //console.log('change font size to ' + this.fontSize)
-      this.lastFocusedText.fontSize = this.fontSize + 'px'
+      this.lastFocusedText.fontSize = this.fontSize
       this.lastFocusedText.resizeToFitText()
     }
   }
@@ -726,6 +726,7 @@ export class DragView extends HTMLElement {
       //console.log('load text:', json)
       const tb = this.addDraggableTextBox(json.position)
       tb.json = json
+      //console.log(tb.json)
       tb.load()
       if (json.bullet !== 'none') {
         this.addBulletToText(tb, json.bullet)
