@@ -112,7 +112,7 @@ export class MainPageController {
     setInterval(() => {
       console.log('auto save...')
       this.saveCurrentData()
-    }, 1000)
+    }, 5000)
   }
 
   signOut() {
