@@ -52,7 +52,7 @@ export class TopBar extends HTMLElement {
                 color: rgba(255,255,255,1);
             }
             .entry-heading {
-                left: 750px;
+                left: 860px;
                 top: 23px;
                 position: absolute;
                 overflow: visible;
@@ -89,11 +89,19 @@ export class TopBar extends HTMLElement {
 
     // template.addEventListener('click',editPage());
 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+
     this.attachShadow({ mode: 'open' })
     // this.shadowRoot.appendChild(link)
     this.shadowRoot.appendChild(template.content.cloneNode(true))
 
     this.heading = this.shadowRoot.querySelector('.entry-heading')
+    this.heading.innerHTML=today
 
     this.observers = {}
 
