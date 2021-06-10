@@ -2,6 +2,8 @@ body {
   height: 100%;
   width: 100%;
   background-image: url('images/cover-background.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
     'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   margin: 0;
@@ -189,7 +191,7 @@ input[type='password'] {
   overflow: visible;
   width: 65px;
   height: 65px;
-  left: 1837.5px;
+  right: 17px;
   top: 13px;
 }
 
@@ -201,7 +203,7 @@ input[type='password'] {
   position: absolute;
   width: 31.5px;
   height: 36px;
-  left: 1854px;
+  right: 34px;
   top: 27px;
   transform: matrix(1, 0, 0, 1, 0, 0);
   cursor: pointer;
@@ -211,7 +213,7 @@ input[type='password'] {
   background-image: url('images/kcMbeLkoi.png');
   background-repeat: no-repeat;
   background-size: 100%;
-  margin-top: -80px;
+  margin-top: -90px;
   margin-left: auto;
   margin-right: auto;
   width: 60%;
@@ -225,9 +227,4 @@ drag-view {
   margin-right: auto;
   width: 95%;
   height: 95%;
-}
-tool-bar {
-  position: absolute;
-  top: -210px;
-  left: 0px;
 }

@@ -5,11 +5,11 @@
   background-color: white;
   border: 5px solid lightslategray;
   border-radius: 25px;
-  height: 60px;
-  width: 1050px;
+  height: 6.5%;
   position: absolute;
-  top: 1050px;
-  left: 425px;
+  bottom: 0px;
+  left: 24.5%;
+  width: 50%
 }
 .tool > svg > path {
   fill: rgba(0, 0, 0, 1);
