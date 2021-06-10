@@ -111,7 +111,7 @@ export class MainPageController {
     setInterval(() => {
       console.log('auto save...')
       this.saveCurrentData()
-    }, 180000)
+    }, 1000)
   }
 
   signOut() {
@@ -206,6 +206,9 @@ export class MainPageController {
           const imageView = new ImageView(img)
           imageView.json.url = url
           imageView.json.ref = refStr
+
+          img.style.maxWidth = '850px'
+          img.style.maxHeight = '850px'
           this.dragview.addDraggableImage(this.imageInsertPosition, imageView)
           //console.log('see json')
           //console.log(
