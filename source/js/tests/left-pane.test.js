@@ -92,3 +92,35 @@ test('toggleLeftPane', () => {
 
   expect(mainPageController.left.style.display).toBe('none')
 })
+
+test('left pane list empty',()=>{
+    let index = mainPageController.left.getPageList().list
+    expect(index.length).toEqual(0)
+}) 
+
+test('entry created directly',()=>{
+
+    var date1 = new Date('June 2, 2021 23:15:30');
+    mainPageController.left.addNewEntry(date1);
+    let index = mainPageController.left.getPageList().list
+    console.log(index)
+    expect(index.length).toEqual(1)
+    expect(index[0].startDate).toEqual('06022021')
+})
+
+test('entry created by click',()=>{
+
+    var date1 = new Date('June 2, 2021 23:15:30');
+    mainPageController.left.plusButton.click()
+    
+    // mainPageController.left.addNewEntry(date1);
+    let index = mainPageController.left.getPageList().list
+    // console.log(index)
+    expect(index.length).toEqual(2)
+    mainPageController.left.span.click()
+    // expect(index[0].startDate).toEqual('06022021')
+})
+
+
+
+

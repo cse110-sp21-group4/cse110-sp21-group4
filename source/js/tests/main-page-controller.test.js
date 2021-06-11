@@ -104,8 +104,9 @@ test('registerListeners', () => {
   mainPageController.dragview.lastFocusedText = new TextBox(
     mainPageController.dragview.draggableFrame
   )
-  mainPageController.dragview.lastFocusedText.bullet =
-    document.createElement('div')
+  mainPageController.dragview.lastFocusedText.bullet = document.createElement(
+    'div'
+  )
 
   const toggleBulletFromFocusedText = jest.spyOn(
     mainPageController.dragview,

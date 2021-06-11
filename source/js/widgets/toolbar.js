@@ -180,30 +180,33 @@ export class ToolBar extends HTMLElement {
   }
 
   selectTool(toolToBeSelected) {
-    //console.log(toolToBeSelected, 'selected')
-    if (!toolToBeSelected.classList.contains('selected-tool')) {
-      // toolToBeSelected.classList.remove('selected-tool')
-      // } else {
-      if (
-        document
-          .querySelector('tool-bar')
-          .shadowRoot.querySelector('.selected-tool')
-      ) {
-        let prevSelectedTool = document
-          .querySelector('tool-bar')
-          .shadowRoot.querySelector('.selected-tool')
-        let textTool = document
-          .querySelector('tool-bar')
-          .shadowRoot.querySelector('#text-tool')
-        //console.log(prevSelectedTool, textTool)
-        if (prevSelectedTool == textTool) {
-          let dragView = document.querySelector('drag-view')
-          dragView.textOnClick = dragView.textOnClick ? false : true
-        }
-        prevSelectedTool.classList.remove('selected-tool')
-      }
-      toolToBeSelected.classList.add('selected-tool')
+    console.log(toolToBeSelected, 'selected')
+
+    // if (!toolToBeSelected.classList.contains('selected-tool')) {
+
+    // toolToBeSelected.classList.remove('selected-tool')
+    // } else {
+
+    // if (
+    //   document
+    //     .querySelector('tool-bar')
+    //     .shadowRoot.querySelector('.selected-tool')
+    // ) {
+    let prevSelectedTool = document
+      .querySelector('tool-bar')
+      .shadowRoot.querySelector('.selected-tool')
+    let textTool = document
+      .querySelector('tool-bar')
+      .shadowRoot.querySelector('#text-tool')
+    console.log(prevSelectedTool, textTool)
+    if (prevSelectedTool == textTool) {
+      let dragView = document.querySelector('drag-view')
+      dragView.textOnClick = dragView.textOnClick ? false : true
     }
+    prevSelectedTool.classList.remove('selected-tool')
+    // }
+    toolToBeSelected.classList.add('selected-tool')
+    // }
   }
 
   addEventListener(eventType, callback) {

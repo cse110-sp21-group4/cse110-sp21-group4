@@ -330,7 +330,8 @@ ul li:hover {
     this.ul.appendChild(li)
 
     // This creates the X button for the new entries we made
-    var span = document.createElement('SPAN')
+    this.span = document.createElement('SPAN')
+    var span = this.span
     var txt = document.createTextNode('\u00D7')
     span.className = 'close'
     span.appendChild(txt)
