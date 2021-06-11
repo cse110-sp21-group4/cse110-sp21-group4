@@ -21,7 +21,7 @@ test('initialize without bullet', () => {
     mainPageController.dragview.draggableFrame,
     false
   )
- 
+
   console.log(
     window.getComputedStyle(mainPageController.dragview.lastFocusedText.text)
   )
@@ -35,14 +35,12 @@ test('initialize without bullet', () => {
     mainPageController.dragview.lastFocusedText,
     'dot'
   )
-
-  
 })
 
-test('resize',()=>{
-    const text1 = mainPageController.dragview.lastFocusedText
-    text1.resizeToFitText() 
-    console.log(text1.text)
+test('resize', () => {
+  const text1 = mainPageController.dragview.lastFocusedText
+  text1.resizeToFitText()
+  console.log(text1.text)
 })
 
 test('initialize with bullet', () => {
