@@ -34,8 +34,10 @@ This document showcases the our current interation of the CI pipeline.
 - For example, there are some styling issues that were flagged in the security issues within GitHub. 
 - Specifically, the "Rule doesn't have all its properties in alphabetical order." 
 - CI/CD Action Jobs are not showing up on the pull request `Conversation` tab. However, it does show up on the `Checks` tab.
+- We couldn't yet get E2E testing to work within the pipeline, but for now focus on unit testing
   
 ## Future Iterations of Pipeline
 - We want to include continuous integration for deployment, minification and test coverage within our pipeline. 
+- We hope to include E2E testing of the app in the future
 - We hope to have deployment implemented into our second interation of our CI pipeline. 
   

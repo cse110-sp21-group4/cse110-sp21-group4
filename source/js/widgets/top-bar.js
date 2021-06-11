@@ -7,7 +7,7 @@ export class TopBar extends HTMLElement {
             .top-bar {
                 top: 0px;
                 height: 95px;
-                width: 1920px;
+                width: 100%;
                 background-color: rgba(129, 150, 134, 1);
               }
               
@@ -52,14 +52,13 @@ export class TopBar extends HTMLElement {
                 color: rgba(255,255,255,1);
             }
             .entry-heading {
-                left: 860px;
                 top: 23px;
                 position: absolute;
                 overflow: visible;
-                width: 500px;
+                width: 100%;
                 white-space: nowrap;
                 /*cursor: pointer;*/
-                text-align: left;
+                text-align: center;
                 font-family: Segoe UI;
                 font-style: normal;
                 font-weight: bold;

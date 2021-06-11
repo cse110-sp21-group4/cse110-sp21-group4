@@ -436,8 +436,9 @@ export class TextBox {
     this.json.color = color
   }
   set fontSize(fontsize) {
-    this.text.style.fontSize = fontsize
-    this.json.fontsize = fontsize
+    console.log(fontsize)
+    this.text.style.fontSize = fontsize + 'px'
+    this.json.fontSize = fontsize
   }
 
   get json() {
@@ -456,7 +457,7 @@ export class TextBox {
 
   load() {
     this.text.value = this.json.text
-    this.fontsize = this.json.fontSize
+    this.fontSize = this.json.fontSize
     this.color = this.json.color
     this.underline = this.json.underline
     this.bold = this.json.bold
