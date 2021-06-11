@@ -192,6 +192,7 @@ export class MainPageController {
 
     //TODO: fix test
     this.toolbar.addEventListener('imageclicked', (imageFile, e) => {
+      console.log('*********saving image')
       this.model.saveImage(
         imageFile,
         (percentage) => {},
@@ -213,7 +214,7 @@ export class MainPageController {
           img.style.maxHeight = 560 + 'px'
 
           this.dragview.addDraggableImage(this.imageInsertPosition, imageView)
-
+          console.log('*********image added')
           // img.style.maxWidth = 840 + 'px'
           // img.style.maxHeight = 560 + 'px'
 

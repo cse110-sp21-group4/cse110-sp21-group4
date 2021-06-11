@@ -47,6 +47,12 @@ document.documentElement.innerHTML = html.toString()
 const mainPageBody = document.querySelector('body')
 const mainPageController = new MainPageController(mainPageBody)
 const toolbar = mainPageController.toolbar
+const mockModel = {
+  saveImage: () => {},
+  init: () => {}
+}
+mainPageController.setModel(mockModel)
+
 test('initializePage', () => {
   // mainPageController.initializePage()
 
@@ -78,7 +84,6 @@ test('all tools present', () => {
       document.querySelector('tool-bar').shadowRoot.querySelectorAll('.tool')
     ).toContainEqual(tool)
   })
- 
 })
 
 test('only text box selected by default', () => {
@@ -357,8 +362,9 @@ test('text clicked', () => {
 
 test('changing image', () => {
   mainPageController.initializeAttributes()
+  mainPageController.setModel(mockModel)
   window.URL.createObjectURL = jest.fn()
-  const imagecb = jest.spyOn(mainPageController.dragview, 'addDraggableImage')
+  const imagecb = jest.spyOn(mainPageController.model, 'saveImage')
   const ev = new Event('change')
   toolbar.imageInput.dispatchEvent(ev)
   expect(imagecb).toHaveBeenCalled()

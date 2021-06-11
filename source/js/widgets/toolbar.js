@@ -201,8 +201,6 @@ export class ToolBar extends HTMLElement {
           dragView.textOnClick = dragView.textOnClick ? false : true
         }
         prevSelectedTool.classList.remove('selected-tool')
-      } else {
-        console.log('No tool selected')
       }
       toolToBeSelected.classList.add('selected-tool')
     }
@@ -212,18 +210,18 @@ export class ToolBar extends HTMLElement {
     this.observers[eventType].push(callback)
   }
 
-  removeEventListener(eventType, callback) {
-    this.observers[eventType].forEach((c, i) => {
-      if (callback == c) {
-        this.observers[eventType].splice(i, 0)
-        return false
-      }
-    })
-  }
+  //   removeEventListener(eventType, callback) {
+  //     this.observers[eventType].forEach((c, i) => {
+  //       if (callback == c) {
+  //         this.observers[eventType].splice(i, 0)
+  //         return false
+  //       }
+  //     })
+  //   }
 
-  removeAllListeners() {
-    this.observers = { open: [], close: [] }
-  }
+  //   removeAllListeners() {
+  //     this.observers = { open: [], close: [] }
+  //   }
 }
 
 customElements.define('tool-bar', ToolBar)
